@@ -1,0 +1,10 @@
+:~  title+'Channel'
+    info+'An Imageboard'
+    color+0x41.1314
+    site+/apps/chan
+    base+'channel'
+    version+[0 0 1]
+    image+'https://freedom-club.sfo2.digitaloceanspaces.com/rabsef-bicrym/2022.5.12..01.43.05-channel.png'
+    website+'https://google.com'
+    license+'REKT'
+==
