@@ -425,20 +425,22 @@
   ++  ban-users
     |=  [we=(set @p) bu=(unit @tas)]
     ^-  (quip card _state)
+    =/  secret-we=(set @p)
+      (sy (murn ~(tap in we) |=(@p (~(get by pepa) +<))))
     ?~  bu  
       ?>  admit-super:ru
       :_  state(users.banned (~(uni in users.banned) we))
-      :~  :^  %give  %fact  ~[/website]
-          =-  json+!>((frond:enjs:format 'site-ban' -))
-          a+(turn ~(tap in we) |=(@p s+(scot %p +<)))
-      ==
+      :_  (turn ~(tap in ~(key by boards)) (curr ships:biz [secret-we %.n]))
+      :^  %give  %fact  ~[/website]
+      =-  json+!>((frond:enjs:format 'site-ban' -))
+      a+(turn ~(tap in we) |=(@p s+(scot %p +<)))
     ~|  '%chan-server-fail -users-not-found'
     ?~  bord=(~(get by boards) u.bu)  !!
     ?>  (admit-admin:ru u.bu)
     =.  u.bord
       [res.u.bord (~(dif in adm.u.bord) we) (~(uni in ban.u.bord) we)]
     :_  state(boards (~(put by boards) u.bu u.bord))
-    :~  (ships:biz u.bu we %.n)
+    :~  (ships:biz u.bu secret-we %.n)
         :^  %give  %fact  ~[/website]
         =-  json+!>((frond:enjs:format 'board-ban' -))
         %-  pairs:enjs:format
@@ -449,12 +451,14 @@
   ++  let-users
     |=  [we=(set @p) bu=(unit @tas)]
     ^-  (quip card _state)
+    =/  secret-we=(set @p)
+      (sy (murn ~(tap in we) |=(@p (~(get by pepa) +<))))
     ?~  bu
       ?>  admit-super:ru
       :_  state(users.banned (~(dif in users.banned) we))
       ?~  ~(tap in we)
-        (turn ~(tap in ~(key by boards)) (curr ships:biz [we %.n]))
-      :_  (turn ~(tap in ~(key by boards)) (curr ships:biz [we %.n]))
+        (turn ~(tap in ~(key by boards)) (curr ships:biz [secret-we %.n]))
+      :_  (turn ~(tap in ~(key by boards)) (curr ships:biz [secret-we %.n]))
       :^  %give  %fact  ~[/website]
       =-  json+!>((frond:enjs:format 'site-allow' -))
       a+(turn ~(tap in we) |=(@p s+(scot %p +<)))
@@ -464,7 +468,7 @@
     =.  u.bord
       [res.u.bord (~(dif in adm.u.bord) we) (~(uni in ban.u.bord) we)]
     :_  state(boards (~(put by boards) u.bu u.bord))
-    :~  (ships:biz u.bu we %.y)
+    :~  (ships:biz u.bu secret-we %.y)
         :^  %give  %fact  ~[/website]
         =-  json+!>((frond:enjs:format 'board-allow' -))
         %-  pairs:enjs:format
