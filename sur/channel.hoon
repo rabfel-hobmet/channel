@@ -18,6 +18,7 @@
 ::
 ::  graph stuff
 ::
+++  node       node:store
 ++  index      index:store
 ++  update     update:store
 ++  action     action:store
@@ -85,8 +86,8 @@
 ::  client -> server actions
 ::
 +$  based
-  $%  [%del-poast =index board=@tas]                     ::  remove a poast, comment on a board
-      $:  %add-poast                                     ::  a comment, poast (if index, poast)
+  $%  [%bye-hoast ~]                                     ::  clean up on leave
+      $:  %add-poast                                     ::  a comment, poast (if index, comment)
           maybe-index=(unit index)
           contents=(list content)
           board=@tas
@@ -98,12 +99,11 @@
 ::
 +$  stacy
   $%  [%see-hoast ship=@p]                               ::  subscribe to host
-      [%new-poast message=@t board=@tas]                 ::  become OP
-      [%del-poast =index board=@tas]                     ::  remove a poast, comment on a board
+      [%bye-hoast ship=@p]                               ::  leave a host
       [%ack-notes notes=(set @da)]                       ::  acknowledge a server notice
     ::
-      $:  %lol-whats                                     ::  OP... lolwut?
-          parent=index
+      $:  %add-poast                                     ::  a comment, poast (if index, comment)
+          maybe-index=(unit index)
           message=@t
           board=@tas
       ==

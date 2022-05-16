@@ -70,12 +70,67 @@
         %channel-based
       =/  wat=based  !<(based vase)
       ?-    -.wat
+          %bye-hoast
+        ?>  admit-users-universal:ru:moot
+        =+  ah=~(tap in ~(key by boards))
+        |-  ?~  ah  `this
+        =+  cur=(~(got by boards) i.ah)
+        %=    $
+          ah  t.ah
+        ::
+            boards
+          (~(put by boards) i.ah cur(adm (~(del in adm.cur) src.bol)))
+        ==
+      ::
           %add-poast
-        ?>  &(admit-users-universal:ru:moot (admit-users-board:ru:moot board.wat))
+        ?>  ?&  admit-users-universal:ru:moot
+                (admit-users-board:ru:moot board.wat)
+            ==
         ::  todo - banned word parsing
         ::  todo - banned site parsing
-        `this
-          %del-poast  `this
+        =+  new=(add now.bowl ~s2)
+        =+  who=(src-in:moot src.bowl)
+        ?~  maybe-index.wat
+          =;  poast=(map index node)
+            :_  this
+            :~  :^  %pass  /chan/post/(scot %da new)  %agent
+                :^  [our.bowl %graph-store]  %poke  %graph-update-3
+                !>  ^-  update
+                [now.bowl [%add-nodes [our.bowl board.wat] poast]]
+            ==
+            ::
+          =/  message-graph=((mop atom node) gth)
+            %-  my 
+            :~  :-  1 
+                :_  [%empty ~]
+                :-  %.y
+                [who ~[new 1 1] new [[%text (scot %da new)] contents.wat] ~ ~]
+            ==
+          %-  my
+          :~  :-  ~[new]
+              :-  [%.y [who ~[new] new ~ ~ ~]]
+              :-  %graph
+              %-  my
+              :~  [2 [[%.y [who ~[new 2] new ~ ~ ~]] [%empty ~]]]
+                  [1 [[%.y [who ~[new 1] new ~ ~ ~]] [%graph message-graph]]]
+              ==
+          ==
+          ::
+        =;  poast=(map index node)
+          :_  this
+          :~  :^  %pass  /chan/post/(scot %da new)  %agent
+              :^  [our.bowl %graph-store]  %poke  %graph-update-3
+              !>  ^-  update
+              [now.bowl [%add-nodes [our.bowl board.wat] poast]]
+          ==
+        %-  my
+        :~  :-  ~[-.u.maybe-index.wat 2 new]
+            [[%.y [who ~[-.u.maybe-index.wat 2 new] new ~ ~ ~]] [%empty ~]]
+          ::
+            :-  ~[-.u.maybe-index.wat 2 new 1]
+            :_  [%empty ~]
+            [%.y [who ~[-.u.maybe-index.wat 2 new 1] new contents.wat ~ ~]]
+        ==
       ==
     ==
   ++  on-agent
@@ -118,10 +173,22 @@
         [%x %dbug %state ~]
       ``[%state !>([%0 bounty=bounty boards=boards banned=banned])]
     ==
+  ++  on-watch
+    |=  =path
+    ^-  (quip card _this)
+    ?+    path  (on-watch:def path)
+        [%website ~]
+      :_  this
+      [%give %fact ~ json+!>(all-out)]~
+    ::
+        [%chan %server @ ~]
+      :_  this
+      =-  [%give %fact ~ %channel-moggs -]~
+      !>(`moggs`[%hav-boards ~(key by boards)])
+    ==
   ++  on-arvo   on-arvo:def
   ++  on-fail   on-fail:def
   ++  on-leave  on-leave:def
-  ++  on-watch  on-watch:def
   --
 |_  bol=bowl:gall
 ++  src-in
@@ -135,6 +202,26 @@
   (need (~(get by pepa) p))
 ++  srv-pat
   /chan/server/(scot %p our.bol)
+++  all-out
+  =,  enjs:format
+  |^
+  %-  pairs
+  :~  banned-users+a+(turn ~(tap in users.banned) |=(@p s+(scot %p +<)))
+      banned-words+a+(turn ~(tap in words.banned) |=(@t s++<))
+      banned-sites+a+(turn ~(tap in sites.banned) |=(@t s++<))
+    ::
+      bounty+(pairs ~[only+b+only.bounty which+s+which.bounty])
+    ::
+      boards+(pairs (turn ~(tap by boards) board-maker))
+  ==
+  ++  board-maker
+    |=  [b=@tas [r=resource adm=(set @p) ban=(set @p)]]
+    :-  b
+    %-  pairs
+    :~  admins+a+(turn ~(tap in adm) |=(@p s+(scot %p +<)))
+        banned+a+(turn ~(tap in ban) |=(@p s+(scot %p +<)))
+    ==
+  --
 ++  ru
   |%
   ++  graph-path
@@ -218,7 +305,8 @@
     :^  %pass  /chan/only-me/[n]/(scot %da now.bol)  %agent
     :^  [our.bol %group-store]  %poke  %group-action
     !>  ^-  gro-act
-    [%add-tag [our.bol (cat 3 n '-wrap')] [%graph [our.bol n] %writers] (sy ~[our.bol])]
+    :+  %add-tag  [our.bol (cat 3 n '-wrap')]
+    [[%graph [our.bol n] %writers] (sy ~[our.bol])]
   ::
   ++  metas
     |=  [n=term d=@t]
@@ -236,7 +324,8 @@
       [%open ?:(q [%allow-ranks alo:bobas] [%ban-ranks ban:bobas])]
     :+  %pass  /chan/gro-ran/[n]/(scot %tas n)/(scot %da now.bol)
     :^  %agent  [our.bol %group-store]  %poke
-    [%group-action !>(`gro-act`[%change-policy [our.bol (cat 3 n '-wrap')] dif])]
+    :-  %group-action
+    !>(`gro-act`[%change-policy [our.bol (cat 3 n '-wrap')] dif])
   ::
   ++  ships
     |=  [n=term we=(set @p) q=?]
@@ -257,7 +346,8 @@
       :-  :^  ~  `(cat 3 n gra)  byk.bol(r da+now.bol)
           [%graph-delete !>(`[~ gra-vew]``[%delete [our.bol n]])]
       :^  ~  `(cat 3 n gro)  byk.bol(r da+now.bol)
-      [%group-delete !>(`[~ gro-vew]``[%remove [our.bol (cat 3 n '-wrap')]])]
+      :-  %group-delete
+      !>(`[~ gro-vew]``[%remove [our.bol (cat 3 n '-wrap')]])
     :~  :^  %pass  /chan/fw/[n]/(scot %ud gra)  %agent
         [[our.bol %spider] %watch /thread-result/[gra]]
       ::
@@ -285,6 +375,8 @@
     :_  state(boards (~(put by boards) b [[our.bol b] ~ ~]))
     :~  (graph:biz b)  (group:biz b)    (joins:biz b)
         (write:biz b)  (metas:biz b d)  (ranks:biz b %.n)
+        :^  %give  %fact  ~[/website]
+        json+!>((pairs:enjs:format ~[add-board+s+b description+s+d]))
     ==
   ::
   ++  del-board
@@ -297,9 +389,12 @@
             (~(has by boards) b)
         ==
     :_  state(boards (~(del by boards) b))
-    :_  (close:biz b)
-    :^  %give  %fact  ~[srv-pat]
-    [%channel-moggs !>(`moggs`[%del-boards b])]
+    %+  welp  (close:biz b)
+    :~  :^  %give  %fact  ~[srv-pat]
+        [%channel-moggs !>(`moggs`[%del-boards b])]
+        :^  %give  %fact  ~[/website]
+        json+!>((frond:enjs:format 'del-board' s+b))
+    ==
   ::
   ++  add-admin
     |=  [w=@p b=@tas]
@@ -307,7 +402,11 @@
     ?>  (admit-admin:ru b)
     ~|  '%chan-server-fail -board-not-found'
     ?~  cur=(~(get by boards) b)  !!
-    `state(boards (~(put by boards) b u.cur(adm (~(put in adm.u.cur) w))))
+    :_  state(boards (~(put by boards) b u.cur(adm (~(put in adm.u.cur) w))))
+    :~  :^  %give  %fact  ~[/website]
+        =-  json+!>((frond:enjs:format 'add-admin' -))
+        (pairs:enjs:format ~[admin+s+(scot %p w) board+s+b])
+    ==
   ++  del-admin
     |=  [we=(set @p) b=@tas]
     ^-  (quip card _state)
@@ -315,41 +414,73 @@
     ~|  '%chan-server-fail -board-not-found'
     ?>  (~(has by boards) b)
     =+  cur=(~(got by boards) b)
-    `state(boards (~(put by boards) b cur(adm (~(dif in adm.cur) we))))
+    :_  state(boards (~(put by boards) b cur(adm (~(dif in adm.cur) we))))
+    :~  :^  %give  %fact  ~[/website]
+        =-  json+!>((frond:enjs:format 'del-admin' -))
+        %-  pairs:enjs:format
+        :~  board+s+b
+            admin+a+(turn ~(tap in we) |=(@p s+(scot %p +<)))
+        ==
+    ==
   ++  ban-users
     |=  [we=(set @p) bu=(unit @tas)]
     ^-  (quip card _state)
     ?~  bu  
       ?>  admit-super:ru
-      `state(users.banned (~(uni in users.banned) we))
+      :_  state(users.banned (~(uni in users.banned) we))
+      :~  :^  %give  %fact  ~[/website]
+          =-  json+!>((frond:enjs:format 'site-ban' -))
+          a+(turn ~(tap in we) |=(@p s+(scot %p +<)))
+      ==
     ~|  '%chan-server-fail -users-not-found'
     ?~  bord=(~(get by boards) u.bu)  !!
     ?>  (admit-admin:ru u.bu)
     =.  u.bord
       [res.u.bord (~(dif in adm.u.bord) we) (~(uni in ban.u.bord) we)]
-    :-  [(ships:biz u.bu we %.n) ~]
-    state(boards (~(put by boards) u.bu u.bord))
+    :_  state(boards (~(put by boards) u.bu u.bord))
+    :~  (ships:biz u.bu we %.n)
+        :^  %give  %fact  ~[/website]
+        =-  json+!>((frond:enjs:format 'board-ban' -))
+        %-  pairs:enjs:format
+        :~  board+s+u.bu
+            banned+a+(turn ~(tap in we) |=(@p s+(scot %p +<)))
+        ==
+    ==
   ++  let-users
     |=  [we=(set @p) bu=(unit @tas)]
     ^-  (quip card _state)
     ?~  bu
       ?>  admit-super:ru
-      :-  (turn ~(tap in ~(key by boards)) (curr ships:biz [we %.n]))
-      state(users.banned (~(dif in users.banned) we))
+      :_  state(users.banned (~(dif in users.banned) we))
+      ?~  ~(tap in we)
+        (turn ~(tap in ~(key by boards)) (curr ships:biz [we %.n]))
+      :_  (turn ~(tap in ~(key by boards)) (curr ships:biz [we %.n]))
+      :^  %give  %fact  ~[/website]
+      =-  json+!>((frond:enjs:format 'site-allow' -))
+      a+(turn ~(tap in we) |=(@p s+(scot %p +<)))
     ~|  '%chan-server-fail -users-not-found'
     ?~  bord=(~(get by boards) u.bu)  !!
     ?>  (admit-admin:ru u.bu)
     =.  u.bord
       [res.u.bord (~(dif in adm.u.bord) we) (~(uni in ban.u.bord) we)]
-    :-  ~[(ships:biz u.bu we %.n)]
-    state(boards (~(put by boards) u.bu u.bord))
+    :_  state(boards (~(put by boards) u.bu u.bord))
+    :~  (ships:biz u.bu we %.y)
+        :^  %give  %fact  ~[/website]
+        =-  json+!>((frond:enjs:format 'board-allow' -))
+        %-  pairs:enjs:format
+        :~  board+s+u.bu
+            banned+a+(turn ~(tap in we) |=(@p s+(scot %p +<)))
+        ==
+    ==
   ++  set-ranks
     |=  bo=^bounty
     ^-  (quip card _state)
     ?>  admit-super:ru
     :_  state
-    %+  welp  (turn ~(tap in ~(key by boards)) (curr ranks:biz %.y))
-    (turn ~(tap in ~(key by boards)) (curr ranks:biz %.n))
+    :_  %+  welp  (turn ~(tap in ~(key by boards)) (curr ranks:biz %.y))
+        (turn ~(tap in ~(key by boards)) (curr ranks:biz %.n))
+    :^  %give  %fact  ~[/website]
+    json+!>((pairs:enjs:format ~[only+b+only.bounty which+s+which.bounty]))
   ++  ban-words
     |=  [wc=(set cord) b=@tas]
     ^-  (quip card _state)
