@@ -32,16 +32,20 @@
     =.  pepa    %-  ~(put by pepa)  :_  our.bowl         ::  a map to back-translate, in secret
                 (src-in:moot our.bowl)                   ::  note: salt & pepa are both hidden in dbug scry
     `this
+  ::
   ++  on-save
     ^-  vase
     !>(state)
+  ::
   ++  on-load
     |=  ole=vase
+    ^-  (quip card _this)
     =/  old=versioned-state  !<(versioned-state ole)
     |-
     ?-  -.old
       %0  `this(state old)
     ==
+  ::
   ++  on-poke
     |=  [=mark =vase]
     ^-  (quip card _this)
@@ -70,18 +74,6 @@
         %channel-based
       =/  wat=based  !<(based vase)
       ?-    -.wat
-          %bye-hoast
-        ?>  admit-users-universal:ru:moot
-        =+  ah=~(tap in ~(key by boards))
-        |-  ?~  ah  `this
-        =+  cur=(~(got by boards) i.ah)
-        %=    $
-          ah  t.ah
-        ::
-            boards
-          (~(put by boards) i.ah cur(adm (~(del in adm.cur) src.bol)))
-        ==
-      ::
           %add-poast
         ?>  ?&  admit-users-universal:ru:moot
                 (admit-users-board:ru:moot board.wat)
@@ -133,6 +125,7 @@
         ==
       ==
     ==
+  ::
   ++  on-agent
     |=  [=wire =sign:agent:gall]
     ^-  (quip card _this)
@@ -166,6 +159,7 @@
           [%channel-moggs !>(`moggs`[%hav-boards ~(key by boards)])]
       ==
     ==
+  ::
   ++  on-peek
     |=  =path
     ^-  (unit (unit cage))
@@ -173,6 +167,7 @@
         [%x %dbug %state ~]
       ``[%state !>([%0 bounty=bounty boards=boards banned=banned])]
     ==
+  ::
   ++  on-watch
     |=  =path
     ^-  (quip card _this)
@@ -182,26 +177,43 @@
       [%give %fact ~ json+!>(all-out)]~
     ::
         [%chan %server @ ~]
+      ?>  =(our.bowl (slav %p +>-.path))
       :_  this
       =-  [%give %fact ~ %channel-moggs -]~
       !>(`moggs`[%hav-boards ~(key by boards)])
     ==
+  ::
+  ++  on-leave
+    |=  =path
+    ?.  ?=([%chan %server @ ~] path)    `this
+    ?.  =(our.bowl (scot %p +>-.path))  `this
+    =+  ah=~(tap in ~(key by boards))
+    |-  ?~  ah  `this
+    =+  cur=(~(got by boards) i.ah)
+    %=    $
+      ah  t.ah
+    ::
+        boards
+      (~(put by boards) i.ah cur(adm (~(del in adm.cur) src.bowl)))
+    ==
   ++  on-arvo   on-arvo:def
   ++  on-fail   on-fail:def
-  ++  on-leave  on-leave:def
   --
 |_  bol=bowl:gall
 ++  src-in
   |=  p=@p
   ^-  @p
   (rsh 7 (shas salt p))
+::
 ++  src-out
   |=  p=@p
   ^-  @p
   ~|  '%chan-server-fail -unknown-ship'
   (need (~(get by pepa) p))
+::
 ++  srv-pat
   /chan/server/(scot %p our.bol)
+::
 ++  all-out
   =,  enjs:format
   |^
@@ -222,6 +234,7 @@
         banned+a+(turn ~(tap in ban) |=(@p s+(scot %p +<)))
     ==
   --
+::
 ++  ru
   |%
   ++  graph-path
@@ -336,6 +349,7 @@
     :+  %pass  /chan/gro-shi/[n]/(scot %tas n)/(scot %da now.bol)
     :^  %agent  [our.bol %group-push-hook]  %poke
     [%group-action !>(`gro-act`[%change-policy [our.bol n] dif])]
+  ::
   ++  close
     |=  n=term
     ^-  (list card)
@@ -407,6 +421,7 @@
         =-  json+!>((frond:enjs:format 'add-admin' -))
         (pairs:enjs:format ~[admin+s+(scot %p w) board+s+b])
     ==
+  ::
   ++  del-admin
     |=  [we=(set @p) b=@tas]
     ^-  (quip card _state)
@@ -422,6 +437,7 @@
             admin+a+(turn ~(tap in we) |=(@p s+(scot %p +<)))
         ==
     ==
+  ::
   ++  ban-users
     |=  [we=(set @p) bu=(unit @tas)]
     ^-  (quip card _state)

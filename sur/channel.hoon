@@ -8,6 +8,7 @@
     grews=group-view,
     group,
     three=s3
+/+  *mip
 ::^?
 |%
 ::
@@ -73,21 +74,21 @@
 +$  moggs
   $%  [%hav-boards boards=(set @tas)]                    ::  fact update, available boards
       [%del-boards boards=@tas]                          ::  fact update, remove boards
-      [%big-notice =@da board=@tas notice=@t admin=@p]   ::  a server-side warning or notice
+      [%big-notice id=@da board=@tas notice=@t admin=@p] ::  a server-side warning or notice
       [%new-admins board=@tas who=(set @p)]              ::  you're an admin, OP!
       [%not-admins board=@tas who=(set @p)]              ::  you're not an admin, stacy
   ==
 ::
 ::  client state
 ::
-+$  chans  (jug @p [board=@tas admin=?])
-+$  notes  (jug @p [=index board=@tas notice=@t admin=@p])
++$  chans
+::  mip ship, board, settings
+  (mip @p @tas [admin=? notes=(map index=@da [notice=@t admin=@p])])
 ::
 ::  client -> server actions
 ::
 +$  based
-  $%  [%bye-hoast ~]                                     ::  clean up on leave
-      $:  %add-poast                                     ::  a comment, poast (if index, comment)
+  $%  $:  %add-poast                                     ::  a comment, poast (if index, comment)
           maybe-index=(unit index)
           contents=(list content)
           board=@tas
@@ -100,11 +101,13 @@
 +$  stacy
   $%  [%see-hoast ship=@p]                               ::  subscribe to host
       [%bye-hoast ship=@p]                               ::  leave a host
-      [%ack-notes notes=(set @da)]                       ::  acknowledge a server notice
+      [%ack-notes note=(set @da) ship=@p board=@tas]     ::  acknowledge a server notice
     ::
       $:  %add-poast                                     ::  a comment, poast (if index, comment)
           maybe-index=(unit index)
-          message=@t
+          image=(unit @t)
+          message=(list content)
+          ship=@p
           board=@tas
       ==
   ==
