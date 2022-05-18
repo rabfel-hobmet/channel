@@ -82,6 +82,9 @@
         ::  todo - banned site parsing
         =+  new=(add now.bowl ~s2)
         =+  who=(src-in:moot src.bowl)
+        =?    pepa
+            !(~(has by pepa) who)
+          (~(put by pepa) who src.bowl)
         ?~  maybe-index.wat
           =;  poast=(map index node)
             :_  this
@@ -151,7 +154,7 @@
         (slog leaf+"%chan-server-fail -graph-delete-{<+>-.wire>}" ~)
       ==
     ::
-        [%chan %fp @ @ ~]
+        [%chan %sw @ @ ~]
       ?.  ?=(%fact -.sign)  `this
       ?+    p.cage.sign  (on-agent:def wire sign)
         %thread-done  `this
@@ -177,6 +180,24 @@
     ?+    path  (on-peek:def path)
         [%x %dbug %state ~]
       ``[%state !>([%0 bounty=bounty boards=boards banned=banned])]
+    ::
+        [%x %boards %json ~]
+      =,  enjs:format
+      :^  ~  ~  %json
+      !>  ^-  json
+      %+  frond  'boards'
+      %-  pairs
+      %+  turn  ~(tap by boards)
+      |=  [b=@t r=^ adm=(set @p) ban=(set @p)]
+      :-  b  %-  pairs
+      :~  admins+a+(turn ~(tap in adm) |=(@p s+(scot %p +<)))
+          banned+a+(turn ~(tap in ban) |=(@p s+(scot %p +<)))
+      ==
+    ::
+        [%x %banned-users %json ~]
+      =,  enjs:format
+      =-  ``json+!>(`json`(frond 'banned-users' -))
+      a+(turn ~(tap in users.banned) |=(@p s+(scot %p +<)))
     ==
   ::
   ++  on-watch
@@ -189,6 +210,9 @@
     ::
         [%chan %server @ ~]
       ?>  =(our.bowl (slav %p +>-.path))
+      =?    pepa
+          !(~(has by pepa) (src-in:moot src.bowl))
+        (~(put by pepa) (src-in:moot src.bowl) src.bowl)
       :_  this
       =-  [%give %fact ~ %channel-moggs -]~
       !>(`moggs`[%hav-boards ~(key by boards)])
@@ -371,13 +395,13 @@
       :-  :^  ~  `(cat 3 n gra)  byk.bol(r da+now.bol)
           [%graph-delete !>(`[~ gra-vew]``[%delete [our.bol n]])]
       :^  ~  `(cat 3 n gro)  byk.bol(r da+now.bol)
-      :-  %group-delete
-      !>(`[~ gro-vew]``[%remove [our.bol n]])
+      [%group-delete !>(`[~ gro-vew]``[%remove [our.bol n]])]
+      ::
     :~  :^  %pass  /chan/fw/[n]/(scot %ud gra)  %agent
-        [[our.bol %spider] %watch /thread-result/[gra]]
+        [[our.bol %spider] %watch /thread-result/[(cat 3 n gra)]]
       ::
         :^  %pass  /chan/sw/[n]/(scot %ud gro)  %agent
-        [[our.bol %spider] %watch /thread-result/[gro]]
+        [[our.bol %spider] %watch /thread-result/[(cat 3 n gro)]]
       ::
         :^  %pass  /chan/fp/[n]/(scot %ud gra)  %agent
         [[our.bol %spider] %poke %spider-start !>(-.sips)]
@@ -427,8 +451,15 @@
     ?>  (admit-admin:ru b)
     ~|  '%chan-server-fail -board-not-found'
     ?~  cur=(~(get by boards) b)  !!
-    :_  state(boards (~(put by boards) b u.cur(adm (~(put in adm.u.cur) w))))
-    :~  :^  %give  %fact  ~[/website]
+    ~|  '%chan-server-fail -unknown-user'
+    ?~  secret-me=(~(get by pepa) w)  !!
+    =.  boards
+      (~(put by boards) b u.cur(adm (~(put in adm.u.cur) u.secret-me)))
+    :_  state
+    :~  :^  %give  %fact  ~[/chan/server/(scot %p our.bol)]
+        channel-moggs+!>(`moggs`[%new-admins b (~(put in adm.u.cur) u.secret-me)])
+      ::
+        :^  %give  %fact  ~[/website]
         =-  json+!>((frond:enjs:format 'add-admin' -))
         (pairs:enjs:format ~[admin+s+(scot %p w) board+s+b])
     ==
@@ -438,10 +469,17 @@
     ^-  (quip card _state)
     ?>  (admit-admin:ru b)
     ~|  '%chan-server-fail -board-not-found'
-    ?>  (~(has by boards) b)
-    =+  cur=(~(got by boards) b)
-    :_  state(boards (~(put by boards) b cur(adm (~(dif in adm.cur) we))))
-    :~  :^  %give  %fact  ~[/website]
+    ?~  cur=(~(get by boards) b)  !!
+    =/  secret-we=(set @p)
+      (sy (murn ~(tap in we) |=(@p (~(get by pepa) +<))))
+    =.  boards
+      %+  ~(put by boards)  b
+      u.cur(adm (~(dif in adm.u.cur) secret-we))
+    :_  state
+    :~  :^  %give  %fact  ~[/chan/server/(scot %p our.bol)]
+        channel-moggs+!>(`moggs`[%not-admins b secret-we])
+      ::
+        :^  %give  %fact  ~[/website]
         =-  json+!>((frond:enjs:format 'del-admin' -))
         %-  pairs:enjs:format
         :~  board+s+b
