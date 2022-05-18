@@ -20,9 +20,9 @@
       =,  dejs:format
       %-  of
       :~  [%add-board (ot ~[['name' (se %tas)] ['description' so]])]
-          [%del-board (ot ~[['name' (se %tas)]])]
+          [%del-board (se %tas)]
         ::
-          [%add-admin (ot ~[['who' (se @p)] ['board' (se %tas)]])]
+          [%add-admin (ot ~[['who' (se %p)] ['board' (se %tas)]])]
           [%del-admin (ot ~[['whe' (as (se %p))] ['board' (se %tas)]])]
         ::
           [%set-ranks bo (se %tas)]
@@ -35,6 +35,7 @@
           [%ban-sites (ot ~[['which' (as so)] ['board' (se %tas)]])]
         ::
           [%big-notes (ot ~[['notice' so] ['board' (se %tas)]])]
+      ==
     --
   --
 --
