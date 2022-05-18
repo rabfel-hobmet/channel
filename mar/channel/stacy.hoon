@@ -13,7 +13,7 @@
   ++  noun  stacy
   ++  json
     |=  jon=^json
-    %-  chads
+    %-  stacy
     =<  (grl-boss jon)
     |%
     ++  grl-boss
