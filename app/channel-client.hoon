@@ -71,12 +71,12 @@
     ^-  (unit (unit cage))
     =,  enjs:format
     ?+    pek  (on-peek:def pek)
-        [%x %providers %json ~]
+        [%x %providers ~]
       =-  ``json+!>(`json`-)
       %+  frond  %providers
       a+(turn ~(tap in ~(key by chans)) |=(@p s+(scot %p +<)))
     ::
-        [%x %boards @ %json ~]
+        [%x %boards @ ~]
       ?~  ls=(~(get by chans) `@p`(slav %p +>-.pek))
         ``json+!>(`json`(frond error+s+'no-boards'))
       =-  ``json+!>(`json`-)
@@ -84,7 +84,7 @@
       :-  %a  %+  turn  ~(tap in u.ls)
       |=([b=@tas [a=? n=*]] (pairs ~[board+s+b admin+b+a]))
     ::
-        [%x %notices @ @ %json ~]
+        [%x %notices @ @ ~]
       ?~  ls=(~(get by chans) (slav %p +>-.pek))
         ``json+!>(`json`(frond error+s+'host-not-found'))
       ?~  cd=(~(get by u.ls) (slav %tas +>+<.pek))
@@ -95,7 +95,7 @@
       |=  [i=@da n=@t a=@p]
       (frond ;;(@t +:(sect i)) (pairs ~[note+s+n admin+s+(scot %p a)]))
     ::
-        [%x %check-admin @ @ %json ~]
+        [%x %check-admin @ @ ~]
       ?~  ls=(~(get by chans) (slav %p +>-.pek))
         ``json+!>(`json`(frond error+s+'host-not-found'))
       ?~  cd=(~(get by u.ls) (slav %tas +>+<.pek))
@@ -244,8 +244,8 @@
     |=  [n=(set @da) p=@p b=@tas]
     ^-  (quip card _state)
     =,  enjs:format
-    ~|  '%chan-client-fail -unknown-board'
-    ?~  set=(~(get bi chans) p b)  !!
+    ?~  set=(~(get bi chans) p b)
+      ~_(leaf+"%chan-client-fail -unknown-board" !!)
     =+  nl=~(tap in n)
     |-
     ?~  nl

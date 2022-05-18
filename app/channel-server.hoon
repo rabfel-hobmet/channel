@@ -94,21 +94,23 @@
                 [(add now.bowl ~s2) [%add-nodes [our.bowl board.wat] poast]]
             ==
             ::
-          =/  message-graph=((mop atom node) gth)
-            %-  my 
-            :~  :-  1 
-                :_  [%empty ~]
-                :-  %.y
-                [who ~[new 1 1] new [[%text (scot %da new)] contents.wat] ~ ~]
-            ==
-          %-  my
-          :~  :-  ~[new]
-              :-  [%.y [our.bowl ~[new] new ~ ~ ~]]
-              :-  %graph
-              %-  my
-              :~  [2 [[%.y [our.bowl ~[new 2] new ~ ~ ~]] [%empty ~]]]
-                  [1 [[%.y [our.bowl ~[new 1] new ~ ~ ~]] [%graph message-graph]]]
+          =-  %-  my
+              :~  :-  ~[new]
+                  :-  [%.y [our.bowl ~[new] new ~ ~ ~]]
+                  :-  %graph  %-  my
+                  :~
+                    :-  2  :_  [%empty ~]
+                    [%.y [our.bowl ~[new 2] new ~ ~ ~]]
+                  ::
+                    :-  1  :_  [%graph -]
+                    [%.y [our.bowl ~[new 1] new ~ ~ ~]] 
+                  ==
               ==
+          %-  my 
+          :~  :-  1 
+              :_  [%empty ~]
+              :-  %.y
+              [who ~[new 1 1] new [[%text (scot %da new)] contents.wat] ~ ~]
           ==
           ::
         =;  poast=(map index node)
@@ -120,7 +122,8 @@
           ==
         %-  my
         :~  :-  ~[-.u.maybe-index.wat 2 new]
-            [[%.y [our.bowl ~[-.u.maybe-index.wat 2 new] new ~ ~ ~]] [%empty ~]]
+            :_  [%empty ~]
+            [%.y [our.bowl ~[-.u.maybe-index.wat 2 new] new ~ ~ ~]]
           ::
             :-  ~[-.u.maybe-index.wat 2 new 1]
             :_  [%empty ~]
@@ -133,25 +136,15 @@
     |=  [=wire =sign:agent:gall]
     ^-  (quip card _this)
     ?+    wire  (on-agent:def wire sign)
-        [%chan %ad @ ~]
-      ?.  ?=(%fact -.sign)  `this
-      ?+  p.cage.sign  (on-agent:def wire sign)
-        %thread-done  `this
-      ::
-          %thread-fail
-        =/  err  !<((pair term tang) q.cage.sign)
-        %-  (slog leaf+"Thread Failed: {(trip p.err)}" q.err)
-        `this
-      ==
-    ::
         [%chan %fw @ @ ~]
       ?.  ?=(%fact -.sign)  `this
       ?+    p.cage.sign  (on-agent:def wire sign)
         %thread-done  `this
       ::
           %thread-fail
+        =+  err=!<((pair term tang) q.cage.sign)
         %.  `this
-        (slog leaf+"%chan-server-fail -graph-delete-{<+>-.wire>}" ~)
+        (slog leaf+"%chan-server-fail -graph-delete {(trip p.err)}" q.err)
       ==
     ::
         [%chan %sw @ @ ~]
@@ -160,13 +153,14 @@
         %thread-done  `this
       ::
           %thread-fail
+        =+  err=!<((pair term tang) q.cage.sign)
         %.  `this
-        (slog leaf+"%chan-server-fail -group-delete-{<+>-.wire>}" ~)
+        (slog leaf+"%chan-server-fail -group-delete {(trip p.err)}" q.err)
       ==
     ::
         [%chan %metas @ @ ~]
       ?.  ?=(%poke-ack -.sign)  `this
-      ~|  '%chan-server-fail -maybe-failed-to-create-board'
+      ~_  leaf+"%chan-server-fail -maybe-failed-to-create-board"
       ?>  =(~ p.sign)
       :_  this
       :~  :^  %give  %fact  [srv-pat:moot ~]
@@ -181,7 +175,7 @@
         [%x %dbug %state ~]
       ``[%state !>([%0 bounty=bounty boards=boards banned=banned])]
     ::
-        [%x %boards %json ~]
+        [%x %boards ~]
       =,  enjs:format
       :^  ~  ~  %json
       !>  ^-  json
@@ -194,7 +188,7 @@
           banned+a+(turn ~(tap in ban) |=(@p s+(scot %p +<)))
       ==
     ::
-        [%x %banned-users %json ~]
+        [%x %banned-users ~]
       =,  enjs:format
       =-  ``json+!>(`json`(frond 'banned-users' -))
       a+(turn ~(tap in users.banned) |=(@p s+(scot %p +<)))
@@ -235,6 +229,9 @@
   ++  on-fail   on-fail:def
   --
 |_  bol=bowl:gall
+++  srv-pat
+  /chan/server/(scot %p our.bol)
+::
 ++  src-in
   |=  p=@p
   ^-  @p
@@ -243,11 +240,8 @@
 ++  src-out
   |=  p=@p
   ^-  @p
-  ~|  '%chan-server-fail -unknown-ship'
+  ~_  leaf+"%chan-server-fail -unknown-ship"
   (need (~(get by pepa) p))
-::
-++  srv-pat
-  /chan/server/(scot %p our.bol)
 ::
 ++  all-out
   =,  enjs:format
@@ -258,11 +252,12 @@
       banned-sites+a+(turn ~(tap in sites.banned) |=(@t s++<))
     ::
       bounty+(pairs ~[only+b+only.bounty which+s+which.bounty])
-    ::
       boards+(pairs (turn ~(tap by boards) board-maker))
   ==
+  ::
   ++  board-maker
     |=  [b=@tas [r=resource adm=(set @p) ban=(set @p)]]
+    ^-  [@t json]
     :-  b
     %-  pairs
     :~  admins+a+(turn ~(tap in adm) |=(@p s+(scot %p +<)))
@@ -273,16 +268,18 @@
 ++  ru
   |%
   ++  graph-path
+    ^-  path
     /(scot %p our.bol)/graph-store/(scot %da now.bol)
   ++  graph-keys
     ^-  resources
     =;  act=action
-      ~|  '%chan-server-fail -got-strange-graph-keys'
+      ~_  leaf+"%chan-server-fail -got-strange-graph-keys"
       ?>  ?=(%keys -.act)
       resources.act
     q:.^(update %gx (welp graph-path [%keys %noun ~]))
   ::
   ++  group-path
+    ^-  path
     /(scot %p our.bol)/group-store/(scot %da now.bol)
   ++  group-keys
     ^-  resources
@@ -296,12 +293,16 @@
     |(!(~(has in users.banned) src.bol) admit-super)
   ++  admit-admin
     |=  b=@tas
-    ^-  ?  ~|  "%chan-server-fail -user-{<src.bol>}-fake-admin"
-    ?|((~(has in adm:(~(got by boards) b)) src.bol) admit-super)
+    ^-  ?
+    ?~  deet=(~(get by boards) b)
+      ~_(leaf+"%chan-server-fail -user-{<src.bol>}-fake-admin" !!)
+    ?|((~(has in adm.u.deet) src.bol) admit-super)
   ++  admit-users-board
     |=  b=@tas
-    ^-  ?  ~|  '%chan-server-fail -user-requests-non-extant-board'
-    ?|(!(~(has in ban:(~(got by boards) b)) src.bol) admit-super)
+    ^-  ?
+    ?~  deet=(~(get by boards) b)
+      ~_(leaf+"%chan-server-fail -user-requests-non-extant-board" !!)
+    ?|(!(~(has in ban.u.deet) src.bol) admit-super)
   --
 ++  biz
   |%
@@ -416,7 +417,7 @@
     |=  [b=@tas d=@t]
     ^-  (quip card _state)
     ?>  admit-super:ru
-    ~|  '%chan-server-fail -name-pre-exists'
+    ~_  leaf+"%chan-server-fail -name-pre-exists"
     ?<  ?|  (~(has in graph-keys:ru) [our.bol b])
             (~(has in group-keys:ru) [our.bol b])
             (~(has by boards) b)
@@ -432,7 +433,7 @@
     |=  b=@tas
     ^-  (quip card _state)
     ?>  admit-super:ru
-    ~|  '%chan-server-fail -board-not-found'
+    ~_  leaf+"%chan-server-fail -board-not-found"
     ?>  ?&  (~(has in graph-keys:ru) [our.bol b])
             (~(has in group-keys:ru) [our.bol b])
             (~(has by boards) b)
@@ -449,15 +450,16 @@
     |=  [w=@p b=@tas]
     ^-  (quip card _state)
     ?>  (admit-admin:ru b)
-    ~|  '%chan-server-fail -board-not-found'
-    ?~  cur=(~(get by boards) b)  !!
-    ~|  '%chan-server-fail -unknown-user'
-    ?~  secret-me=(~(get by pepa) w)  !!
+    ?~  cur=(~(get by boards) b)
+      ~_(leaf+"%chan-server-fail -board-not-found" !!)
+    ?~  secret-me=(~(get by pepa) w)
+      ~_(leaf+"%chan-server-fail -unknown-user" !!)
     =.  boards
       (~(put by boards) b u.cur(adm (~(put in adm.u.cur) u.secret-me)))
     :_  state
     :~  :^  %give  %fact  ~[/chan/server/(scot %p our.bol)]
-        channel-moggs+!>(`moggs`[%new-admins b (~(put in adm.u.cur) u.secret-me)])
+        =-  channel-moggs+!>(`moggs`-)
+        [%new-admins b (~(put in adm.u.cur) u.secret-me)]
       ::
         :^  %give  %fact  ~[/website]
         =-  json+!>((frond:enjs:format 'add-admin' -))
@@ -468,8 +470,8 @@
     |=  [we=(set @p) b=@tas]
     ^-  (quip card _state)
     ?>  (admit-admin:ru b)
-    ~|  '%chan-server-fail -board-not-found'
-    ?~  cur=(~(get by boards) b)  !!
+    ?~  cur=(~(get by boards) b)  
+      ~_(leaf+"%chan-server-fail -board-not-found" !!)
     =/  secret-we=(set @p)
       (sy (murn ~(tap in we) |=(@p (~(get by pepa) +<))))
     =.  boards
@@ -499,8 +501,8 @@
       :^  %give  %fact  ~[/website]
       =-  json+!>((frond:enjs:format 'site-ban' -))
       a+(turn ~(tap in we) |=(@p s+(scot %p +<)))
-    ~|  '%chan-server-fail -users-not-found'
-    ?~  bord=(~(get by boards) u.bu)  !!
+    ?~  bord=(~(get by boards) u.bu)
+      ~_(leaf+"%chan-server-fail -users-not-found" !!)
     ?>  (admit-admin:ru u.bu)
     =.  u.bord
       [res.u.bord (~(dif in adm.u.bord) we) (~(uni in ban.u.bord) we)]
@@ -527,8 +529,8 @@
       :^  %give  %fact  ~[/website]
       =-  json+!>((frond:enjs:format 'site-allow' -))
       a+(turn ~(tap in we) |=(@p s+(scot %p +<)))
-    ~|  '%chan-server-fail -users-not-found'
-    ?~  bord=(~(get by boards) u.bu)  !!
+    ?~  bord=(~(get by boards) u.bu)
+      ~_(leaf+"%chan-server-fail -users-not-found'" !!)
     ?>  (admit-admin:ru u.bu)
     =.  u.bord
       [res.u.bord (~(dif in adm.u.bord) we) (~(uni in ban.u.bord) we)]
