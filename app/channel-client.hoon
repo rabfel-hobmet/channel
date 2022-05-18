@@ -150,7 +150,7 @@
             :^  %pass  /chan/watch/(scot %tas i.b)  %agent
             :^  [our.bowl %group-view]  %poke  %group-view-action
             !>  ^-  gro-vew
-            :+  %join  [src.bowl `@tas`(cat 3 i.b '-wrap')]
+            :+  %join  [src.bowl i.b]
             [src.bowl %groups %.n %.y]
           ==
         ::
@@ -167,7 +167,7 @@
           :~  :^  %give  %fact  ~[/website]
               :-  %json  !>  ^-  json
               =-  %-  pairs
-                  :~  notes+(pairs -)
+                  :~  news+(pairs -)
                       status-msg+s+'Notice for {<board.mog>} on {<src.bowl>}'
                   ==
               :~  host+s+(scot %p src.bowl)

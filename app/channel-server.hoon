@@ -86,9 +86,9 @@
           =;  poast=(map index node)
             :_  this
             :~  :^  %pass  /chan/post/(scot %da new)  %agent
-                :^  [our.bowl %graph-store]  %poke  %graph-update-3
+                :^  [our.bowl %graph-push-hook]  %poke  %graph-update-3
                 !>  ^-  update
-                [now.bowl [%add-nodes [our.bowl board.wat] poast]]
+                [(add now.bowl ~s2) [%add-nodes [our.bowl board.wat] poast]]
             ==
             ::
           =/  message-graph=((mop atom node) gth)
@@ -100,11 +100,11 @@
             ==
           %-  my
           :~  :-  ~[new]
-              :-  [%.y [who ~[new] new ~ ~ ~]]
+              :-  [%.y [our.bowl ~[new] new ~ ~ ~]]
               :-  %graph
               %-  my
-              :~  [2 [[%.y [who ~[new 2] new ~ ~ ~]] [%empty ~]]]
-                  [1 [[%.y [who ~[new 1] new ~ ~ ~]] [%graph message-graph]]]
+              :~  [2 [[%.y [our.bowl ~[new 2] new ~ ~ ~]] [%empty ~]]]
+                  [1 [[%.y [our.bowl ~[new 1] new ~ ~ ~]] [%graph message-graph]]]
               ==
           ==
           ::
@@ -117,7 +117,7 @@
           ==
         %-  my
         :~  :-  ~[-.u.maybe-index.wat 2 new]
-            [[%.y [who ~[-.u.maybe-index.wat 2 new] new ~ ~ ~]] [%empty ~]]
+            [[%.y [our.bowl ~[-.u.maybe-index.wat 2 new] new ~ ~ ~]] [%empty ~]]
           ::
             :-  ~[-.u.maybe-index.wat 2 new 1]
             :_  [%empty ~]
@@ -130,6 +130,17 @@
     |=  [=wire =sign:agent:gall]
     ^-  (quip card _this)
     ?+    wire  (on-agent:def wire sign)
+        [%chan %ad @ ~]
+      ?.  ?=(%fact -.sign)  `this
+      ?+  p.cage.sign  (on-agent:def wire sign)
+        %thread-done  `this
+      ::
+          %thread-fail
+        =/  err  !<((pair term tang) q.cage.sign)
+        %-  (slog leaf+"Thread Failed: {(trip p.err)}" q.err)
+        `this
+      ==
+    ::
         [%chan %fw @ @ ~]
       ?.  ?=(%fact -.sign)  `this
       ?+    p.cage.sign  (on-agent:def wire sign)
@@ -147,7 +158,7 @@
       ::
           %thread-fail
         %.  `this
-        (slog leaf+"%chan-server-fail -group-delete-{<+>-.wire>}-wrap" ~)
+        (slog leaf+"%chan-server-fail -group-delete-{<+>-.wire>}" ~)
       ==
     ::
         [%chan %metas @ @ ~]
@@ -266,7 +277,7 @@
   ++  admit-users-board
     |=  b=@tas
     ^-  ?  ~|  '%chan-server-fail -user-requests-non-extant-board'
-    ?|((~(has in ban:(~(got by boards) b)) src.bol) admit-super)
+    ?|(!(~(has in ban:(~(got by boards) b)) src.bol) admit-super)
   --
 ++  biz
   |%
@@ -303,14 +314,14 @@
     ^-  card
     :^  %pass  /chan/grops/[n]/(scot %da now.bol)  %agent
     :^  [our.bol %group-store]  %poke  %group-action
-    !>(`gro-act`[%add-group [our.bol (cat 3 n '-wrap')] [%open ~ ~] %.y])
+    !>(`gro-act`[%add-group [our.bol n] [%open ~ ~] %.n])
   ::
   ++  joins
     |=  n=term
     ^-  card
     :^  %pass  /chan/grops/[n]/(scot %da now.bol)  %agent
     :^  [our.bol %group-store]  %poke  %group-action
-    !>(`gro-act`[%add-members [our.bol (cat 3 n '-wrap')] (sy ~[our.bol])])
+    !>(`gro-act`[%add-members [our.bol n] (sy ~[our.bol])])
   ::
   ++  write
     |=  n=term
@@ -318,7 +329,7 @@
     :^  %pass  /chan/only-me/[n]/(scot %da now.bol)  %agent
     :^  [our.bol %group-store]  %poke  %group-action
     !>  ^-  gro-act
-    :+  %add-tag  [our.bol (cat 3 n '-wrap')]
+    :+  %add-tag  [our.bol n]
     [[%graph [our.bol n] %writers] (sy ~[our.bol])]
   ::
   ++  metas
@@ -327,7 +338,7 @@
     :^  %pass  /chan/metas/[n]/(scot %da now.bol)  %agent
     :^  [our.bol %metadata-store]  %poke  %metadata-update-2
     !>  ^-  met-act
-    :^  %add  [our.bol (cat 3 n '-wrap')]  [%graph [our.bol n]]
+    :^  %add  [our.bol n]  [%graph [our.bol n]]
     [`@t`n d 0x0 now.bol our.bol [%graph %publish] '' %.n %.n %$]
   ::
   ++  ranks
@@ -338,7 +349,7 @@
     :+  %pass  /chan/gro-ran/[n]/(scot %tas n)/(scot %da now.bol)
     :^  %agent  [our.bol %group-store]  %poke
     :-  %group-action
-    !>(`gro-act`[%change-policy [our.bol (cat 3 n '-wrap')] dif])
+    !>(`gro-act`[%change-policy [our.bol n] dif])
   ::
   ++  ships
     |=  [n=term we=(set @p) q=?]
@@ -361,7 +372,7 @@
           [%graph-delete !>(`[~ gra-vew]``[%delete [our.bol n]])]
       :^  ~  `(cat 3 n gro)  byk.bol(r da+now.bol)
       :-  %group-delete
-      !>(`[~ gro-vew]``[%remove [our.bol (cat 3 n '-wrap')]])
+      !>(`[~ gro-vew]``[%remove [our.bol n]])
     :~  :^  %pass  /chan/fw/[n]/(scot %ud gra)  %agent
         [[our.bol %spider] %watch /thread-result/[gra]]
       ::
@@ -399,7 +410,7 @@
     ?>  admit-super:ru
     ~|  '%chan-server-fail -board-not-found'
     ?>  ?&  (~(has in graph-keys:ru) [our.bol b])
-            (~(has in group-keys:ru) [our.bol (cat 3 b '-wrap')])
+            (~(has in group-keys:ru) [our.bol b])
             (~(has by boards) b)
         ==
     :_  state(boards (~(del by boards) b))
@@ -496,9 +507,10 @@
     |=  bo=^bounty
     ^-  (quip card _state)
     ?>  admit-super:ru
-    :_  state
-    :_  %+  welp  (turn ~(tap in ~(key by boards)) (curr ranks:biz %.y))
-        (turn ~(tap in ~(key by boards)) (curr ranks:biz %.n))
+    :_  state(bounty bo)
+    :_  %+  welp
+          (turn ~(tap in ~(key by boards)) (curr ranks:biz(bounty bo) %.y))
+        (turn ~(tap in ~(key by boards)) (curr ranks:biz(bounty bo) %.n))
     :^  %give  %fact  ~[/website]
     json+!>((pairs:enjs:format ~[only+b+only.bounty which+s+which.bounty]))
   ++  ban-words
