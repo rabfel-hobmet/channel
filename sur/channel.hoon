@@ -7,6 +7,7 @@
     grops=group-store,
     grews=group-view,
     group,
+    pushi=push-hook,
     three=s3
 /+  *mip
 ::^?
@@ -37,6 +38,10 @@
 ++  diff     diff:policy:group
 ++  gro-act  action:grops
 ++  gro-vew  action:grews
+::
+::  push-hook stuff
+::
+++  pew-act  action:pushi
 ::
 ::  server state
 ::

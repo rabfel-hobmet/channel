@@ -332,14 +332,20 @@
     :^  [our.bol %graph-store]  %poke  %graph-update-3
     !>  ^-  update 
     :-  now.bol
-    [%add-graph [our.bol n] ~ `%graph-validator-publish %.n]
+    [%add-graph [our.bol n] ~ `%graph-validator-publish %.y]
+  ::
+  ++  pushy
+    |=  [n=term a=term]
+    ^-  card
+    :^  %pass  /chan/push/[n]/[a]/(scot %da now.bol)  %agent
+    [[our.bol a] %poke %push-hook-action !>(`pew-act`[%add our.bol n])]
   ::
   ++  group
     |=  n=term
     ^-  card
     :^  %pass  /chan/grops/[n]/(scot %da now.bol)  %agent
     :^  [our.bol %group-store]  %poke  %group-action
-    !>(`gro-act`[%add-group [our.bol n] [%open ~ ~] %.n])
+    !>(`gro-act`[%add-group [our.bol n] [%open ~ ~] %.y])
   ::
   ++  joins
     |=  n=term
@@ -423,7 +429,11 @@
             (~(has by boards) b)
         ==
     :_  state(boards (~(put by boards) b [[our.bol b] ~ ~]))
-    :~  (graph:biz b)  (group:biz b)    (joins:biz b)
+    :~  (graph:biz b)  (pushy:biz b %graph-push-hook)
+        (pushy:biz b %metadata-push-hook) 
+        (pushy:biz b %contact-push-hook)
+        (group:biz b)  (joins:biz b)
+        (pushy:biz b %group-push-hook)
         (write:biz b)  (metas:biz b d)  (ranks:biz b %.n)
         :^  %give  %fact  ~[/website]
         json+!>((pairs:enjs:format ~[add-board+s+b description+s+d]))
