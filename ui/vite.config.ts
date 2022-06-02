@@ -9,6 +9,6 @@ export default ({ mode }) => {
   console.log(SHIP_URL);
 
   return defineConfig({
-    plugins: [urbitPlugin({ base: 'chan', target: SHIP_URL, secure: true }), reactRefresh()]
+    plugins: [urbitPlugin({ base: 'channel', target: SHIP_URL, secure: false }), reactRefresh()]
   });
 };
