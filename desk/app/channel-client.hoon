@@ -77,7 +77,8 @@
       ?>  (~(has bi chans) who wat)
         ::
       =;  wen=(unit @da)
-        ``json+!>(`json`(frond latest+?~(wen s+'none' (sect u.wen))))
+        =-  ``json+!>(`json`(frond latest+-))
+        ?~(wen s+'none' s+(scot %ud `@ud`u.wen))
       ;;  (unit @da)
       .^  *  %gx
         :~  (scot %p our.bowl)
