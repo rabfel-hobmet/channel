@@ -167,6 +167,7 @@
             chans  (~(put bi chans) src.bowl i.b [%.n ~])
           ::
               cards
+            ?:  =(our.bowl src.bowl)  cards
             :_  cards
             :^  %pass  /chan/watch/(scot %tas i.b)  %agent
             :^  [our.bowl %group-view]  %poke  %group-view-action
