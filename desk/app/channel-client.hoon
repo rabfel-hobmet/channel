@@ -71,6 +71,26 @@
     ^-  (unit (unit cage))
     =,  enjs:format
     ?+    pek  (on-peek:def pek)
+        [%x %latest @ @ ~]
+      =/  who=@p  (slav %p +>-.pek)
+      =/  wat=@tas  (slav %tas +>+<.pek)
+      ?>  (~(has bi chans) who wat)
+        ::
+      =;  wen=(unit @da)
+        ``json+!>(`json`(frond latest+?~(wen s+'none' (sect u.wen))))
+      ;;  (unit @da)
+      .^  *  %gx
+        :~  (scot %p our.bowl)
+            %graph-store
+            (scot %da now.bowl)
+            %update-log
+            +>-.pek
+            +>+<.pek
+            %latest
+            %noun
+        ==
+      ==
+    ::
         [%x %providers ~]
       =-  ``json+!>(`json`-)
       %+  frond  %providers
