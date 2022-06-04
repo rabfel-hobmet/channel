@@ -1,6 +1,6 @@
 ::  /app/channel-client - a distributed chan client
 /-  *channel
-/+  default-agent, dbug, *mip
+/+  default-agent, dbug, *mip, glib=graph-store
 ::
 |%
 +$  versioned-state
@@ -71,6 +71,21 @@
     ^-  (unit (unit cage))
     =,  enjs:format
     ?+    pek  (on-peek:def pek)
+        [%x %get-nodes @ @ *]
+      =/  who=@p  (slav %p +>-.pek)
+      =/  wat=@tas  (slav %tas +>+<.pek)
+      ?>  (~(has bi chans) who wat)
+      ?+    +>+>.pek  !!
+          ~
+        =-  ``json+!>(`json`-)
+        (frond page+a+(~(updog triforce:snax [who wat]) ~))
+      ::
+          [@ ~]
+        =-  ``json+!>(`json`(frond page+a+-))
+        %-  ~(updog triforce:snax [who wat])
+        `(unit @ud)``(slav %ud +>+>-.pek)
+      ==
+    ::
         [%x %latest @ @ ~]
       =/  who=@p  (slav %p +>-.pek)
       =/  wat=@tas  (slav %tas +>+<.pek)
@@ -236,6 +251,52 @@
   ++  on-leave  on-leave:def
   --
 |_  bol=bowl:gall
+++  triforce
+  |_  res=resource
+  ++  gra-p
+    /(scot %p our.bol)/graph-store/(scot %da now.bol)
+  ++  whats
+    |=  i=@
+    ^-  json
+    =;  upd=update:store
+      ?>  ?=(%add-nodes -.q.upd)
+      %-  maybe-post:enjs:glib
+      post:(~(got by nodes.q.upd) ~[i])
+    .^  update:store  %gx
+      ;:  weld
+        gra-p
+        /graph/(scot %p -.res)/(scot %tas +.res)
+        /node/index/kith/(scot %ud i)/noun
+      ==
+    ==
+  ++  updog
+    |=  first=(unit @ud)
+    ^-  (list json)
+    =/  from=@ud  ?~(first 0 u.first)
+    =/  till=@ud  (add from 25)
+    =|  curr=@ud
+    =|  nogg=(list json)
+    =;  log=upd-log
+      =/  leg=(list [d=@da l=log-upd])
+        (flop (bap:((on @da log-upd) gth) log))
+      |-
+      ?~  leg  nogg
+      ?.  (gte curr from)  $(curr +(curr), leg t.leg)
+      ?:  (gth curr till)  nogg
+      ?.  ?=(%add-nodes -.q.l.i.leg)  $(leg t.leg)
+      ?~  kex=~(tap in ~(key by nodes.q.l.i.leg))  $(leg t.leg)
+      ?~  kez=i.kex  $(leg t.leg)
+      %=    $
+        curr  +(curr)
+        leg   t.leg
+        nogg  [(whats i.kez) nogg]
+      ==
+    ;;  upd-log
+    .^  *  %gx
+      %+  weld  gra-p
+      /update-log/(scot %p -.res)/(scot %tas +.res)/noun
+    ==
+  --
 ++  chemo
   |%
   ++  see-hoast
