@@ -259,9 +259,10 @@
     |=  i=@
     ^-  json
     =;  upd=update:store
-      ?>  ?=(%add-nodes -.q.upd)
-      %-  maybe-post:enjs:glib
-      post:(~(got by nodes.q.upd) ~[i])
+      (update:enjs:glib upd)
+      :: ?>  ?=(%add-nodes -.q.upd)
+      :: %-  maybe-post:enjs:glib
+      :: post:(~(got by nodes.q.upd) ~[i])
     .^  update:store  %gx
       ;:  weld
         gra-p
