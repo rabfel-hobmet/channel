@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
+import { Link } from 'react-router-dom';
 
 export function Board() {
   const [boardContent, setBoard] = useState([]);
@@ -20,7 +21,7 @@ export function Board() {
     <main className="flex flex-col items-left justify-center min-h-screen">
       <p>{boardContent.map((each) => {
         console.log(each)
-       return each["contents"][1].text 
+       return <Link to={`/thread/${ship}/${board}/${each["index"].slice(0, -4)}`}>{each["contents"][1].text}</Link>
       })}</p>
     </main>
   );
