@@ -28,10 +28,10 @@ export function Home() {
     }, [providers]);
 
     return (
-        <main className="flex flex-col items-left justify-center min-h-screen">
+        <main className="flex flex-col items-center justify-center min-h-screen">
         <div>
             {Object.entries(boards).map(([key, value]) => {
-                return <><h2 key={key}>{key}</h2>
+                return <><h2 className="font-semibold text-2xl" key={key}>{key}</h2>
                 {value["boards"].map((board) => <Link to={`/board/${key}/${board.board}`}>{board.board}</Link>)}
                 </>
             })}
