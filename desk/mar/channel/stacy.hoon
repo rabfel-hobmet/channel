@@ -29,7 +29,7 @@
           %-  ot
           :~  maybe-index+(ar:dejs-soft:format no:dejs-soft:format)
               image+so:dejs-soft:format
-              message+(of ~[[%text so] [%reference reference]])
+              message+(ar (of ~[[%text so] [%reference so]]))
               ship+(se %p)
               board+(se %tas)
           ==
