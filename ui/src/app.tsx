@@ -8,6 +8,7 @@ import { Board } from './board'
 import { Home } from "./home";
 import { Thread } from "./thread";
 import Urbit from '@urbit/http-api';
+import './index.css'
 
 const api = new Urbit('', '', window.desk);
 window.api = api;

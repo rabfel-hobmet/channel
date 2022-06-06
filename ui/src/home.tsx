@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Marquee from 'react-fast-marquee';
 import { Link } from 'react-router-dom';
 
 export function Home() {
@@ -28,14 +29,19 @@ export function Home() {
     }, [providers]);
 
     return (
-        <main className="flex flex-col items-center justify-center min-h-screen">
-        <div>
+        <main className="flex flex-col items-center justify-center min-h-screen px-4 space-y-4 lg:space-y-0">
+            <Marquee gradient={false} className="static lg:absolute min-w-screen top-4 -right-8 lg:rotate-12 border-b-4 bg-black border-black" speed={200}>
+            <h2 className="text-8xl text-ridge-yellow font-bold">CHANNEL</h2>
+            </Marquee>
+            <h2 className="bg-black w-screen static lg:absolute text-ridge-yellow text-4xl z-0 border-y-4 border-double border-ridge-yellow">CHOOSE YOUR PROVIDER</h2>
+        <div className="w-full max-w-prose border rounded-xl p-2 py-16 my-16 bg-ridge-yellow border-black z-10">
             {Object.entries(boards).map(([key, value]) => {
-                return <><h2 className="font-semibold text-2xl" key={key}>{key}</h2>
-                {value["boards"].map((board) => <Link to={`/board/${key}/${board.board}`}>{board.board}</Link>)}
+                return <><h2 className="font-semibold font-mono" key={key}>{key}</h2>
+                {value["boards"].map((board) => <Link className="text-red-500" to={`/board/${key}/${board.board}`}>/{board.board}/</Link>)}
                 </>
             })}
         </div>
+        <p>Use at your own risk.</p>
         </main>
     )
 }
