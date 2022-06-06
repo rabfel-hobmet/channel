@@ -118,7 +118,7 @@
           :~  :^  %pass  /chan/post/(scot %da new)  %agent
               :^  [our.bowl %graph-store]  %poke  %graph-update-3
               !>  ^-  update
-              [now.bowl [%add-nodes [our.bowl board.wat] poast]]
+              [new [%add-nodes [our.bowl board.wat] poast]]
           ==
         %-  my
         :~  :-  ~[-.u.maybe-index.wat 2 new]
