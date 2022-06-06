@@ -18,10 +18,10 @@ export function Board() {
   }, [ship, board])
 
   return (
-    <main className="flex flex-col items-left justify-center min-h-screen">
+    <main className="flex flex-col items-center justify-center min-h-screen">
       <p>{boardContent.map((each) => {
         console.log(each)
-       return <Link to={`/thread/${ship}/${board}/${each["index"].slice(0, -4)}`}>{each["contents"][1].text}</Link>
+       return <Link to={`/thread/${ship}/${board}/${each["index"].slice(0, -4)}`}><p className="p-4 bg-gray-100 my-2">{each["contents"][1].text}</p></Link>
       })}</p>
     </main>
   );
