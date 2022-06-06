@@ -27,7 +27,7 @@
         ::
           :-  %add-poast
           %-  ot
-          :~  maybe-index+(ar:dejs-soft:format ni:dejs-soft:format)
+          :~  maybe-index+(su (star dem)):dejs-soft:format
               image+so:dejs-soft:format
               message+(ar (of ~[[%text so] [%reference so]]))
               ship+(se %p)
