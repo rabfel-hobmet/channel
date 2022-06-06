@@ -18,10 +18,11 @@ export function Board() {
   }, [ship, board])
 
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen">
+    <main className="flex flex-col items-left px-4 justify-center min-h-screen">
+      <Link to="/"><h2 className="text-4xl font-bold max-w-fit bg-ridge-yellow my-4 p-2 border border-black">BACK TO BOARDS</h2></Link>
       <p>{boardContent.map((each) => {
         console.log(each)
-       return <Link to={`/thread/${ship}/${board}/${each["index"].slice(0, -4)}`}><p className="p-4 bg-gray-100 my-2">{each["contents"][1].text}</p></Link>
+       return <Link to={`/thread/${ship}/${board}/${each["index"].slice(0, -4)}`}><p className="p-4 bg-black border-4 border-double border-ridge-yellow text-ridge-yellow my-2 max-w-prose">{each["contents"][1].text}</p></Link>
       })}</p>
     </main>
   );
