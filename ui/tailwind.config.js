@@ -5,7 +5,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        "offwhite": "#eeeeee",
         "ridge-yellow": "#e6b53f",
+        "box-yellow": "#f3c86f",
+        "link-blue": "#3030b1",
+        "brass": "#c38e30"
       },
     },
   },
