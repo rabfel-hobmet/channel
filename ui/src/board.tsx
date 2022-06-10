@@ -18,11 +18,17 @@ export function Board() {
   }, [ship, board])
 
   return (
-    <main className="flex flex-col items-left px-4 justify-center min-h-screen">
-      <Link to="/"><h2 className="text-4xl font-bold max-w-fit bg-ridge-yellow my-4 p-2 border border-black">BACK TO BOARDS</h2></Link>
+    <main className="flex flex-col items-left px-4 justify-start min-h-screen">
+        <ul className="flex my-3 pl-9 divide-x-2">
+          <li className='px-3'> <h2 className="text-chan-red text-2xl">/{board}/</h2> </li>
+          <li className='px-3'> <h2 className="text-link-blue text-2xl">thread list</h2> </li>
+          <li className='px-3'> <h2 className="text-link-blue text-2xl">catalog</h2> </li>
+          <li className='px-3'> <Link to="/" className="text-2xl font-bold text-link-blue">home</Link> </li>
+        </ul>
+      <hr/>
       <p>{boardContent.map((each) => {
         console.log(each)
-       return <Link to={`/thread/${ship}/${board}/${each["index"].slice(0, -4)}`}><p className="p-4 bg-black border-4 border-double border-ridge-yellow text-ridge-yellow my-2 max-w-prose">{each["contents"][1].text}</p></Link>
+       return <Link to={`/thread/${ship}/${board}/${each["index"].slice(0, -4)}`}><p className="p-3 outline outline-1 border-b-4 border-chan-border bg-chan-element my-3 max-w-prose">{each["contents"][1].text}</p></Link>
       })}</p>
     </main>
   );

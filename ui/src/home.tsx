@@ -30,14 +30,15 @@ export function Home() {
     return (
         <main className="flex flex-col items-center justify-center min-h-screen space-y-4 lg:space-y-0">
             <div className="max-w-prose justify-center p-6 grid grid-rows-1 gap-2">
-                <h2 className="font-bold px-16 bg-some-slate text-ridge-yellow text-8xl text-center border-b-8 border-ridge-yellow">CHANNEL</h2>
-                <h2 className="px-16 bg-some-slate text-ridge-yellow text-4xl text-center border-b-8 border-ridge-yellow">pick a board</h2>
+                <h2 className="font-bold text-chan-red text-8xl text-center">channel</h2>
+                <h2 className="text-chan-red text-4xl text-center border-chan-border">boards:</h2>
             </div>
-            <div className="w-full flex flex-col overflow-y-auto justify-between h-96 max-w-prose border-b-8 p-6 my-4 bg-box-yellow border-ridge-yellow z-10">
+            
+            <div className="w-full flex flex-col overflow-y-auto justify-between h-96 max-w-prose border-b-8 p-6 my-4 bg-chan-element border-chan-border outline outline-1 outline-black z-10">
             <div>
             {Object.entries(boards).map(([key, value]) => {
-                return <><h2 className="font-semibold px-1 bg-ridge-yellow" key={key}>{key}:</h2>
-                {value["boards"].map((board) => <Link className="text-link-blue underline px-1" to={`/board/${key}/${board.board}`}>/{board.board}/</Link>)}
+                return <><h2 className="font-semibold px-1 bg-chan-border" key={key}>{key}:</h2>
+                {value["boards"].map((board) => <Link className="text-link-blue px-1" to={`/board/${key}/${board.board}`}>/{board.board}/</Link>)}
                 </>
             })}
             </div>
