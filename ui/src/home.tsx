@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Marquee from 'react-fast-marquee';
 import { Link } from 'react-router-dom';
 
 export function Home() {
@@ -29,12 +28,12 @@ export function Home() {
     }, [providers]);
 
     return (
-        <main className="flex flex-col items-center justify-center min-h-screen px-4 space-y-4 lg:space-y-0">
-            <Marquee gradient={false} className="static lg:absolute min-w-screen top-20 -right-96 border-b-8  bg-black border-ridge-yellow" speed={160}>
-                <h2 className="text-8xl text-ridge-yellow font-bold">CHANNEL</h2>
-            </Marquee>
-            <h2 className="bg-black w-screen static lg:absolute text-ridge-yellow text-4xl z-0 top-48 -right-96 border-b-8 px-8 border-ridge-yellow">pick a board</h2>
-        <div className="w-full flex flex-col overflow-y-auto justify-between h-96 max-w-prose border-b-8 p-6 my-4 bg-box-yellow border-ridge-yellow z-10">
+        <main className="flex flex-col items-center justify-center min-h-screen space-y-4 lg:space-y-0">
+            <div className="max-w-prose justify-center p-6 grid grid-rows-1 gap-2">
+                <h2 className="font-bold px-16 bg-some-slate text-ridge-yellow text-8xl text-center border-b-8 border-ridge-yellow">CHANNEL</h2>
+                <h2 className="px-16 bg-some-slate text-ridge-yellow text-4xl text-center border-b-8 border-ridge-yellow">pick a board</h2>
+            </div>
+            <div className="w-full flex flex-col overflow-y-auto justify-between h-96 max-w-prose border-b-8 p-6 my-4 bg-box-yellow border-ridge-yellow z-10">
             <div>
             {Object.entries(boards).map(([key, value]) => {
                 return <><h2 className="font-semibold px-1 bg-ridge-yellow" key={key}>{key}:</h2>
@@ -42,7 +41,7 @@ export function Home() {
                 </>
             })}
             </div>
-            <p className='uppercase font-bold text-right'>Add provider</p>
+            <p className="uppercase font-bold text-right">Add provider</p>
         </div>
         <p>Use at your own risk.</p>
         </main>

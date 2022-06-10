@@ -5,3 +5,7 @@
 body, html {
     background-color: #eeeeee;
 }
+
+a:hover {
+    color: #31778C;
+}

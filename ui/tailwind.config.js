@@ -9,7 +9,8 @@ module.exports = {
         "ridge-yellow": "#e6b53f",
         "box-yellow": "#f3c86f",
         "link-blue": "#3030b1",
-        "brass": "#c38e30"
+        "brass": "#c38e30",
+        "some-slate": "#3d3d34",
       },
     },
   },
