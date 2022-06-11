@@ -28,7 +28,7 @@ export function Home() {
     }, [providers]);
 
     return (
-        <main className="flex flex-col items-center justify-center min-h-screen space-y-4 lg:space-y-0">
+        <main className="flex flex-col items-center justify-center min-h-screen space-y-3 lg:space-y-0">
             <div className="max-w-prose justify-center p-6 grid grid-rows-1 gap-2">
                 <h2 className="font-bold text-chan-red text-8xl text-center">channel</h2>
                 <h2 className="text-chan-red text-4xl text-center border-chan-border">boards:</h2>

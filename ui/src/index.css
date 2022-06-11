@@ -11,3 +11,7 @@ a:hover {
     color: #31778C;
     text-decoration: underline;
 }
+
+button:hover {
+    background-color: #f3c86f;
+}
