@@ -41,7 +41,7 @@ export function Thread() {
   return (
     <main className="flex flex-col items-left px-4 space-y-3 justify-start min-h-screen">
         <ul className="flex my-3 pl-9 divide-x-2">
-          <li className='px-3'> <h2 className="text-link-blue text-2xl">thread list</h2> </li>
+          <li className='px-3'> <Link to={`/list/${ship}/${board}`} className="text-2xl font-bold text-link-blue">thread list</Link> </li>
           <li className='px-3'> <h2 className="text-link-blue text-2xl">catalog</h2> </li>
           <li className='px-3'> <Link to={`/board/${ship}/${board}`} className="text-2xl font-bold text-link-blue">back</Link></li>
         </ul>
