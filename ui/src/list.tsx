@@ -28,9 +28,8 @@ export function List() {
       <hr/>
       <p>{boardContent.map((each) => {
         console.log(each)
-        return <><Link to={`/thread/${ship}/${board}/${each["index"].slice(0, -4)}`}>
+        return <Link to={`/thread/${ship}/${board}/${each["index"].slice(0, -4)}`}>
           <p className="p-3 outline outline-1 border-b-4 border-chan-border bg-chan-element my-3 max-w-prose">{each["contents"][1].text}</p></Link>
-          <hr className='my-3'/></>
       })}</p>
     </main>
   );
