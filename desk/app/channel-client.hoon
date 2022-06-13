@@ -277,6 +277,7 @@
     =/  till=@ud  (add from 25)
     =|  curr=@ud
     =|  nogg=(list json)
+    =|  have=(set @)
     =;  log=upd-log
       =/  leg=(list [d=@da l=log-upd])
         (flop (bap:((on @da log-upd) gth) log))
@@ -287,10 +288,12 @@
       ?.  ?=(%add-nodes -.q.l.i.leg)  $(leg t.leg)
       ?~  kex=~(tap in ~(key by nodes.q.l.i.leg))  $(leg t.leg)
       ?~  kez=i.kex  $(leg t.leg)
+      ?.  (~(has in have) i.kez)  $(leg t.leg)
       %=    $
         curr  +(curr)
         leg   t.leg
         nogg  [(whats i.kez) nogg]
+        have  (~(put in have) i.kez)
       ==
     ;;  upd-log
     .^  *  %gx
