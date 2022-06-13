@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
+import { graph } from '@urbit/api';
 import { Link } from 'react-router-dom';
 
 export function Board() {
@@ -9,6 +10,7 @@ export function Board() {
   useEffect(() => {
     async function init() {
       const msg = await window.api.scry({app: "channel-client", path: `/get-nodes/${ship}/${board}`})
+      console.log(await window.api.scry(graph.getGraph(ship, board)))
       setBoard(msg["page"].map((each) => {
         const index = Object.keys(each["graph-update"]["add-nodes"]["nodes"])[0];
         return each?.["graph-update"]?.["add-nodes"]?.["nodes"]?.[index]["children"][1]["children"][1]["post"]}
