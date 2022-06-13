@@ -283,6 +283,7 @@
         (flop (bap:((on @da log-upd) gth) log))
       |-
       ?~  leg  nogg
+      ~&  >>  [%from from %till till %curr curr %have have]
       ?.  (gte curr from)  $(curr +(curr), leg t.leg)
       ?:  (gth curr till)  nogg
       ?.  ?=(%add-nodes -.q.l.i.leg)  $(leg t.leg)
