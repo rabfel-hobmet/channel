@@ -39,16 +39,23 @@ export function Thread() {
   }
 
   return (
-    <main className="flex flex-col items-left space-y-8 justify-center min-h-screen px-4">
-      <Link className="text-4xl font-bold max-w-fit bg-ridge-yellow my-4 p-2 border border-black" to={`/board/${ship}/${board}`}>BACK TO BOARD</Link>
-      <p className="bg-black text-ridge-yellow w-fit py-4 px-32 flex items-start">{op?.["contents"]?.[1]?.text}</p>
+    <main className="flex flex-col items-left px-4 space-y-3 justify-start min-h-screen">
+        <ul className="flex my-3 pl-9 divide-x-2">
+          <li className='px-3'> <Link to={`/list/${ship}/${board}`} className="text-2xl font-bold text-link-blue">thread list</Link> </li>
+          <li className='px-3'> <h2 className="text-link-blue text-2xl">catalog</h2> </li>
+          <li className='px-3'> <Link to={`/board/${ship}/${board}`} className="text-2xl font-bold text-link-blue">back</Link></li>
+        </ul>
+      <hr/>
+      <p className="py-3 px-6 outline outline-1 bg-chan-element max-w-prose flex">{op?.["contents"]?.[1]?.text}</p>
       {Object.entries(thread || {}).map(([key, value]) => {
-        return <p className="ml-16 py-8 border-y border-black w-full max-w-prose">{value?.children?.[1]?.post?.contents[0].text}</p>
+        return <p className="py-3 px-6 outline outline-1 max-w-prose">{value?.children?.[1]?.post?.contents[0].text}</p>
       })}
-      <div className="flex space-x-4">
-      <textarea className="border p-2 basis-5/6 border-black rounded-xl max-w-prose bg-ridge-yellow" onChange={e => setReply(e.target.value)}/>
-      <button className="bg-black basis-1/10 text-ridge-yellow border-2 border-black rounded-xl max-w-prose p-2" onClick={submitReply}>submit</button>
+      
+      <div className="grid gap-3">
+        <textarea className="outline outline-1 p-3 max-w-prose bg-chan-bg max-h-56 h-24" onChange={e => setReply(e.target.value)}/>
+        <button className="outline outline-1 outline-gray-300 p-2 bg-chan-element text-chan-red max-w-fit" onClick={submitReply}>post</button>
       </div>
+      <hr/>
     </main>
   );
 }
