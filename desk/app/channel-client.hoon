@@ -288,7 +288,7 @@
       ?.  ?=(%add-nodes -.q.l.i.leg)  $(leg t.leg)
       ?~  kex=~(tap in ~(key by nodes.q.l.i.leg))  $(leg t.leg)
       ?~  kez=i.kex  $(leg t.leg)
-      ?.  (~(has in have) i.kez)  $(leg t.leg)
+      ?:  (~(has in have) i.kez)  $(leg t.leg)
       %=    $
         curr  +(curr)
         leg   t.leg
