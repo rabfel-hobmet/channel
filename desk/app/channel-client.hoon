@@ -71,20 +71,12 @@
     ^-  (unit (unit cage))
     =,  enjs:format
     ?+    pek  (on-peek:def pek)
-        [%x %get-nodes @ @ *]
+        [%x %get-nodes @ @ @ ~]
       =/  who=@p  (slav %p +>-.pek)
       =/  wat=@tas  (slav %tas +>+<.pek)
       ?>  (~(has bi chans) who wat)
-      ?+    +>+>.pek  !!
-          ~
-        =-  ``json+!>(`json`-)
-        (frond page+a+(~(updog triforce:snax [who wat]) ~))
-      ::
-          [@ ~]
-        =-  ``json+!>(`json`(frond page+a+-))
-        %-  ~(updog triforce:snax [who wat])
-        `(unit @ud)``(slav %ud +>+>-.pek)
-      ==
+      =-  ``json+!>(`json`(frond page+a+-))
+      (~(updog triforce:snax [who wat]) (slav %ud +>+>-.pek))
     ::
         [%x %latest @ @ ~]
       =/  who=@p  (slav %p +>-.pek)
@@ -271,30 +263,36 @@
       ==
     ==
   ++  updog
-    |=  first=(unit @ud)
+    |=  from=@ud
     ^-  (list json)
-    =/  from=@ud  ?~(first 0 u.first)
-    =/  till=@ud  (add from 25)
     =|  curr=@ud
-    =|  nogg=(list json)
     =|  have=(set @)
     =;  log=upd-log
       =/  leg=(list [d=@da l=log-upd])
         (flop (bap:((on @da log-upd) gth) log))
       |-
-      ?~  leg  nogg
-      ~&  >>  [%from from %till till %curr curr %have have]
+      ?~  leg  ~(tap in `(set json)`(~(run in have) whats))
+      ~&  >>  [%from from %till (add from 25) %curr curr %have have]
       ?.  (gte curr from)  $(curr +(curr), leg t.leg)
-      ?:  (gth curr till)  nogg
-      ?.  ?=(%add-nodes -.q.l.i.leg)  $(leg t.leg)
-      ?~  kex=~(tap in ~(key by nodes.q.l.i.leg))  $(leg t.leg)
-      ?~  kez=i.kex  $(leg t.leg)
-      ?:  (~(has in have) i.kez)  $(leg t.leg)
-      %=    $
-        curr  +(curr)
-        leg   t.leg
-        nogg  [(whats i.kez) nogg]
-        have  (~(put in have) i.kez)
+      ?+    -.q.l.i.leg  $(leg t.leg)
+          %add-nodes
+        ~&  >  "I'm here"
+        =^  newk  curr
+          %-  ~(rep in ~(key by nodes.q.l.i.leg))
+          |=  [i=index [h=_have c=_curr]]
+          ?:  =((add from 25) c)  [h c]
+          ?~(i [h c] ?:((~(has in h) i.i) [h c] [(~(put in h) i.i) +(c)]))
+        =.  have  newk
+        ?:(=((add from 25) curr) $(leg ~) $(leg t.leg))
+      ::
+          %add-graph
+        =^  newk  curr
+          %-  ~(rep by graph.q.l.i.leg)
+          |=  [[a=atom *] [h=_have c=_curr]]
+          ?:  =((add from 25) c)  [h c]
+          ?:((~(has in h) a) [h c] [(~(put in h) a) c])
+        =.  have  newk
+        ?:(=((add from 25) curr) $(leg ~) $(leg t.leg))
       ==
     ;;  upd-log
     .^  *  %gx
