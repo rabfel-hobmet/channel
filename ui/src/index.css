@@ -7,11 +7,15 @@ body, html {
     background-color: #eef2ff;
 }
 
-a:hover {
+/* a:hover {
     color: #31778C;
     text-decoration: underline;
-}
+} */
 
 button:hover {
     background-color: #f3c86f;
+}
+
+th, td {
+    padding: 0.1em 0.5em;
 }

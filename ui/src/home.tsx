@@ -38,7 +38,7 @@ export function Home() {
             <div>
             {Object.entries(boards).map(([key, value]) => {
                 return <><h2 className="font-semibold px-1 bg-chan-border" key={key}>{key}:</h2>
-                {value["boards"].map((board) => <Link className="text-link-blue px-1" to={`/board/${key}/${board.board}`}>/{board.board}/</Link>)}
+                {value["boards"].map((board) => <Link className="text-link-blue px-1 hover:text-link-hover hover:underline" to={`/board/${key}/${board.board}`}>/{board.board}/</Link>)}
                 </>
             })}
             </div>
