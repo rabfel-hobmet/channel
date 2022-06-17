@@ -290,7 +290,7 @@
           %-  ~(rep by graph.q.l.i.leg)
           |=  [[a=atom *] [h=_have c=_curr]]
           ?:  =((add from 25) c)  [h c]
-          ?:((~(has in h) a) [h c] [(~(put in h) a) c])
+          ?:((~(has in h) a) [h c] [(~(put in h) a) +(c)])
         =.  have  newk
         ?:(=((add from 25) curr) $(leg ~) $(leg t.leg))
       ==
