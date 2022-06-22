@@ -3,16 +3,17 @@ import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 
 export function List() {
-  const [boardContent, setBoard] = useState([]);
+  const [boardPosts, setBoardPosts] = useState([]);
   const {ship, board} = useParams();
 
   useEffect(() => {
     async function init() {
       const msg = await window.api.scry({app: "channel-client", path: `/get-nodes/${ship}/${board}/0`})
-      setBoard(msg["page"].map((each) => {
+      setBoardPosts(msg["page"].map((each) => {
         const index = Object.keys(each["graph-update"]["add-nodes"]["nodes"])[0];
-        return each?.["graph-update"]?.["add-nodes"]?.["nodes"]?.[index]["children"][1]["children"][1]["post"]}
-        ));
+        const node = each?.["graph-update"]?.["add-nodes"]?.["nodes"]?.[index];
+        return { post: node["children"][1]["children"][1]["post"], thread: node["children"][2]["children"] }
+      }));
     };
     init()
   }, [ship, board])
@@ -29,16 +30,21 @@ export function List() {
 
       <table className='table-auto max-w-2xl text-left my-3'>
         <thead>
-          <tr><th>#</th><th>topic</th><th>replies</th><th>last update</th></tr>
+          <tr><th>topic</th><th>replies</th><th>last updated</th></tr>
         </thead>
-        <tbody>{boardContent.map((each) => {
-            console.log(each)
-            var date = new Date(each["time-sent"]).toLocaleString()
+        {console.log(boardPosts)}
+        <tbody>{boardPosts.map((each) => {
+            var replies = Object.keys(each.thread).length
+            var latestUpdate;
+            if (replies == 0) {
+              latestUpdate = new Date(each.post["time-sent"]).toLocaleString()
+            } else {
+              latestUpdate = new Date(Math.max(... Object.values(each.thread).map(e => { return new Date(e.post["time-sent"]) }))).toLocaleString()
+            }
             return <tr className=' hover:bg-yellow-100 even:bg-chan-element odd:bg-chan-element-alt'>
-                        <td>0</td>
-                        <td><Link to={`/thread/${ship}/${board}/${each["index"].slice(0, -4)}`} className='text-link-blue hover:text-link-hover hover:underline'>{each["contents"][1].text}</Link></td>
-                        <td>0</td>
-                        <td>{date}</td>
+                        <td><Link to={`/thread/${ship}/${board}/${each.post["index"].slice(0, -4)}`} className='text-link-blue hover:text-link-hover hover:underline'>{each.post["contents"][1].text}</Link></td>
+                        <td>{replies}</td>
+                        <td>{latestUpdate}</td>
                   </tr>
           })}
         </tbody>
