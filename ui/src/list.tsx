@@ -34,9 +34,15 @@ export function List() {
         </thead>
         {console.log(boardPosts)}
         <tbody>{boardPosts.map((each) => {
-            var replies = Object.keys(each.thread).length
+            var replies;
+            if(each.thread != null) {
+              replies = Object.keys(each?.thread).length
+            } else {
+              replies = 0;
+            }
+            console.log(replies)
             var latestUpdate;
-            if (replies == 0) {
+            if (replies === 0) {
               latestUpdate = new Date(each.post["time-sent"]).toLocaleString()
             } else {
               latestUpdate = new Date(Math.max(... Object.values(each.thread).map(e => { return new Date(e.post["time-sent"]) }))).toLocaleString()
