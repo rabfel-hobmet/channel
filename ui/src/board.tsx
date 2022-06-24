@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { graph } from '@urbit/api';
 import { Link } from 'react-router-dom';
+import PostBox from './components/postbox';
 
 export function Board() {
   const [boardContent, setBoard] = useState([]);
@@ -33,6 +34,7 @@ export function Board() {
           <p className="p-3 outline outline-1 outline-black border-b-4 border-chan-border bg-chan-element hover:text-link-hover hover:underline my-3 max-w-prose">{each["contents"][1].text}</p>
           </Link><hr/></React.Fragment>
       })}</div>
+        <PostBox index={null} ship={ship} board={board}/>
     </main>
   );
 }
