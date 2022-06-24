@@ -69,7 +69,10 @@ export function Thread() {
           <li className='px-3'> <h2 className="text-link-blue text-2xl">catalog</h2> </li>
         </ul>
       <hr/>
-      <p className="py-3 px-6 outline outline-1 bg-chan-element max-w-prose flex">{op?.["contents"]?.[1]?.text}</p>
+      <div className="py-3 outline outline-1 bg-chan-element max-w-prose">
+      <p className="py-3 px-6 flex">{op?.["contents"]?.[1]?.text}</p>
+      <p className="text-right px-6 text-chan-red font-semibold">{new Date(op?.["time-sent"]).toLocaleString()}</p>
+      </div>
       {Object.entries(thread || {}).sort(([aKey, aValue], [bKey, bValue]) => {
         return aValue?.post?.["time-sent"] > bValue?.post?.["time-sent"] ? 1 : -1
       }).map(([key, value]) => {
