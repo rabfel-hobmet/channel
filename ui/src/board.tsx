@@ -28,12 +28,11 @@ export function Board() {
           <li className='px-3'> <Link to="/" className="text-2xl font-bold text-link-blue hover:text-link-hover hover:underline">home</Link> </li>
         </ul>
       <hr/>
-      <p>{boardContent.map((each) => {
-        console.log(each)
-        return <><Link to={`/thread/${ship}/${board}/${each["index"].slice(0, -4)}`}>
+      <div>{boardContent.map((each) => {
+        return <React.Fragment key={each["index"]}><Link to={`/thread/${ship}/${board}/${each["index"].slice(0, -4)}`}>
           <p className="p-3 outline outline-1 outline-black border-b-4 border-chan-border bg-chan-element hover:text-link-hover hover:underline my-3 max-w-prose">{each["contents"][1].text}</p>
-          </Link><hr/></>
-      })}</p>
+          </Link><hr/></React.Fragment>
+      })}</div>
     </main>
   );
 }

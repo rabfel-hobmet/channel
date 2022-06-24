@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect} from "react";
 import {
   BrowserRouter,
   Routes,
@@ -8,14 +8,36 @@ import { Board } from './board';
 import { Home } from "./home";
 import { Thread } from "./thread";
 import { List } from "./list";
-import Urbit from '@urbit/http-api';
+import { api } from "./state/api";
+import useStorageState from "./state/storage";
+import { useFileStore } from "./state/useFileStore";
 import './index.css'
 
-const api = new Urbit('', '', window.desk);
-window.api = api;
-api.ship = window.ship;
-
 export function App() {
+  const { s3 } = useStorageState();
+  const credentials = s3.credentials;
+  const { client, createClient, getFiles } = useFileStore();
+  useEffect(() => {
+    async function init() {
+      useStorageState.getState().initialize(api);
+    }
+
+    init();
+  }, []);
+
+  useEffect(() => {
+    const hasCredentials =
+      credentials?.accessKeyId &&
+      credentials?.endpoint &&
+      credentials?.secretAccessKey;
+    if (hasCredentials) {
+      createClient(credentials);
+
+      useStorageState.setState({ hasCredentials: true });
+      console.log("client initialized");
+    }
+  }, [credentials]);
+
   return (
   <BrowserRouter basename="/apps/channel">
     <Routes>
