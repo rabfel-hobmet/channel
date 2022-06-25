@@ -28,29 +28,23 @@ export function List() {
         </ul>
       <hr/>
 
-      <table className='table-auto max-w-2xl text-left my-3'>
+      <table className='table-auto max-w-3xl text-left my-3'>
         <thead>
           <tr><th>topic</th><th>replies</th><th>last updated</th></tr>
         </thead>
-        {console.log(boardPosts)}
         <tbody>{boardPosts.map((each) => {
-            var replies;
-            if(each.thread != null) {
-              replies = Object.keys(each?.thread).length
-            } else {
-              replies = 0;
-            }
-            console.log(replies)
-            var latestUpdate;
-            if (replies === 0) {
-              latestUpdate = new Date(each.post["time-sent"]).toLocaleString()
-            } else {
-              latestUpdate = new Date(Math.max(... Object.values(each.thread).map(e => { return new Date(e.post["time-sent"]) }))).toLocaleString()
-            }
+            var replies = each.thread == null ? 0 : Object.keys(each?.thread).length;
+            var latestUpdate = replies === 0 ? each.post["time-sent"] : Math.max(... Object.values(each.thread).map(e => { return e.post["time-sent"] }))
+            var substrPost;
+            {each.post.contents.slice(1).map((obj) => {
+              switch(Object.keys(obj)[0]) {
+                case "text": substrPost = obj["text"].substring(0, 65)
+              }})}
+
             return <tr className=' hover:bg-yellow-100 even:bg-chan-element odd:bg-chan-element-alt'>
-                        <td><Link to={`/thread/${ship}/${board}/${each.post["index"].slice(0, -4)}`} className='text-link-blue hover:text-link-hover hover:underline'>{each.post["contents"][1].text}</Link></td>
+                        <td><Link to={`/thread/${ship}/${board}/${each.post["index"].slice(0, -4)}`} className='text-link-blue hover:text-link-hover hover:underline'>{substrPost}</Link></td>
                         <td>{replies}</td>
-                        <td>{latestUpdate}</td>
+                        <td>{new Date(latestUpdate).toLocaleString()}</td>
                   </tr>
           })}
         </tbody>
