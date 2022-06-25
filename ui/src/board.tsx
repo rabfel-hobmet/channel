@@ -5,17 +5,17 @@ import { Link } from 'react-router-dom';
 import PostBox from './components/postbox';
 
 export function Board() {
-  const [boardContent, setBoard] = useState([]);
+  const [boardPosts, setBoardPosts] = useState([]);
   const {ship, board} = useParams();
 
   useEffect(() => {
     async function init() {
       const msg = await window.api.scry({app: "channel-client", path: `/get-nodes/${ship}/${board}/0`})
-      console.log(await window.api.scry(graph.getGraph(ship, board)))
-      setBoard(msg["page"].map((each) => {
+      setBoardPosts(msg["page"].map((each) => {
         const index = Object.keys(each["graph-update"]["add-nodes"]["nodes"])[0];
-        return each?.["graph-update"]?.["add-nodes"]?.["nodes"]?.[index]["children"][1]["children"][1]["post"]}
-        ));
+        const node = each?.["graph-update"]?.["add-nodes"]?.["nodes"]?.[index];
+        return { post: node["children"][1]["children"][1]["post"], thread: node["children"][2]["children"] }
+      }));
     };
     init()
   }, [ship, board])
@@ -29,11 +29,42 @@ export function Board() {
           <li className='px-3'> <Link to="/" className="text-2xl font-bold text-link-blue hover:text-link-hover hover:underline">home</Link> </li>
         </ul>
       <hr/>
-      <div>{boardContent.map((each) => {
-        return <React.Fragment key={each["index"]}><Link to={`/thread/${ship}/${board}/${each["index"].slice(0, -4)}`}>
-          <p className="p-3 outline outline-1 outline-black border-b-4 border-chan-border bg-chan-element hover:text-link-hover hover:underline my-3 max-w-prose">{each["contents"][1].text}</p>
-          </Link><hr/></React.Fragment>
-      })}</div>
+      
+      {boardPosts.map((each) => {
+        let op_url;
+        let op_text;
+        {each.post.contents.slice(1).map((obj) => {
+          switch(Object.keys(obj)[0]) {
+            case "url": op_url = obj["url"]
+            case "text": op_text = obj["text"]
+          }})}
+        return <React.Fragment key={each["index"]}>
+          <div className="my-3 space-x-2 flex" key="op">
+            <a target="_blank" href={op_url}><img className="object-contain max-h-24" src={op_url}/></a>
+            <div key="content-container">
+              <div className='gap-2 inline-flex' key="thread-info">
+                <p>{new Date(each?.post?.["time-sent"]).toLocaleString()}</p>
+                <Link to={`/thread/${ship}/${board}/${each.post["index"].slice(0, -4)}`} className="text-link-blue hover:text-link-hover hover:underline">[visit thread]</Link>
+              </div>
+              <p key="optext" className=''>{op_text}</p>
+            </div>
+          </div>
+          
+          {Object.values(each.thread || {}).sort((a, b) => {
+            return a.post["time-sent"] > b.post["time-sent"] ? 1 : -1
+          }).slice(-3).map((value) => {
+            return <div className="ml-3 flex flex-col outline outline-1 max-w-prose"><div className="p-3 flex space-x-2">{value?.children?.[1].post?.contents.map((obj) => {
+              switch(Object.keys(obj)[0]) {
+                case "url":
+                  return <a target="_blank" href={obj["url"]}><img className="object-contain max-h-24" src={obj["url"]}/></a>
+                case "text":
+                  return <p>{obj["text"]}</p>
+                }})
+            }</div><p className="bg-chan-border text-chan-bg font-bold pr-2 text-right text-xs">{new Date(value?.post?.["time-sent"]).toLocaleString()}</p></div>})
+          }
+          <hr/>
+        </React.Fragment>
+      })}
         <PostBox index={null} ship={ship} board={board}/>
     </main>
   );
