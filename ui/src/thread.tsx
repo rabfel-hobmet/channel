@@ -22,6 +22,9 @@ export function Thread() {
     init()
   }, [ship, board, index]);
 
+  let op_text;
+  let op_url;
+
   return (
     <main className="flex flex-col items-left px-4 space-y-3 justify-start min-h-screen">
         <ul className="flex my-3 pl-9 divide-x-2">
@@ -30,10 +33,22 @@ export function Thread() {
           <li className='px-3'> <h2 className="text-link-blue text-2xl">catalog</h2> </li>
         </ul>
       <hr/>
-      <div className="py-3 outline outline-1 bg-chan-element max-w-prose">
-      <p className="py-3 px-6 flex">{op?.["contents"]?.[1]?.text}</p>
-      <p className="text-right px-6 text-chan-red font-semibold">{new Date(op?.["time-sent"]).toLocaleString()}</p>
+
+      {op?.["contents"].map((obj) => {
+        switch(Object.keys(obj)[0]) {
+          case "url": op_url = obj["url"]
+          case "text": op_text = obj["text"]
+        }})}
+      <div className='my-3 space-x-2 flex' key="op">
+        <a target="_blank" href={op_url}><img className="object-contain max-h-24" src={op_url}/></a>
+        <div key="content-container">
+          <div className='gap-2 inline-flex' key="thread-info">
+            <p>{new Date(op?.["time-sent"]).toLocaleString()}</p>
+          </div>
+          <p key="optext" className=''>{op_text}</p>
+        </div>
       </div>
+      
       {Object.entries(thread || {}).sort(([aKey, aValue], [bKey, bValue]) => {
         return aValue?.post?.["time-sent"] > bValue?.post?.["time-sent"] ? 1 : -1
       }).map(([key, value]) => {
