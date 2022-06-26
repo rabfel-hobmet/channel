@@ -28,21 +28,21 @@ export function List() {
         </ul>
       <hr/>
 
-      <table className='table-auto max-w-3xl text-left my-3'>
+      <table className='table-auto max-w-2xl text-left my-3'>
         <thead>
           <tr><th>topic</th><th>replies</th><th>last updated</th></tr>
         </thead>
         <tbody>{boardPosts.map((each) => {
-            var replies = each.thread == null ? 0 : Object.keys(each?.thread).length;
-            var latestUpdate = replies === 0 ? each.post["time-sent"] : Math.max(... Object.values(each.thread).map(e => { return e.post["time-sent"] }))
-            var substrPost;
+            let replies = each.thread == null ? 0 : Object.keys(each?.thread).length;
+            let latestUpdate = replies === 0 ? each.post["time-sent"] : Math.max(... Object.values(each.thread).map(e => { return e.post["time-sent"] }))
+            let substrPost;
             {each.post.contents.slice(1).map((obj) => {
               switch(Object.keys(obj)[0]) {
-                case "text": substrPost = obj["text"].substring(0, 65)
+                case "text": substrPost = obj["text"]
               }})}
 
             return <tr className=' hover:bg-yellow-100 even:bg-chan-element odd:bg-chan-element-alt'>
-                        <td><Link to={`/thread/${ship}/${board}/${each.post["index"].slice(0, -4)}`} className='text-link-blue hover:text-link-hover hover:underline'>{substrPost}</Link></td>
+                        <td><div className='w-96 truncate'><Link to={`/thread/${ship}/${board}/${each.post["index"].slice(0, -4)}`} className='text-link-blue hover:text-link-hover hover:underline'>{substrPost}</Link></div></td>
                         <td>{replies}</td>
                         <td>{new Date(latestUpdate).toLocaleString()}</td>
                   </tr>
