@@ -14,7 +14,11 @@ export function Board() {
       setBoardPosts(msg["page"].map((each) => {
         const index = Object.keys(each["graph-update"]["add-nodes"]["nodes"])[0];
         const node = each?.["graph-update"]?.["add-nodes"]?.["nodes"]?.[index];
-        return { post: node["children"][1]["children"][1]["post"], thread: node["children"][2]["children"] }
+        const post = node["children"][1]["children"][1]["post"];
+        const thread = node["children"][2]["children"];
+        let replies = thread == null ? 0 : Object.keys(thread).length;
+        let latestUpdate = replies === 0 ? post["time-sent"] : Math.max(... Object.values(thread).map(e => { return e?.post["time-sent"] }))
+        return { post: post, thread: thread, replies: replies, latestUpdate: latestUpdate }
       }));
     };
     init()
@@ -30,7 +34,9 @@ export function Board() {
         </ul>
       <hr/>
       
-      {boardPosts.map((each) => {
+      {Object.values(boardPosts || {}).sort((aValue, bValue) => {
+        return aValue?.latestUpdate < bValue?.latestUpdate ? 1 : -1
+      }).map((each) => {
         let op_url;
         let op_text;
         {each.post.contents.slice(1).map((obj) => {
@@ -40,7 +46,7 @@ export function Board() {
           }})}
         return <React.Fragment key={each["index"]}>
           <div className="my-3 space-x-2 flex" key="op">
-            <a target="_blank" href={op_url}><img className="object-contain max-h-24" src={op_url}/></a>
+            <a target="_blank" href={op_url}><img className="object-contain max-h-48" src={op_url}/></a>
             <div key="content-container">
               <div className='gap-2 inline-flex' key="thread-info">
                 <p>{new Date(each?.post?.["time-sent"]).toLocaleString()}</p>
@@ -56,7 +62,7 @@ export function Board() {
             return <div className="ml-3 flex flex-col outline outline-1 max-w-prose"><div className="p-3 flex space-x-2">{value?.children?.[1].post?.contents.map((obj) => {
               switch(Object.keys(obj)[0]) {
                 case "url":
-                  return <a target="_blank" href={obj["url"]}><img className="object-contain max-h-24" src={obj["url"]}/></a>
+                  return <a target="_blank" href={obj["url"]}><img className="object-contain max-h-48" src={obj["url"]}/></a>
                 case "text":
                   return <p>{obj["text"]}</p>
                 }})

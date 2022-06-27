@@ -40,7 +40,7 @@ export function Thread() {
           case "text": op_text = obj["text"]
         }})}
       <div className='my-3 space-x-2 flex' key="op">
-        <a target="_blank" href={op_url}><img className="object-contain max-h-24" src={op_url}/></a>
+        <a target="_blank" href={op_url}><img className="object-contain max-h-48" src={op_url}/></a>
         <div key="content-container">
           <div className='gap-2 inline-flex' key="thread-info">
             <p>{new Date(op?.["time-sent"]).toLocaleString()}</p>
@@ -55,7 +55,7 @@ export function Thread() {
         return <div className="ml-8 flex flex-col outline outline-1 max-w-prose"><div className="p-3 flex space-x-2">{value?.children?.[1].post?.contents.map((obj) => {
           switch(Object.keys(obj)[0]) {
             case "url":
-              return <a target="_blank" href={obj["url"]}><img className="object-contain max-h-24" src={obj["url"]}/></a>
+              return <a target="_blank" href={obj["url"]}><img className="object-contain max-h-48" src={obj["url"]}/></a>
             case "text":
               return <p className="">{obj["text"]}</p>
           }

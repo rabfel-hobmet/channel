@@ -12,7 +12,11 @@ export function List() {
       setBoardPosts(msg["page"].map((each) => {
         const index = Object.keys(each["graph-update"]["add-nodes"]["nodes"])[0];
         const node = each?.["graph-update"]?.["add-nodes"]?.["nodes"]?.[index];
-        return { post: node["children"][1]["children"][1]["post"], thread: node["children"][2]["children"] }
+        const post = node["children"][1]["children"][1]["post"];
+        const thread = node["children"][2]["children"];
+        let replies = thread == null ? 0 : Object.keys(thread).length;
+        let latestUpdate = replies === 0 ? post["time-sent"] : Math.max(... Object.values(thread).map(e => { return e?.post["time-sent"] }))
+        return { post: post, thread: thread, replies: replies, latestUpdate: latestUpdate }
       }));
     };
     init()
@@ -32,19 +36,19 @@ export function List() {
         <thead>
           <tr><th>topic</th><th>replies</th><th>last updated</th></tr>
         </thead>
-        <tbody>{boardPosts.map((each) => {
-            let replies = each.thread == null ? 0 : Object.keys(each?.thread).length;
-            let latestUpdate = replies === 0 ? each.post["time-sent"] : Math.max(... Object.values(each.thread).map(e => { return e.post["time-sent"] }))
-            let substrPost;
+        <tbody>{Object.values(boardPosts || {}).sort((aValue, bValue) => {
+          return aValue?.latestUpdate < bValue?.latestUpdate ? 1 : -1
+        }).map((each) => {
+            let extractedText;
             {each.post.contents.slice(1).map((obj) => {
               switch(Object.keys(obj)[0]) {
-                case "text": substrPost = obj["text"]
+                case "text": extractedText = obj["text"]
               }})}
 
             return <tr className=' hover:bg-yellow-100 even:bg-chan-element odd:bg-chan-element-alt'>
-                        <td><div className='w-96 truncate'><Link to={`/thread/${ship}/${board}/${each.post["index"].slice(0, -4)}`} className='text-link-blue hover:text-link-hover hover:underline'>{substrPost}</Link></div></td>
-                        <td>{replies}</td>
-                        <td>{new Date(latestUpdate).toLocaleString()}</td>
+                        <td><div className='w-96 truncate'><Link to={`/thread/${ship}/${board}/${each.post["index"].slice(0, -4)}`} className='text-link-blue hover:text-link-hover hover:underline'>{extractedText}</Link></div></td>
+                        <td>{each.replies}</td>
+                        <td>{new Date(each.latestUpdate).toLocaleString()}</td>
                   </tr>
           })}
         </tbody>
