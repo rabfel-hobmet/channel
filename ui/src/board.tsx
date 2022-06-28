@@ -3,6 +3,7 @@ import { useParams } from 'react-router';
 import { graph } from '@urbit/api';
 import { Link } from 'react-router-dom';
 import PostBox from './components/postbox';
+import ChannelNav from './components/navbar';
 
 export function Board() {
   const [boardPosts, setBoardPosts] = useState([]);
@@ -26,12 +27,7 @@ export function Board() {
 
   return (
     <main className="flex flex-col items-left px-4 space-y-3 justify-start min-h-screen">
-        <ul className="flex my-3 pl-9 divide-x-2">
-          <li className='px-3'> <h2 className="text-chan-red text-2xl">/{board}/</h2> </li>
-          <li className='px-3'> <Link to={`/list/${ship}/${board}`} className="text-2xl font-bold text-link-blue hover:text-link-hover hover:underline">thread list</Link> </li>
-          <li className='px-3'> <h2 className="text-link-blue text-2xl">catalog</h2> </li>
-          <li className='px-3'> <Link to="/" className="text-2xl font-bold text-link-blue hover:text-link-hover hover:underline">home</Link> </li>
-        </ul>
+        <ChannelNav ship={ship} board={board}/>
       <hr/>
       
       {Object.values(boardPosts || {}).sort((aValue, bValue) => {

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
+import ChannelNav from './components/navbar';
 
 export function List() {
   const [boardPosts, setBoardPosts] = useState([]);
@@ -24,12 +25,7 @@ export function List() {
 
   return (
     <main className="flex flex-col items-left px-4 space-y-3 justify-start min-h-screen">
-        <ul className="flex my-3 pl-9 divide-x-2">
-          <li className='px-3'> <Link to={`/board/${ship}/${board}`} className="text-2xl font-bold text-link-blue hover:text-link-hover hover:underline">/{board}/</Link> </li>
-          <li className='px-3'> <h2 className="text-chan-red text-2xl">thread list</h2> </li>
-          <li className='px-3'> <h2 className="text-link-blue text-2xl">catalog</h2> </li>
-          <li className='px-3'> <Link to="/" className="text-2xl font-bold text-link-blue hover:text-link-hover hover:underline">home</Link> </li>
-        </ul>
+        <ChannelNav ship={ship} board={board}/>
       <hr/>
 
       <table className='table-auto max-w-2xl text-left my-3'>

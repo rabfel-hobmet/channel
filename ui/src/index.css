@@ -3,14 +3,8 @@
 @tailwind utilities;
 
 body, html {
-    /* background-color: #eeeeee; */
     background-color: #eef2ff;
 }
-
-/* a:hover {
-    color: #31778C;
-    text-decoration: underline;
-} */
 
 button:hover {
     background-color: #f3c86f;
