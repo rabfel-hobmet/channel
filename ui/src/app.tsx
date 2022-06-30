@@ -8,6 +8,7 @@ import { Board } from './board';
 import { Home } from "./home";
 import { Thread } from "./thread";
 import { List } from "./list";
+import { Catalog } from "./catalog"
 import { api } from "./state/api";
 import useStorageState from "./state/storage";
 import { useFileStore } from "./state/useFileStore";
@@ -45,6 +46,7 @@ export function App() {
       <Route path="/board/:ship/:board" element={<Board/>}/>
       <Route path="/thread/:ship/:board/:index" element={<Thread/>}/>
       <Route path="/list/:ship/:board" element={<List/>}/>
+      <Route path="/catalog/:ship/:board" element={<Catalog/>}/>
     </Routes>
   </BrowserRouter>
   )

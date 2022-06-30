@@ -10,7 +10,7 @@ export default function ChannelNav({ship, board}) {
     <ul className="flex my-3 pl-9 divide-x-2">
         <li className='px-3'><NavLink to={`/board/${ship}/${board}`} className={({ isActive }) => (!isActive ? inactiveClassName : activeClassName)}>/{board}/</NavLink></li>
         <li className='px-3'><NavLink to={`/list/${ship}/${board}`} className={({ isActive }) => (!isActive ? inactiveClassName : activeClassName)}>thread list</NavLink></li>
-        <li className='px-3'><h2 className="text-link-blue text-2xl">catalog</h2> </li>
+        <li className='px-3'><NavLink to={`/catalog/${ship}/${board}`} className={({ isActive }) => (!isActive ? inactiveClassName : activeClassName)}>catalog</NavLink></li>
         <li className='px-3'><NavLink to="/" className={inactiveClassName}>home</NavLink> </li>
     </ul>
     )

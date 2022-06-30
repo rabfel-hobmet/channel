@@ -27,7 +27,7 @@ export function Board() {
 
   return (
     <main className="flex flex-col items-left px-4 space-y-3 justify-start min-h-screen">
-        <ChannelNav ship={ship} board={board}/>
+      <ChannelNav ship={ship} board={board}/>
       <hr/>
       
       {Object.values(boardPosts || {}).sort((aValue, bValue) => {
