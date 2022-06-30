@@ -28,6 +28,29 @@ export function Catalog() {
           <main className='flex flex-col items-left px-4 space-y-3 justify-start min-h-screen'>
               <ChannelNav ship={ship} board={board}/>
               <hr/>
+              <div className='self-center flex flex-wrap gap-9 max-w-full justify-center'>
+                {Object.values(boardPosts || {}).sort((a, b) => {
+                  return a?.latestUpdate < b?.latestUpdate ? 1 : -1
+                }).map((each) => {
+                  let op_url;
+                  let op_text;
+                  {each.post.contents.slice(1).map((obj) => {
+                    switch(Object.keys(obj)[0]) {
+                      case "url": op_url = obj["url"]
+                      case "text": op_text = obj["text"]
+                    }})}
+
+                  return <Link to={`/thread/${ship}/${board}/${each.post["index"].slice(0, -4)}`} className='hover:bg-chan-element'>
+                    <div className='m-9 max-w-xs'>
+                      <img className="object-contain max-h-32 drop-shadow-sm mx-auto" src={op_url}/>
+                      <div key="content-container" className='text-center'>
+                        <p>R:{each.replies}</p>
+                        <p>{op_text}</p>
+                      </div>
+                    </div>
+                  </Link>
+                })}
+              </div>
           </main>
       );
 }
