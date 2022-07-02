@@ -42,13 +42,13 @@ export default function PostBox({ index, ship, board }) {
     }).then(() => location.reload())
 }
 
-    return (      
-    <div className="grid gap-3">
-        <p>Image</p>
+    return (  
+    <div className="grid gap-3 max-w-prose pb-6 my-3 pl-9 ">
+      <p>Image</p>
       <input value={image} placeholder="https://urbit.org/loss.jpg" className="outline outline-1 p-3 max-w-prose bg-chan-element" onChange={e => setImage(e.target.value)}/>
       {client !== null && <input onChange={(e) => setFile(e.target.files)} type="file"/>}
       <p>Reply</p>
-        <textarea className="outline outline-1 p-3 max-w-prose bg-chan-element max-h-56 h-24" onChange={e => setReply(e.target.value)}/>
-        <button className="outline outline-1 outline-gray-300 p-2 bg-chan-element text-chan-red max-w-fit" onClick={submitReply}>post</button>
-      </div>)
+      <textarea className="outline outline-1 p-3 max-w-prose bg-chan-element max-h-56 h-24" onChange={e => setReply(e.target.value)}/>
+      <button className="outline outline-1 outline-gray-300 p-2 bg-chan-element text-chan-red max-w-fit" onClick={submitReply}>post</button>
+    </div>)
 }

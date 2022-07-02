@@ -28,7 +28,7 @@ export function Catalog() {
           <main className='flex flex-col items-left px-4 space-y-3 justify-start min-h-screen'>
               <ChannelNav ship={ship} board={board}/>
               <hr/>
-              <div className='self-center flex flex-wrap gap-9 max-w-full justify-center'>
+              <div className='self-center flex flex-wrap gap-9 max-w-full justify-center items-center'>
                 {Object.values(boardPosts || {}).sort((a, b) => {
                   return a?.latestUpdate < b?.latestUpdate ? 1 : -1
                 }).map((each) => {
@@ -45,7 +45,7 @@ export function Catalog() {
                       <img className="object-contain max-h-32 drop-shadow-sm mx-auto" src={op_url}/>
                       <div key="content-container" className='text-center'>
                         <p>R:{each.replies}</p>
-                        <p>{op_text}</p>
+                        <p className='truncate'>{op_text}</p>
                       </div>
                     </div>
                   </Link>
