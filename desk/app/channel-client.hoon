@@ -285,7 +285,6 @@
       ?.  (gte curr from)  $(curr +(curr), leg t.leg)
       ?+    -.q.l.i.leg  $(leg t.leg)
           %add-nodes
-        ~&  >  [%add-nodes ~(key by nodes.q.l.i.leg)]
         =^  newk  curr
           %-  ~(rep in ~(key by nodes.q.l.i.leg))
           |=  [i=index [h=_have c=_curr]]
@@ -295,7 +294,6 @@
         ?:(=((add from 25) curr) $(leg ~) $(leg t.leg))
       ::
           %add-graph
-        ~&  >  "add-graph"
         =^  newk  curr
           %-  ~(rep by graph.q.l.i.leg)
           |=  [[a=atom *] [h=_have c=_curr]]
