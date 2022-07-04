@@ -25,6 +25,7 @@
 ++  update     update:store
 ++  action     action:store
 ++  upd-log    update-log:store
+++  log-act    logged-action:store
 ++  log-upd    logged-update:store
 ++  gra-vew    action:views
 ++  content    content:store

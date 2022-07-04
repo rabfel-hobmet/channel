@@ -267,16 +267,19 @@
     ^-  (list json)
     =|  curr=@ud
     =|  have=(set @)
+    =/  backup=log-act
+      =-  ?>  ?=([%add-graph *] q.-)  q.-
+      .^  update  %gx
+        %+  weld  gra-p
+        /graph/(scot %p -.res)/(scot %tas +.res)/noun
+      ==
     =;  log=upd-log
       =/  leg=(list [d=@da l=log-upd])
         %-  flop
-        ;;  (list [d=@da l=log-upd])
+        ^-  (list [d=@da l=log-upd])
         :_  (bap:((on @da log-upd) gth) log)
-        :-  now.bol
-        .^  log-upd  %gx
-          %+  weld  gra-p
-          /graph/(scot %p -.res)/(scot %tas +.res)/noun
-        ==
+        ^-  [@da log-upd]
+        [now.bol [now.bol backup]]
       |-
       ?~  leg  ~(tap in `(set json)`(~(run in have) whats))
       ?.  (gte curr from)  $(curr +(curr), leg t.leg)
