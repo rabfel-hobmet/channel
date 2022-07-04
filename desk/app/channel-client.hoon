@@ -276,7 +276,8 @@
           ~(tap in `(set json)`(~(run in have) whats))
         %=    $
             leg
-          ;;  upd-log
+          ;;  (list [d=@da l=log-upd])
+          :_  ~  :-  now.bol
           .^  *  %gx
             %+  weld  gra-p
             /graph/(scot %p -.res)/(scot %tas +.res)/noun
