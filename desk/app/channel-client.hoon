@@ -271,12 +271,22 @@
       =/  leg=(list [d=@da l=log-upd])
         (flop (bap:((on @da log-upd) gth) log))
       |-
-      ?~  leg  ~(tap in `(set json)`(~(run in have) whats))
+      ?~  leg  
+        ?:  =((add from 25) curr)
+          ~(tap in `(set json)`(~(run in have) whats))
+        %=    $
+            leg
+          ;;  upd-log
+          .^  *  %gx
+            %+  weld  gra-p
+            /graph/(scot %p -.res)/(scot %tas +.res)/noun
+          ==
+        ==
       ~&  >>  [%from from %till (add from 25) %curr curr %have have]
       ?.  (gte curr from)  $(curr +(curr), leg t.leg)
       ?+    -.q.l.i.leg  $(leg t.leg)
           %add-nodes
-        ~&  >  "I'm here"
+        ~&  >  [%add-nodes ~(key by nodes.q.l.i.leg)]
         =^  newk  curr
           %-  ~(rep in ~(key by nodes.q.l.i.leg))
           |=  [i=index [h=_have c=_curr]]
@@ -286,6 +296,7 @@
         ?:(=((add from 25) curr) $(leg ~) $(leg t.leg))
       ::
           %add-graph
+        ~&  >  "add-graph"
         =^  newk  curr
           %-  ~(rep by graph.q.l.i.leg)
           |=  [[a=atom *] [h=_have c=_curr]]
