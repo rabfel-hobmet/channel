@@ -388,8 +388,9 @@
     =.  we  (~(del in we) our.bol)
     =/  dif=diff
       [%open ?:(q [%allow-ships we] [%ban-ships we])]
+    ~&  >>  dif
     :+  %pass  /chan/gro-shi/[n]/(scot %tas n)/(scot %da now.bol)
-    :^  %agent  [our.bol %group-push-hook]  %poke
+    :^  %agent  [our.bol %group-store]  %poke
     [%group-action !>(`gro-act`[%change-policy [our.bol n] dif])]
   ::
   ++  close
