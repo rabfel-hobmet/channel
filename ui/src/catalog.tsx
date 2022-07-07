@@ -40,7 +40,7 @@ export function Catalog() {
                       case "text": op_text = obj["text"]
                     }})}
 
-                  return <Link to={`/thread/${ship}/${board}/${each.post["index"].slice(0, -4)}`} className='hover:bg-chan-element'>
+                  return <Link to={`/thread/${ship}/${board}/${each.post["index"].slice(0, -4)}`} className='hover:bg-chan-element' key={`op-${each.post["index"]}`}>
                     <div className='m-9 max-w-xs'>
                       <img className="object-contain max-h-32 drop-shadow-sm mx-auto" src={op_url}/>
                       <div key="content-container" className='text-center'>

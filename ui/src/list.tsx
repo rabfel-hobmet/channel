@@ -41,7 +41,7 @@ export function List() {
                 case "text": extractedText = obj["text"]
               }})}
 
-            return <tr className=' hover:bg-yellow-100 even:bg-chan-element odd:bg-chan-element-alt'>
+            return <tr className=' hover:bg-yellow-100 even:bg-chan-element odd:bg-chan-element-alt' key={`op-${each.post["index"]}`}>
                         <td><div className='w-96 truncate'><Link to={`/thread/${ship}/${board}/${each.post["index"].slice(0, -4)}`} className='text-link-blue hover:text-link-hover hover:underline'>{extractedText}</Link></div></td>
                         <td>{each.replies}</td>
                         <td>{new Date(each.latestUpdate).toLocaleString()}</td>

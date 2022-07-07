@@ -37,9 +37,10 @@ export function Home() {
             <div className="w-full flex flex-col overflow-y-auto justify-between h-96 max-w-prose border-b-8 p-6 my-4 bg-chan-element border-chan-border outline outline-1 outline-black z-10">
             <div>
             {Object.entries(boards).map(([key, value]) => {
-                return <><h2 className="font-semibold px-1 bg-chan-border" key={key}>{key}:</h2>
-                {value["boards"].map((board) => <Link className="text-link-blue px-1 hover:text-link-hover hover:underline" to={`/board/${key}/${board.board}`}>/{board.board}/</Link>)}
-                </>
+                return <div key={`container-${key}`}>
+                <h2 className="font-semibold px-1 bg-chan-border" key={`header-${key}`}>{key}:</h2>
+                {value["boards"].map((board) => <Link className="text-link-blue px-1 hover:text-link-hover hover:underline" to={`/board/${key}/${board.board}`} key={`link-${key}`}>/{board.board}/</Link>)}
+                </div>
             })}
             </div>
             <p className="uppercase font-bold text-right">Add provider</p>
