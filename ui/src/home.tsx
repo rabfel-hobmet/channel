@@ -8,6 +8,7 @@ export function Home() {
     useEffect(() => {
         const init = async() => {
             const providers = await api.scry({app: "channel-client", path: "/providers"});
+            console.log(providers)
             setProviders(providers["providers"]);
         }
         init();
@@ -16,16 +17,26 @@ export function Home() {
     useEffect(() => {
         const init = async() => {
             if (providers?.length > 0) {
+                let newBoards = Object.assign({}, boards);
                 providers.map(async(provider) => {
                     const incomingBoards = await api.scry({app: "channel-client", path: `/boards/${provider}`});
-                    let newBoards = Object.assign({}, boards);
                     newBoards[provider] = incomingBoards;
-                    setBoards(newBoards);
                 })
+                setBoards(newBoards);
             }
         }
         init();
     }, [providers]);
+
+    const addHost = () => {
+        const ship = window.prompt("What ship? eg. ~zod");
+        return window.api.poke({
+            app: "channel-client",
+            mark: "channel-stacy",
+            json: {
+                "see-hoast": ship
+            }}).then(() => location.reload())
+    }
 
     return (
         <main className="flex flex-col items-center justify-center min-h-screen space-y-3 lg:space-y-0">
@@ -43,7 +54,7 @@ export function Home() {
                 </div>
             })}
             </div>
-            <p className="uppercase font-bold text-right">Add provider</p>
+            <p onClick={() => addHost()} className="uppercase font-bold text-right cursor-pointer">Add provider</p>
         </div>
         <p>Use at your own risk.</p>
         </main>
