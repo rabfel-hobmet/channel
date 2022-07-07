@@ -36,13 +36,13 @@ export function List() {
           return aValue?.latestUpdate < bValue?.latestUpdate ? 1 : -1
         }).map((each) => {
             let extractedText;
-            {each.post.contents.slice(1).map((obj) => {
+            {each?.post?.contents?.slice(1).map((obj) => {
               switch(Object.keys(obj)[0]) {
                 case "text": extractedText = obj["text"]
               }})}
 
-            return <tr className=' hover:bg-yellow-100 even:bg-chan-element odd:bg-chan-element-alt' key={`op-${each.post["index"]}`}>
-                        <td><div className='w-96 truncate'><Link to={`/thread/${ship}/${board}/${each.post["index"].slice(0, -4)}`} className='text-link-blue hover:text-link-hover hover:underline'>{extractedText}</Link></div></td>
+            return each.post.contents && <tr className=' hover:bg-yellow-100 even:bg-chan-element odd:bg-chan-element-alt' key={`op-${each.post["index"]}`}>
+                        <td><div className='w-96 truncate'><Link to={`/thread/${ship}/${board}/${each?.post?.["index"]?.slice(0, -4)}`} className='text-link-blue hover:text-link-hover hover:underline'>{extractedText}</Link></div></td>
                         <td>{each.replies}</td>
                         <td>{new Date(each.latestUpdate).toLocaleString()}</td>
                   </tr>

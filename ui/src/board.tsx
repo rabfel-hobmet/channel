@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
-import { graph } from '@urbit/api';
+import { graph, deSig } from '@urbit/api';
 import { Link } from 'react-router-dom';
 import PostBox from './components/postbox';
 import ChannelNav from './components/navbar';
@@ -25,6 +25,22 @@ export function Board() {
     init()
   }, [ship, board])
 
+  const deleteThread = (index) => {
+    window.api.poke({
+      app: "graph-store",
+      mark: "graph-update-3",
+      json: {
+        "remove-posts": {
+          resource: {
+            ship: ship,
+            name: board
+          },
+          indices: [index]
+        }
+      }
+    }).then(() => location.reload());
+  }
+
   return (
     <main className="flex flex-col items-left px-4 space-y-3 justify-start min-h-screen">
       <ChannelNav ship={ship} board={board}/>
@@ -35,24 +51,25 @@ export function Board() {
       }).map((each, i) => {
         let op_url;
         let op_text;
-        {each.post.contents.slice(1).map((obj) => {
+        {each?.post?.contents?.slice(1).map((obj) => {
           switch(Object.keys(obj)[0]) {
             case "url": op_url = obj["url"]
             case "text": op_text = obj["text"]
           }})}
-        return <React.Fragment key={`${each["index"]}-${i}`}>
+        return each?.post?.contents && <React.Fragment key={`${each["index"]}-${i}`}>
           <div className="my-3 space-x-2 flex" key={`op-${each["index"]}`}>
             <a target="_blank" href={op_url}><img className="object-contain max-h-48" src={op_url}/></a>
             <div key={`container-${each["index"]}`}>
               <div className='gap-2 inline-flex' key={`thread-${each["index"]}`}>
                 <p>{new Date(each?.post?.["time-sent"]).toLocaleString()}</p>
-                <Link to={`/thread/${ship}/${board}/${each.post["index"].slice(0, -4)}`} className="text-link-blue hover:text-link-hover hover:underline">[visit thread]</Link>
+                <Link to={`/thread/${ship}/${board}/${each?.post["index"]?.slice(0, -4)}`} className="text-link-blue hover:text-link-hover hover:underline">[visit thread]</Link>
+                {deSig(window.ship) === deSig(ship) && <span className="text-chan-red cursor-pointer hover:underline" onClick={() => deleteThread(each?.post["index"])}>[delete thread]</span>}
               </div>
               <p key={`text-${each["index"]}`} className=''>{op_text}</p>
             </div>
           </div>
           
-          {Object.values(each.thread || {}).sort((a, b) => {
+          {each?.post?.contents && Object.values(each.thread || {}).sort((a, b) => {
             return a.post["time-sent"] > b.post["time-sent"] ? 1 : -1
           }).slice(-3).map((value, i) => {
             return <div key={`div-${i}`} className="ml-3 flex flex-col outline outline-1 max-w-prose"><div className="p-3 flex space-x-2">{value?.children?.[1].post?.contents.map((obj, i) => {

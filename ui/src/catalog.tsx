@@ -34,13 +34,13 @@ export function Catalog() {
                 }).map((each) => {
                   let op_url;
                   let op_text;
-                  {each.post.contents.slice(1).map((obj) => {
+                  {each.post.contents?.slice(1).map((obj) => {
                     switch(Object.keys(obj)[0]) {
                       case "url": op_url = obj["url"]
                       case "text": op_text = obj["text"]
                     }})}
 
-                  return <Link to={`/thread/${ship}/${board}/${each.post["index"].slice(0, -4)}`} className='hover:bg-chan-element' key={`op-${each.post["index"]}`}>
+                  return each.post.contents && <Link to={`/thread/${ship}/${board}/${each.post["index"]?.slice(0, -4)}`} className='hover:bg-chan-element' key={`op-${each.post["index"]}`}>
                     <div className='m-9 max-w-xs'>
                       <img className="object-contain max-h-32 drop-shadow-sm mx-auto" src={op_url}/>
                       <div key="content-container" className='text-center'>
