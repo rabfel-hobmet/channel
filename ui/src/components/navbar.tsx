@@ -40,9 +40,9 @@ export default function ChannelNav({ ship, board }) {
         </NavLink>
       </li>
       <li className="px-3">
-        <NavLink to="/" className={inactiveClassName}>
+        <a href="/apps/channel/" className={inactiveClassName}>
           home
-        </NavLink>{" "}
+        </a>{" "}
       </li>
     </ul>
   );

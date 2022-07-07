@@ -11,25 +11,24 @@ export function Home() {
         app: "channel-client",
         path: "/providers",
       });
-      console.log(providers);
       setProviders(providers["providers"]);
     };
-    init();
+      init();
   }, []);
 
   useEffect(() => {
     const init = async () => {
-      if (providers?.length > 0) {
-        let newBoards = Object.assign({}, boards);
-        providers.map(async (provider) => {
-          const incomingBoards = await api.scry({
-            app: "channel-client",
-            path: `/boards/${provider}`,
-          });
-          newBoards[provider] = incomingBoards;
+        let newBoards = {};
+        providers.forEach(async (ship) => {
+          const board = await window.api.scry({ app: "channel-client", path: `/boards/${ship}`});
+          newBoards[ship] = board;
         });
+        // const scries = providers.map((provider) => ({prov: provider, scry: {
+        //   app: "channel-client",
+        //   path: `/boards/${provider}`,
+        // }}));
+        // newBoards = await Promise.all(scries.map((e) => api.scry(e.scry)));
         setBoards(newBoards);
-      }
     };
     init();
   }, [providers]);
@@ -69,11 +68,11 @@ export function Home() {
                 >
                   {key}:
                 </h2>
-                {value["boards"].map((board) => (
+                {value["boards"].map((board, i) => (
                   <Link
                     className="text-link-blue px-1 hover:text-link-hover hover:underline"
                     to={`/board/${key}/${board.board}`}
-                    key={`link-${key}`}
+                    key={`link-${i}`}
                   >
                     /{board.board}/
                   </Link>
