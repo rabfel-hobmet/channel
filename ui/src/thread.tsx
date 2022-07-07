@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { graph } from "@urbit/api";
+import { graph, deSig } from "@urbit/api";
 import PostBox from "./components/postbox";
 import ChannelNav from "./components/navbar";
 
@@ -82,9 +82,9 @@ export function Thread() {
         })
         .map(([key, value]) => {
           return (
-            <div className="ml-8 flex flex-col outline outline-1 max-w-prose">
+            value?.children?.[1]?.post?.contents && <div className="ml-8 flex flex-col outline outline-1 max-w-prose">
               <div className="p-3 flex space-x-2">
-                {value?.children?.[1].post?.contents.map((obj) => {
+                {value?.children?.[1].post?.contents?.map((obj) => {
                   switch (Object.keys(obj)[0]) {
                     case "url":
                       return (
@@ -101,7 +101,7 @@ export function Thread() {
                 })}
               </div>
               <p className="bg-chan-border text-chan-bg font-bold pr-2 text-right text-xs">
-                <span className="">delete</span>
+                {deSig(window.ship) === deSig(ship) && <span className="text-chan-red mr-2 cursor-pointer" onClick={() => deletePost(value?.children?.[1].post?.["index"])}>delete</span>}
                 {new Date(value?.post?.["time-sent"]).toLocaleString()}
               </p>
             </div>
