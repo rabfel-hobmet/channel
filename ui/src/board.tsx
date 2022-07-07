@@ -32,7 +32,7 @@ export function Board() {
       
       {Object.values(boardPosts || {}).sort((aValue, bValue) => {
         return aValue?.latestUpdate < bValue?.latestUpdate ? 1 : -1
-      }).map((each) => {
+      }).map((each, i) => {
         let op_url;
         let op_text;
         {each.post.contents.slice(1).map((obj) => {
@@ -40,27 +40,27 @@ export function Board() {
             case "url": op_url = obj["url"]
             case "text": op_text = obj["text"]
           }})}
-        return <React.Fragment key={each["index"]}>
-          <div className="my-3 space-x-2 flex" key="op">
+        return <React.Fragment key={`${each["index"]}-${i}`}>
+          <div className="my-3 space-x-2 flex" key={`op-${each["index"]}`}>
             <a target="_blank" href={op_url}><img className="object-contain max-h-48" src={op_url}/></a>
-            <div key="content-container">
-              <div className='gap-2 inline-flex' key="thread-info">
+            <div key={`container-${each["index"]}`}>
+              <div className='gap-2 inline-flex' key={`thread-${each["index"]}`}>
                 <p>{new Date(each?.post?.["time-sent"]).toLocaleString()}</p>
                 <Link to={`/thread/${ship}/${board}/${each.post["index"].slice(0, -4)}`} className="text-link-blue hover:text-link-hover hover:underline">[visit thread]</Link>
               </div>
-              <p key="optext" className=''>{op_text}</p>
+              <p key={`text-${each["index"]}`} className=''>{op_text}</p>
             </div>
           </div>
           
           {Object.values(each.thread || {}).sort((a, b) => {
             return a.post["time-sent"] > b.post["time-sent"] ? 1 : -1
-          }).slice(-3).map((value) => {
-            return <div className="ml-3 flex flex-col outline outline-1 max-w-prose"><div className="p-3 flex space-x-2">{value?.children?.[1].post?.contents.map((obj) => {
+          }).slice(-3).map((value, i) => {
+            return <div key={`div-${i}`} className="ml-3 flex flex-col outline outline-1 max-w-prose"><div className="p-3 flex space-x-2">{value?.children?.[1].post?.contents.map((obj, i) => {
               switch(Object.keys(obj)[0]) {
                 case "url":
-                  return <a target="_blank" href={obj["url"]}><img className="object-contain max-h-48" src={obj["url"]}/></a>
+                  return <a key={`a-${i}`} target="_blank" href={obj["url"]}><img className="object-contain max-h-48" src={obj["url"]}/></a>
                 case "text":
-                  return <p>{obj["text"]}</p>
+                  return <p key={`p-${i}`}>{obj["text"]}</p>
                 }})
             }</div><p className="bg-chan-border text-chan-bg font-bold pr-2 text-right text-xs">{new Date(value?.post?.["time-sent"]).toLocaleString()}</p></div>})
           }
