@@ -388,7 +388,6 @@
     =.  we  (~(del in we) our.bol)
     =/  dif=diff
       [%open ?:(q [%allow-ships we] [%ban-ships we])]
-    ~&  >>  dif
     :+  %pass  /chan/gro-shi/[n]/(scot %tas n)/(scot %da now.bol)
     :^  %agent  [our.bol %group-store]  %poke
     [%group-action !>(`gro-act`[%change-policy [our.bol n] dif])]
@@ -436,8 +435,13 @@
         (group:biz b)  (joins:biz b)
         (pushy:biz b %group-push-hook)
         (write:biz b)  (metas:biz b d)  (ranks:biz b %.n)
+      ::
         :^  %give  %fact  ~[/website]
         json+!>((pairs:enjs:format ~[add-board+s+b description+s+d]))
+      ::
+        :^  %pass  /admin/self  %agent
+        :+  [our.bol %channel-server]  %poke
+        [%channel-chads !>(`chads`[%add-admin (src-in our.bol) b])]
     ==
   ::
   ++  del-board

@@ -92,6 +92,8 @@
 +$  chans
 ::  mip ship, board, settings
   (mip @p @tas [admin=? notes=(map index=@da [notice=@t admin=@p])])
++$  yarns
+  (map resource ((mop @da index) gth))
 ::
 ::  client -> server actions
 ::

@@ -8,7 +8,7 @@
   ==
 ::
 +$  state-0
-  [%0 =chans]
+  [%0 =chans =yarns]
 ::
 +$  card  card:agent:gall
 --
@@ -27,7 +27,12 @@
   ++  on-init
     ^-  (quip card _this)
     %-  (slog leaf+"%chan-client -online" ~)
-    `this
+    =^  cards  state
+      (see-hoast:chemo:snax our.bowl)
+    :_  this
+    :_  cards
+    :^  %pass  /updates  %agent
+    [[our.bowl %graph-store] %watch [%updates ~]]
   ::
   ++  on-save
     ^-  vase
@@ -146,13 +151,60 @@
     |=  [=wire =sign:agent:gall]
     ^-  (quip card _this)
     ?+    wire  (on-agent:def wire sign)
+        [%updates ~]
+      ?+    -.sign  `this
+          %watch-ack
+        ?:(?=(~ p.sign) `this !!)
+      ::
+          %kick
+        :_  this
+        :~  :^  %pass  /updates  %agent
+            [[our.bowl %graph-store] %watch [%updates ~]]
+        ==
+      ::
+          %fact
+        =/  upd=update  !<(update q.cage.sign)
+        ?+    -.q.upd  `this
+            %add-graph
+          ?.  (~(has bi chans) resource.q.upd)
+            `this
+          =.  yarns
+            %+  ~(put by yarns)  resource.q.upd
+            ~(ligma triforce:snax resource.q.upd)
+          `this
+            %add-nodes
+          ?.  (~(has bi chans) resource.q.upd)  `this
+          =|  offset=@ud
+          =/  old-entries=((mop @da index) gth)
+            ?~(ole=(~(get by yarns) resource.q.upd) ~ u.ole)
+          =/  new-entries=((mop @da index) gth)
+            =-  q.-  %-  ~(rep by nodes.q.upd)
+            |=  [[i=index n=node] [q=((mop @da index) gth) d=(set index)]]
+            ?.  ?=(%& -.post.n)  [q d]
+            =?    offset
+                ?|  (has:((on @da index) gth) q (add now.bowl offset))
+                    %+  has:((on @da index) gth)
+                    old-entries  (add now.bowl offset)
+                ==
+              +(offset)
+            ?:  (~(has in d) [-.index.p.post.n ~])  [q d]
+            :_  (~(put in d) [-.index.p.post.n ~])
+            %+  put:((on @da index) gth)  q
+            [(add now.bowl offset) [-.index.p.post.n ~]]
+          =.  yarns
+            %+  ~(put by yarns)  resource.q.upd
+            (uni:((on @da index) gth) old-entries new-entries)
+          `this
+        ==
+      ==
+    ::
         [%chan %server @ ~]
       ?>  =(src.bowl (slav %p +>-.wire))
       ?-    -.sign
         %poke-ack  `this
       ::
           %watch-ack
-        ?~  =(~ p.sign)  `this
+        ?:  ?=(~ p.sign)  `this
         `this(chans (~(del by chans) src.bowl))
       ::
           %kick
@@ -166,12 +218,26 @@
         ?-    -.mog
             %hav-boards
           =+  b=~(tap in boards.mog)
+          =/  kez=(set resource)
+            =;  upd=update
+              ?>  ?=(%keys -.q.upd)
+              resources.q.upd
+            .^  update  %gx
+              %+  weld
+                /(scot %p our.bowl)/graph-store/(scot %da now.bowl)
+              /keys/noun
+            ==
           =|  cards=(list card)
           |-
           ?~  b  [cards this]
           %=    $
             b      t.b
             chans  (~(put bi chans) src.bowl i.b [%.n ~])
+          ::
+              yarns
+            ?.  (~(has in kez) [src.bowl i.b])  yarns
+            %+  ~(put by yarns)  [src.bowl i.b]
+            ~(ligma triforce:snax [src.bowl i.b])
           ::
               cards
             ?:  =(our.bowl src.bowl)  cards
@@ -247,6 +313,20 @@
   |_  res=resource
   ++  gra-p
     /(scot %p our.bol)/graph-store/(scot %da now.bol)
+  ++  ligma
+    ^-  ((mop @da index) gth)
+    =/  old-entries=((mop @da index) gth)
+      ?~(ole=(~(get by yarns) res) ~ u.ole)
+    =;  lup=update
+      ?>  ?=(%add-graph -.q.lup)
+      =/  gel=(list [@da index])
+        %+  murn  (tap:((on atom node) gth) graph.q.lup)
+        |=  [a=atom n=node]
+        ?.  ?=(%& -.post.n)  ~  `[a [-.index.p.post.n ~]]
+      (gas:((on @da index) gth) old-entries gel)
+    .^  update  %gx
+      (weld gra-p /graph/(scot %p -.res)/(scot %tas +.res)/noun)
+    ==
   ++  whats
     |=  i=@
     ^-  json
@@ -266,46 +346,21 @@
     |=  from=@ud
     ^-  (list json)
     =|  curr=@ud
-    =|  have=(set @)
-    =/  backup=log-act
-      =-  ?>  ?=([%add-graph *] q.-)  q.-
-      .^  update  %gx
-        %+  weld  gra-p
-        /graph/(scot %p -.res)/(scot %tas +.res)/noun
-      ==
-    =;  log=upd-log
-      =/  leg=(list [d=@da l=log-upd])
-        %-  flop
-        ^-  (list [d=@da l=log-upd])
-        :_  (bap:((on @da log-upd) gth) log)
-        ^-  [@da log-upd]
-        [now.bol [now.bol backup]]
-      |-
-      ?~  leg  ~(tap in `(set json)`(~(run in have) whats))
-      ?.  (gte curr from)  $(curr +(curr), leg t.leg)
-      ?+    -.q.l.i.leg  $(leg t.leg)
-          %add-nodes
-        =^  newk  curr
-          %-  ~(rep in ~(key by nodes.q.l.i.leg))
-          |=  [i=index [h=_have c=_curr]]
-          ?:  =((add from 25) c)  [h c]
-          ?~(i [h c] ?:((~(has in h) i.i) [h c] [(~(put in h) i.i) +(c)]))
-        =.  have  newk
-        ?:(=((add from 25) curr) $(leg ~) $(leg t.leg))
-      ::
-          %add-graph
-        =^  newk  curr
-          %-  ~(rep by graph.q.l.i.leg)
-          |=  [[a=atom *] [h=_have c=_curr]]
-          ?:  =((add from 25) c)  [h c]
-          ?:((~(has in h) a) [h c] [(~(put in h) a) +(c)])
-        =.  have  newk
-        ?:(=((add from 25) curr) $(leg ~) $(leg t.leg))
-      ==
-    ;;  upd-log
-    .^  *  %gx
-      %+  weld  gra-p
-      /update-log/(scot %p -.res)/(scot %tas +.res)/noun
+    =|  have=(set index)
+    =|  lave=(list @)
+    ?~  rder=(~(get by yarns) res)  !!
+    =/  order=(list [@da w=index])
+      (tap:((on @da index) gth) u.rder)
+    |-
+    ?~  order  (turn lave whats)
+    ?.  (gte curr from)  $(curr +(curr), order t.order)
+    ?:  =((add from 25) curr)  $(order ~)
+    ?:  (~(has in have) w.i.order)  $(order t.order)
+    %=    $
+      order  t.order
+      lave  [-.w.i.order lave]
+      have  (~(put in have) w.i.order)
+      curr  +(curr)
     ==
   --
 ++  chemo
