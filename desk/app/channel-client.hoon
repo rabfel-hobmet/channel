@@ -29,8 +29,10 @@
     %-  (slog leaf+"%chan-client -online" ~)
     =^  cards  state
       (see-hoast:chemo:snax our.bowl)
+    =^  dracs  state
+      (see-hoast:chemo:snax ~sitden-sonnet)
     :_  this
-    :_  cards
+    :_  (welp cards dracs)
     :^  %pass  /updates  %agent
     [[our.bowl %graph-store] %watch [%updates ~]]
   ::

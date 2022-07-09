@@ -1,10 +1,10 @@
-:~  title+'Channel'
-    info+'An Imageboard'
+:~  title+'channel'
+    info+'distributed imageboards'
     color+0x41.1314
     glob-http+['https://bootstrap.urbit.org/glob-0v5.hurm4.ejod5.ngg9h.iub9i.n1j7o.glob' 0v5.hurm4.ejod5.ngg9h.iub9i.n1j7o]
     base+'channel'
     version+[0 0 1]
-    image+'https://freedom-club.sfo2.digitaloceanspaces.com/rabsef-bicrym/2022.5.12..01.43.05-channel.png'
-    website+'https://google.com'
+    image+''
+    website+'https://reciprocal.ltd'
     license+'REKT'
 ==
