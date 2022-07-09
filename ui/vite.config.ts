@@ -1,4 +1,5 @@
 import { loadEnv, defineConfig } from "vite";
+import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js'
 import reactRefresh from "@vitejs/plugin-react-refresh";
 import { urbitPlugin } from "@urbit/vite-plugin-urbit";
 
@@ -13,6 +14,14 @@ export default ({ mode }) => {
     plugins: [
       urbitPlugin({ base: "channel", target: SHIP_URL, secure: false }),
       reactRefresh(),
+      cssInjectedByJsPlugin()
     ],
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks: undefined
+        }
+      }
+    }
   });
 };

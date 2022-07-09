@@ -31,7 +31,6 @@ export function App() {
       createClient(credentials);
 
       useStorageState.setState({ hasCredentials: true });
-      console.log("client initialized");
     }
   }, [credentials]);
 
