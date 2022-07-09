@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useEffect, useState } from "react";
 import { useFileStore } from "../state/useFileStore";
 import { PutObjectCommand } from "@aws-sdk/client-s3";

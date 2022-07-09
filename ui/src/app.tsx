@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Board } from "./board";
@@ -13,7 +14,7 @@ import "./index.css";
 export function App() {
   const { s3 } = useStorageState();
   const credentials = s3.credentials;
-  const { client, createClient, getFiles } = useFileStore();
+  const { createClient } = useFileStore();
   useEffect(() => {
     async function init() {
       useStorageState.getState().initialize(api);

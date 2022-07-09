@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -68,6 +69,7 @@ export function Home() {
         <li><span className="text-chan-red font-bold">You can only trust your fists.</span> Guard your opsec carefully. Boards can be hosted on any ship, and while ship names during posting are scrambled using a per-ship, per-agent SHA256 seed and not able to be scried and descrambled by the operator through +dbug, theoretically an operator could read their event log or monitor incoming packets.</li>
         <li>Likewise, while we import your s3 keys for easy upload, you have to ensure your s3 buckets are using a name that doesn't identify your ship. We do not provide s3-store editing facilities here -- use Groups or Silo.</li>
         <p className="text-center bg-chan-border font-bold text-white py-2 cursor-pointer" onClick={() => dismissPrompt()}>I agree</p>
+        <p><span className="text-chan-red font-bold">Problem?</span> Send DMs to ~haddef-sigwen, ~rabsef-bicrym or ~libbyl-lonsyd and DMCAs to the garbage bin.</p>
         <hr className="border-chan-border"/>
       <p className="text-center font-bold text-chan-red">Release notes</p>
       <p>Initial release. To come:</p>
@@ -79,7 +81,7 @@ export function Home() {
       <li>FE: create a board</li>
       </div>
       </div>}
-    <main className="flex flex-col items-center justify-center min-h-screen space-y-3 lg:space-y-0">
+    <main className="flex flex-col items-center justify-center min-h-screen">
       <div className="max-w-prose justify-center p-6 grid grid-rows-1 gap-2">
         <h2 className="font-bold text-chan-red text-8xl text-center">
           channel
@@ -120,6 +122,7 @@ export function Home() {
           Add provider
         </p>
       </div>
+      <p className="text-xs flex items-center">For ~winder-dapsym, with love <img src="https://freedom-club.sfo2.digitaloceanspaces.com/rabsef-bicrym/2022.7.09..18.39.59-Quartus-Logo-Channel-2.png" className="h-6 hover:animate-spin-slow pl-24"/></p>
     </main>
     </>
   );

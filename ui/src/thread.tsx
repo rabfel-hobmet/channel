@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { graph, deSig } from "@urbit/api";
@@ -6,7 +7,7 @@ import ChannelNav from "./components/navbar";
 
 export function Thread() {
   const [thread, setThread] = useState({});
-  const [op, setOp] = useState();
+  const [op, setOp] = useState({});
   const { ship, board, index } = useParams();
 
   useEffect(() => {
@@ -52,7 +53,7 @@ export function Thread() {
       <ChannelNav ship={ship} board={board} />
       <hr />
 
-      {op?.["contents"].map((obj) => {
+      {op?.["contents"]?.map((obj) => {
         switch (Object.keys(obj)[0]) {
           case "url":
             op_url = obj["url"];

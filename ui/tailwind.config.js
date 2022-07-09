@@ -16,6 +16,9 @@ module.exports = {
         "chan-border": "#9988ee",
         "chan-red": "#990000",
       },
+      animation: {
+        "spin-slow": "spin 6s infinite",
+      },
     },
   },
   screens: {},
