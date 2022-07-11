@@ -109,7 +109,7 @@ export function Thread() {
           );
         })}
       <hr />
-      <PostBox index={index} ship={ship} board={board} />
+      <PostBox className="pl-9" index={index} ship={ship} board={board} />
     </main>
   );
 }

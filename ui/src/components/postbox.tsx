@@ -5,7 +5,7 @@ import { PutObjectCommand } from "@aws-sdk/client-s3";
 import useStorageState from "../state/storage";
 import { dateToDa, deSig } from "@urbit/api";
 
-export default function PostBox({ index, ship, board }) {
+export default function PostBox({ index, ship, board, className = "" }) {
   const { client } = useFileStore();
   const { s3 } = useStorageState();
   const [image, setImage] = useState("");
@@ -25,10 +25,11 @@ export default function PostBox({ index, ship, board }) {
             ContentType: file[0].type,
           })
         )
-        .then(() =>
-          setImage(
-            `${s3.credentials.endpoint}/${s3.configuration.currentBucket}/${timestamp}-${file[0].name}`
-          )
+        .then(() => {
+          const endpoint = s3.credentials.endpoint.startsWith("http") ? s3.credentials.endpoint : `https://${s3.credentials.endpoint}`;
+          return setImage(
+            `${endpoint}/${s3.configuration.currentBucket}/${timestamp}-${file[0].name}`
+          )}
         )
         .catch((err) => console.error(err));
     }
@@ -53,7 +54,9 @@ export default function PostBox({ index, ship, board }) {
   };
 
   return (
-    <div className="grid gap-3 max-w-prose pb-6 my-3 pl-9 ">
+    <>
+    <hr/>
+    <div className={"grid gap-3 max-w-prose pb-6 my-3 " + className}>
       <p>Image</p>
       <input
         value={image}
@@ -76,5 +79,6 @@ export default function PostBox({ index, ship, board }) {
         post
       </button>
     </div>
+    </>
   );
 }
