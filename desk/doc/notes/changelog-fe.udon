@@ -1,0 +1,26 @@
+;>
+
+##  0.0.2
+
+Date: ~2022.6.11
+
+- Second Release. Minor Fixes:
+  - S3 buckets have variant returns - fix to create appropriate link
+  - Remove Spinner Classic (TM) for NuSpinner (TM)
+  - Add poast form to additional pages
+- To Come:
+  - Ship ban button
+  - Sages
+  - Greentext
+  - Reference(s) to prior post(s) in thread
+  - Detect or Set Board Jannies
+  - Board announcements
+  - Board pagination
+  - Application and Board theming
+  - FE Action: Host -> Create Board
+
+##  0.0.1
+
+Date: ~2022.6.11
+
+- Initial Release

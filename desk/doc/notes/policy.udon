@@ -1,0 +1,15 @@
+;>
+
+##  Welcome to channel 0.0.2
+
+Channel is Urbit's premier imageboard application. We are in closed beta. To make the most of your experience using this software, please note the following:
+
+- You can only trust your fists.
+  - Guard your opsec carefully.
+  - Boards can be hosted on any ship, and while ship names during posting are scrambled using a per-ship, per-agent SHA256 seed and not able to be scried and descrambled by the operator through +dbug, theoretically an operator could pilfer through their event log or monitor incoming packets.
+  - Likewise, while we import your s3 keys for easy upload, you have to ensure your s3 buckets are using a name that doesn't identify your ship.
+  - We do not provide s3-store editing facilities here -- use Groups or Silo.
+  
+- Planets only.
+  - Any other types of ships will find boards don't load and, inexplicably, taste ringlets of blood in their mouth.
+
