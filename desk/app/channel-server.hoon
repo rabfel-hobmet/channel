@@ -243,6 +243,12 @@
   ~_  leaf+"%chan-server-fail -unknown-ship"
   (need (~(get by pepa) p))
 ::
+++  grinder
+  ^-  (map @p @p)
+  %-  ~(rep by pepa)
+  |=  [[a=@p b=@p] q=(map @p @p)]
+  (~(put by q) b a)
+::
 ++  all-out
   =,  enjs:format
   |^
@@ -467,14 +473,16 @@
     ?>  (admit-admin:ru b)
     ?~  cur=(~(get by boards) b)
       ~_(leaf+"%chan-server-fail -board-not-found" !!)
-    ?~  secret-me=(~(get by pepa) w)
-      ~_(leaf+"%chan-server-fail -unknown-user" !!)
+    =+  comet-me=(src-in w)
+    =?    pepa
+        !(~(has by pepa) comet-me)
+      (~(put by pepa) comet-me w)
     =.  boards
-      (~(put by boards) b u.cur(adm (~(put in adm.u.cur) u.secret-me)))
+      (~(put by boards) b u.cur(adm (~(put in adm.u.cur) w)))
     :_  state
     :~  :^  %give  %fact  ~[/chan/server/(scot %p our.bol)]
         =-  channel-moggs+!>(`moggs`-)
-        [%new-admins b (~(put in adm.u.cur) u.secret-me)]
+        [%new-admins b (~(put in adm.u.cur) w)]
       ::
         :^  %give  %fact  ~[/website]
         =-  json+!>((frond:enjs:format 'add-admin' -))
