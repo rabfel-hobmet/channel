@@ -1,5 +1,17 @@
 ;>
 
+##  0.0.3
+
+Date: ~2022.7.4
+
+- Major Change - Implement Auto-Jannie
+  - Moderators can now add banned words, to be replaced with random draws from 4Chan's word filter, to their boards
+  - Banned words do not ship in the code - we weren't gonna put that in there, dummies!
+- Minor Changes
+  - Add name of board to `/x/boards scry
+  - Add admin by truname
+  - Incorporate Docs!
+
 ##  0.0.2
 
 Date: ~2022.6.8
