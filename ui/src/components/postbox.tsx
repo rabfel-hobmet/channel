@@ -56,12 +56,12 @@ export default function PostBox({ index, ship, board, className = "" }) {
   return (
     <>
     <hr/>
-    <div className={"grid gap-3 max-w-prose pb-6 my-3 " + className}>
+    <div className={"text-xs grid gap-3 w-full max-w-prose pb-6 my-3 " + className}>
       <p>Image</p>
       <input
         value={image}
         placeholder="https://urbit.org/loss.jpg"
-        className="outline outline-1 p-3 max-w-prose bg-chan-element"
+        className="outline outline-1 p-3 bg-chan-element"
         onChange={(e) => setImage(e.target.value)}
       />
       {client !== null && (
@@ -69,7 +69,7 @@ export default function PostBox({ index, ship, board, className = "" }) {
       )}
       <p>Reply</p>
       <textarea
-        className="outline outline-1 p-3 max-w-prose bg-chan-element max-h-56 h-24"
+        className="outline outline-1 p-3 w-full bg-chan-element max-h-56 h-24"
         onChange={(e) => setReply(e.target.value)}
       />
       <button
