@@ -48,7 +48,7 @@ export function List() {
   return (
     <main className="flex flex-col items-left px-4 space-y-3 justify-start min-h-screen">
       <ChannelNav ship={ship} board={board} />
-      <hr />
+      <PostBox index={null} ship={ship} board={board} className="self-center" />
 
       <table className="table-auto max-w-2xl text-left my-3">
         <thead>
@@ -100,7 +100,6 @@ export function List() {
             })}
         </tbody>
       </table>
-      <PostBox index={null} ship={ship} board={board} />
     </main>
   );
 }

@@ -68,7 +68,7 @@ export function Board() {
   return (
     <main className="flex flex-col items-left px-4 space-y-3 justify-start min-h-screen">
       <ChannelNav ship={ship} board={board} />
-      <hr />
+      <PostBox index={null} ship={ship} board={board} className="self-center"/>
 
       {Object.values(boardPosts || {})
         .sort((aValue, bValue) => {
@@ -83,7 +83,7 @@ export function Board() {
                 case "url":
                   op_url = obj["url"];
                 case "text":
-                  op_text = process_text(obj["text"]);
+                  op_text = process_text(obj["text"] || "");
               }
             });
           }
@@ -176,7 +176,6 @@ export function Board() {
             )
           );
         })}
-      <PostBox index={null} ship={ship} board={board} />
     </main>
   );
 }
