@@ -15,6 +15,7 @@ module.exports = {
         "chan-element-alt": "#dddddd",
         "chan-border": "#9988ee",
         "chan-red": "#990000",
+        "chan-green": "#789922",
       },
       animation: {
         "spin-slow": "spin 6s infinite",

@@ -5,6 +5,7 @@ import { graph, deSig } from "@urbit/api";
 import { Link } from "react-router-dom";
 import PostBox from "./components/postbox";
 import ChannelNav from "./components/navbar";
+import { process_text } from "./lib/text";
 
 export function Board() {
   const [boardPosts, setBoardPosts] = useState([]);
@@ -82,7 +83,7 @@ export function Board() {
                 case "url":
                   op_url = obj["url"];
                 case "text":
-                  op_text = obj["text"];
+                  op_text = process_text(obj["text"]);
               }
             });
           }
@@ -121,9 +122,9 @@ export function Board() {
                         </span>
                       )}
                     </div>
-                    <p key={`text-${each["index"]}`} className="">
+                    <div key={`text-${each["index"]}`} className="">
                       {op_text}
-                    </p>
+                    </div>
                   </div>
                 </div>
 
@@ -157,7 +158,7 @@ export function Board() {
                                       </a>
                                     );
                                   case "text":
-                                    return <p key={`p-${i}`}>{obj["text"]}</p>;
+                                    return <div key={`div-${i}`}>{process_text(obj["text"])}</div>;
                                 }
                               }
                             )}
