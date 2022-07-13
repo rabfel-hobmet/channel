@@ -64,8 +64,8 @@
           %let-users  (let-users:su-poke:moot whe.cad buard.cad)
           %set-ranks  (set-ranks:su-poke:moot bounty.cad)
         ::
-          %ban-words  (ban-words:su-poke:moot which.cad board.cad)
-          %ban-sites  (ban-sites:su-poke:moot which.cad board.cad)
+          %ban-words  (ban-words:su-poke:moot which.cad)
+          %ban-sites  (ban-sites:su-poke:moot which.cad)
         ::
           %big-notes  (big-notes:su-poke:moot notice.cad board.cad)
         ==
@@ -78,6 +78,8 @@
         ?>  ?&  admit-users-universal:ru:moot
                 (admit-users-board:ru:moot board.wat)
             ==
+        =.  contents.wat
+          (auto-jannie:moot contents.wat)
         ::  todo - banned word parsing
         ::  todo - banned site parsing
         =+  new=(add now.bowl ~s2)
@@ -270,6 +272,44 @@
         banned+a+(turn ~(tap in ban) |=(@p s+(scot %p +<)))
     ==
   --
+::
+  ++  auto-jannie
+    |=  lc=(list content)
+    ^-  (list content)
+    =;  roody-poo=(list @t)
+      %+  turn  lc
+      |=  c=content
+      ?.  ?=(%text -.c)  c
+      =+  cancel=~(tap in `(set tape)`(~(run in words.banned) trip))
+      =+  review=(trip +.c)
+      =+  rng=~(. og eny.bol)
+      |-
+      ?:  |(?=(~ cancel) ?=(~ review))  [%text (crip review)]
+      ?~  maybe-start=(find i.cancel review)  $(cancel t.cancel)
+      =+  penis=(rads:rng (lent roody-poo))
+      =/  replace=@t
+        (snag -.penis roody-poo)
+      %=    $
+          rng
+        +.penis
+          review
+        %+  into
+          (oust [(need maybe-start) (lent i.cancel)] `tape`review)
+        [(need maybe-start) replace]
+      ==
+      ::
+    :~  'roody-poo'
+        'sigourney'
+        'PENIS'
+        'candy-ass'
+        'VAGINA'
+        'peanut butter'
+        'bring back'
+        'grinman'
+        'triscuits'
+        'is a meme'
+        'ǫ̸̧͍̤̱̼̹̋̐̔̊̎̀n̶̙͍̻̭̩̰̞̱̘͊̀̂́ ̴̨̪͇̠͕̩̦̲̯͎͖̣͚̻̈́̊̅͑̂͛̈́͌̌͝u̵̝͛̅͗͑͒͐̈́̀͝r̶̘͍̖̹̘̟̰̱̥͔̙̜͇̠̿͜b̸̲̦̬͙͖̗̲͙̲̑̉́̄͝i̸̡̮̱͚̾͂̋̒̉̐̀́͐͠͝t̵̯͖͈͈͚̜̭̳̮̊́͂̾̑̽̆́͗͜͠ ̷̗̙̬͓̃͗̇͒̍͠n̴̻̬̜̙̩̠̞͚̹͙̻͠o̴̡̥̻̪̻͎̱̼̜̻͈̥̓͛̀͗̃̉̊͗̅̋̈́̔̐̕͝ ̵̰̥͇͚̦͔̱̻̤̮͈̗͕̩͗͆̄̃̉͂̄̒̀̈́ŏ̷̢̢̡̡̨͖̪̩̰̰̣͍̈́̇̍̾̽̽̈́n̷̫̹̙̝̥͒̇̿̐̋͆̆̕ͅḙ̸͓͙͗̿̄̉͆́̌̇͊̿̓́͘̚̕ ̷̢̣̫̫̘̞̪͈͕̗̥͂́̿͗̆̈́č̶̨̼͈̪̦͕̤̣͇͙̬͈̤̺̏͊͆͑̃ḁ̷̡̳̽̉̆n̶̦̥̱͎̉̉̈́̒̃̐̈́̽ ̸̢͓̙̣̺̠̳̭̌̀͐̊͑̇̽͆̈̓̆͗̚͜h̸͓͚̩̹̠̼̳̿̋͋͒͛e̸̡̧̨̡̧͍͎̲͕̯̯͎̞̬̻̐̌͂̽͐̌͘͝͠͝á̴̧̫̥͇͍͈̰̜̰͊̈̾̽̅̕̚͝r̴̨̛̛͈͓̜̳̺̤̘̺̼͙̀̈́̅͑̀̍̀́͘̚͝ ̴̡̢̰̼̺̐͊͑̒̕͝ͅỳ̶̩̝̭̞̣̦̰̜͓͠͝ͅò̸̢̜̦̰̥̭͖͂͌̀̋́̊̊͘̚̚͝u̴̧̦̻̜̔͐̊̐̉̈̈́͒͘ ̷̢̨̹̘͕̓͌̎͐s̵̨̫̄̑͠ͅç̶͖̦͍̹̣̦̬̳͓̙͍̞͊̈́́̌̚ŗ̶̞͈̲͚͊̌́̍̌͛̕͝e̵̖̪̼̻̦̦͔̤̦̲̖̳̜͗̋̂̓̆̇̿́͐̎͜͠͠ā̶̻͔̟͒̋̋̆͑͒͋͘̕m̴̧̟̦͈̒̋'
+    ==
 ::
 ++  ru
   |%
@@ -577,12 +617,28 @@
     :^  %give  %fact  ~[/website]
     json+!>((pairs:enjs:format ~[only+b+only.bounty which+s+which.bounty]))
   ++  ban-words
-    |=  [wc=(set cord) b=@tas]
+    |=  wc=(set cord)
     ^-  (quip card _state)
     ?>  admit-super:ru
-    `state
+    =;  roody-poo=(set cord)
+      =.  banned
+        banned(words (~(uni in words.banned) (~(dif in wc) roody-poo)))
+      `state
+    %-  sy
+    :~  'roody-poo'
+        'sigourney'
+        'PENIS'
+        'candy-ass'
+        'VAGINA'
+        'peanut butter'
+        'bring back'
+        'grinman'
+        'triscuits'
+        'is a meme'
+        'ǫ̸̧͍̤̱̼̹̋̐̔̊̎̀n̶̙͍̻̭̩̰̞̱̘͊̀̂́ ̴̨̪͇̠͕̩̦̲̯͎͖̣͚̻̈́̊̅͑̂͛̈́͌̌͝u̵̝͛̅͗͑͒͐̈́̀͝r̶̘͍̖̹̘̟̰̱̥͔̙̜͇̠̿͜b̸̲̦̬͙͖̗̲͙̲̑̉́̄͝i̸̡̮̱͚̾͂̋̒̉̐̀́͐͠͝t̵̯͖͈͈͚̜̭̳̮̊́͂̾̑̽̆́͗͜͠ ̷̗̙̬͓̃͗̇͒̍͠n̴̻̬̜̙̩̠̞͚̹͙̻͠o̴̡̥̻̪̻͎̱̼̜̻͈̥̓͛̀͗̃̉̊͗̅̋̈́̔̐̕͝ ̵̰̥͇͚̦͔̱̻̤̮͈̗͕̩͗͆̄̃̉͂̄̒̀̈́ŏ̷̢̢̡̡̨͖̪̩̰̰̣͍̈́̇̍̾̽̽̈́n̷̫̹̙̝̥͒̇̿̐̋͆̆̕ͅḙ̸͓͙͗̿̄̉͆́̌̇͊̿̓́͘̚̕ ̷̢̣̫̫̘̞̪͈͕̗̥͂́̿͗̆̈́č̶̨̼͈̪̦͕̤̣͇͙̬͈̤̺̏͊͆͑̃ḁ̷̡̳̽̉̆n̶̦̥̱͎̉̉̈́̒̃̐̈́̽ ̸̢͓̙̣̺̠̳̭̌̀͐̊͑̇̽͆̈̓̆͗̚͜h̸͓͚̩̹̠̼̳̿̋͋͒͛e̸̡̧̨̡̧͍͎̲͕̯̯͎̞̬̻̐̌͂̽͐̌͘͝͠͝á̴̧̫̥͇͍͈̰̜̰͊̈̾̽̅̕̚͝r̴̨̛̛͈͓̜̳̺̤̘̺̼͙̀̈́̅͑̀̍̀́͘̚͝ ̴̡̢̰̼̺̐͊͑̒̕͝ͅỳ̶̩̝̭̞̣̦̰̜͓͠͝ͅò̸̢̜̦̰̥̭͖͂͌̀̋́̊̊͘̚̚͝u̴̧̦̻̜̔͐̊̐̉̈̈́͒͘ ̷̢̨̹̘͕̓͌̎͐s̵̨̫̄̑͠ͅç̶͖̦͍̹̣̦̬̳͓̙͍̞͊̈́́̌̚ŗ̶̞͈̲͚͊̌́̍̌͛̕͝e̵̖̪̼̻̦̦͔̤̦̲̖̳̜͗̋̂̓̆̇̿́͐̎͜͠͠ā̶̻͔̟͒̋̋̆͑͒͋͘̕m̴̧̟̦͈̒̋'
+    ==
   ++  ban-sites
-    |=  [wc=(set cord) b=@tas]
+    |=  wc=(set cord)
     ^-  (quip card _state)
     ?>  admit-super:ru
     `state
