@@ -35,6 +35,7 @@
 ::  metas stuff
 ::
 ++  met-act  action:metas
+++  associo  association:metas
 ::
 ::  group stuff
 ::
