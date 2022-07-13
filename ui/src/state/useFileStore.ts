@@ -323,7 +323,6 @@ export const useFileStore = create<FileStore>(
             const key = file.Key || "";
             const { folder, filename, ...info } = getFileInfo(key);
             const newTree = parseFolderIntoTree(splitPath(folder));
-            console.log(key);
             // console.log('new tree', JSON.stringify(newTree));
 
             if (newTree) {
