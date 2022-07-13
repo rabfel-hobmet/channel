@@ -5,7 +5,7 @@
     /interface/udon       Interface
 
   /use-server           Using Channel Server
-    /soon/udon            Coming Soon!
+    /basics/udon            Server Basics
 
 /notes                Important Notes
   /policy/udon          Policy & Read Me

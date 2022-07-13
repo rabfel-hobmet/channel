@@ -1,0 +1,106 @@
+;>
+
+## Server Configuration
+
+Channel includes both a Server and a Client component. However, Channel deploys from ~sitden-sonnet with only `%channel-client` online. If you want to host your own Channel, you're going to have to do some work.
+
+We are actively working on a full front-end for Channel's server-side agent and filling in the server's feature set. For now, you still have a lot of options when it comes to using Channel's server.
+
+### Turning On Channel's Server
+
+In the `dojo` or Web `terminal`, perform the following action:
+
+`|rein %channel [%.y %channel-server] [%.y %channel-client]`
+
+You should eventually see the following printout:
+`%chan-server -online`
+
+You can confirm that Channel Server is online by performing the following action and observing the output (again in your `dojo` or `terminal`):
+`:channel-server +dbug %state`
+
+Which should produce something like this:
+```
+>   [ %0
+      bounty=[only=%.y which=%planet]
+      boards={}
+      banned=[users={} words={'moist'} sites={}]
+    ]
+```
+
+Let's examine each state element and discuss how you can change them, in the order in which you should attend to them:
+
+###  Bounty
+
+Bounty consists of `only` and `which`. It is an `each` type data structure, in more technical terms.
+
+Bounty expects to be told whether to `only` allow `which` ship/node types. That is to say "Only Planets" is an option, as is "Planets and Up", and every other configuration of node type and "Only" or "and Up" structures.
+
+You should set your Bounty before creating any boards - and think carefully about how you want it set. Changing it later can result in your users losing access! The default setting is "Only Planets" or `[only=%.y which=%planet]`.
+
+#### Setting Bounty
+
+- `only`
+  - `%.y` for 'Only...'
+  - `%.n` for '...and Up'
+- `which`
+  - `%galaxy` `%star` `%planet` `%moon` or `%comet`
+
+So `[%.n %planet]` is 'Planets and Up'
+
+Perform the following dojo action to set your ranks, replacing the portion in `<>`s with your `only` and `which` decisions
+
+`:channel-server &channel-chads [%set-ranks [<only> <which>]]`
+
+E.g., to set "Moons and Up", poke `:channel-server &channel-chads [%set-ranks [%.n %moon]]`
+
+### Banned
+
+Banned lets you ban users, words, and (soon) URLs, from use on your board.
+
+#### Ban a User
+
+`:channel-server &channel-chads [%ban-users (set @p) (unit @tas)]`
+
+Ban users lets you ban users from one or all of your boards. When you ban a user, you need to use their fake comet name as it presents on the boards. This will be easier when we implement it in the front end, soon.
+
+Putting in a `~` for `(unit @tas)` bans the users in `(set @p)` from _all_ boards, while putting a `[~ %board-name]` will ban the users from just that one board that you serve. This can be iterated for several boards, if you want to ban, say, ~rabsef-bicrym from `/cool-dudes/` and `/only-one-eyed-people/` but not from `/new-guy-just-dropped/`, by banning ~rabsef from each of those consecutively.
+
+#### Re-Permit a user
+
+`:channel-server &channel-chads [%let-users (set @p) (unit @tas)]`
+
+Works the same as banning a user, only in reverse.
+
+#### Ban a word
+
+> Banned Words Cannot Currently Be Unbanned
+
+`:channel-server &channel-chads [%ban-words (set cord)]`
+
+Banning a word will cause it to be replaced by a word from the list of 4chan's filter words, at random, when used in a post.
+
+### Boards
+
+Here you will see all the boards that your ship currently serves. It starts with none! Maybe you should make one?
+
+#### Add Board
+
+Adding a board is the easy part, think of a `/name/` that you want and an `extended description` and provide it in a poke like this:
+
+`:channel-server &channel-chads [%add-board %name 'extended-description']`
+
+You will be auto-subscribed to your own server in your client, so you can hop right over there and start posting once you've created the board.
+
+If you've set up your board correctly, banned the naughty words you don't want, set your ranks and everything's ready to go, your friends can add you through _their_ channel client as a provider and start posting.
+
+If ever you need to really nuke a channel that you've started, use `:channel-server &channel-chads [%del-boards %name]` but be forewarned that it really actually deletes it for you.
+
+### Admins
+
+Channel allows you to set remote ships as admins for your board. Eventually these admin pokes will be implemented in the `channel-client` front end, allowing your admins to perform actions against your boards, without you having to oversee anything.
+
+Until then, you can add admins (`@p`) to individual boards (`@tas`) with:
+
+`:channel-server &channel-chads [%add-admin <@p> <@tas>]`
+
+And you can remove them (`@p`) with `[%del-admin <(set @p)> <@tas>]` from those boards (`@tas`).

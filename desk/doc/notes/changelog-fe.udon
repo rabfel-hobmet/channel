@@ -5,9 +5,8 @@
 Date: ~2022.7.12
 
 - Third Release. Tasty Treats:
-  - Add poast IDs to poasts
-  - Add 'trip-codes' to poasts
   - Add support for Greentext
+  - Add support for Bluetext
   - Avoid race condition on landing page
 - To Come:
   - Mobile Improvements
