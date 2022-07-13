@@ -13,11 +13,17 @@ export function process_text (text) {
           return line
         }
       })
-      let find_newlines = find_arrows.map((line, i) => {
-        let t = line == "" ? <p  key={`p-newline-${i}`} className="whitespace-pre-line">{"\n"}</p> : line
+      let n = false
+      //if 'line' is a "" then we ask if 'n' is false. if it is, we make it true, and spit out a single newline <p>
+      //any other "" we encounter we ignore, and then when we encounter a line that isnt empty we reset.
+      let find_and_reduce_newlines = find_arrows.map((line,i) => {
+        let t = line == ""
+          ? (n == false ? (n = true, <p  key={`p-newline-${i}`} className="whitespace-pre-line">{"\n"}</p>) : line)
+          : (n = false, line)
         return t
       })
-      text_processed = find_newlines
+
+      text_processed = find_and_reduce_newlines
     } else {
       text_processed = text_split
     }
