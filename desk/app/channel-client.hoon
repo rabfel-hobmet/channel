@@ -1,6 +1,6 @@
 ::  /app/channel-client - a distributed chan client
 /-  *channel
-/+  default-agent, dbug, *mip, glib=graph-store
+/+  default-agent, dbug, *mip, glib=graph-store, rizzo=resource
 ::
 |%
 +$  versioned-state
@@ -117,7 +117,14 @@
       =-  ``json+!>(`json`-)
       %+  frond  'boards'
       :-  %a  %+  turn  ~(tap in u.ls)
-      |=([b=@tas [a=? n=*]] (pairs ~[board+s+b admin+b+a]))
+      |=  [b=@tas [a=? n=*]]
+      %-  pairs
+      :~  board+s+b
+          admin+b+a
+      ::
+        :+  %name  %s
+        ~(named triforce:snax [(slav %p +>-.pek) b])
+      ==
     ::
         [%x %notices @ @ ~]
       ?~  ls=(~(get by chans) (slav %p +>-.pek))
@@ -315,6 +322,13 @@
   |_  res=resource
   ++  gra-p
     /(scot %p our.bol)/graph-store/(scot %da now.bol)
+  ++  met-p
+    /(scot %p our.bol)/metadata-store/(scot %da now.bol)
+  ++  named
+    =-  ?~(p=- 'unk.' description.metadatum.u.p)
+    .^  (unit associo)  %gx
+       ;:(welp met-p /metadata/graph (en-path:rizzo res) /noun)
+    ==
   ++  ligma
     ^-  ((mop @da index) gth)
     =/  old-entries=((mop @da index) gth)

@@ -4,6 +4,7 @@ import { useParams } from "react-router";
 import { graph, deSig } from "@urbit/api";
 import PostBox from "./components/postbox";
 import ChannelNav from "./components/navbar";
+import { process_text } from "./lib/text";
 
 export function Thread() {
   const [thread, setThread] = useState({});
@@ -58,7 +59,7 @@ export function Thread() {
           case "url":
             op_url = obj["url"];
           case "text":
-            op_text = obj["text"];
+            op_text = process_text(obj["text"]);
         }
       })}
       <div className="my-3 space-x-2 flex" key="op">
@@ -69,9 +70,9 @@ export function Thread() {
           <div className="gap-2 inline-flex" key="thread-info">
             <p>{new Date(op?.["time-sent"]).toLocaleString()}</p>
           </div>
-          <p key="optext" className="">
+          <div key="optext" className="">
             {op_text}
-          </p>
+          </div>
         </div>
       </div>
 
@@ -97,7 +98,7 @@ export function Thread() {
                         </a>
                       );
                     case "text":
-                      return <p className="">{obj["text"]}</p>;
+                      return <div className="">{process_text(obj["text"])}</div>;
                   }
                 })}
               </div>

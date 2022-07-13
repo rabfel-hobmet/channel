@@ -1,0 +1,31 @@
+;>
+
+> Some of the following may be hyperbole.
+
+## An Imageboard on Urbit
+
+Textboards are simple internet forums. Anonymity is a primative of the Text/Imageboard. Simplicity is a driving principle. Channel is a desk that contains two agents, Channel-Server and Channel-Client. With these two simple (sub 600 lines each) agents, the Urbit Imageboard is born. Channel uses secretly-salted-hashes to create fake comet names for each participant, like a trip code on 4chan.
+
+Channel is an obligate hemiparasite, like the Indian Paintbrush (Castilleja miniate). It requires `graph-store` to exist, and parasitizes `graph-store`'s graphs to create the imageboard. Any board you are a member of can be seen in the "My Channels" section of the Groups app, however that is not the recommended viewing modality - use the app!
+
+![An Obligate Hemi-Parasite](https://npr.brightspotcdn.com/dims4/default/63285ef/2147483647/strip/true/crop/1171x900+0+0/resize/880x676!/quality/90/?url=http%3A%2F%2Fmediad.publicbroadcasting.net%2Fp%2Fkufm%2Ffiles%2F201510%2FIndian-paintbrush_PD.jpg)
+
+## Uses
+
+Channel allows Urbit pilots who install it to:
+- Channel-Client
+  - Use a locally-installed aggregator client to browse through distributed imageboards to which they subscribe;
+  - Post images and text to the boards to which they subscribe;
+  - Upload images to their S3 bucket, through the interface, for use on a board;
+  - Maintain a modicum of privacy (see Privacy Policy).
+- Channel-Server
+  - Create any number of imageboards to serve (and delete them);
+  - Set Urbit `rank` permissions (allowing, e.g., only planets to access the board);
+  - Promote (and demote) users to administrators on specific boards, via their encrypted comet name;
+  - Ban (and readmit) users from specific boards or the full suite of boards offered by that host, via their encrypted comet name;
+  - Ban Words and Sites/URLs from being used on their boards;
+  - Send a note, per board, to all users as a banner.
+
+## Musica Universalis
+
+Some Urbit planets are particularly sonorous. The `Musica Universalis` of a well piloted planet is unmistakable. When one encounters such a planet, it is hard not to be changed by that experience. This software is dedicated to ~winder-dapsym, who can still be heard in the ether, and to ~dashus-navnul, an inescapable celestial mass capable of containing all information in the holographic universe.

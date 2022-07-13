@@ -35,6 +35,7 @@
 ::  metas stuff
 ::
 ++  met-act  action:metas
+++  associo  association:metas
 ::
 ::  group stuff
 ::
@@ -71,8 +72,8 @@
       [%let-users whe=(set @p) buard=(unit @tas)]        ::  re-permit users on some or all boards
       [%set-ranks =bounty]
     ::
-      [%ban-words which=(set cord) board=@tas]           ::  this will require parsing all content, but could maybe be done in frontend?
-      [%ban-sites which=(set cord) board=@tas]           ::  ban linking to some urls? also done in front end?
+      [%ban-words which=(set cord)]                      ::  this will require parsing all content, but could maybe be done in frontend?
+      [%ban-sites which=(set cord)]                      ::  ban linking to some urls? also done in front end?
     ::
       [%big-notes notice=@t board=@tas]                  ::  send a notice to users
   ==

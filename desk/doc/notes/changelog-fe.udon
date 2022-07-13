@@ -1,0 +1,35 @@
+;>
+
+##  0.0.3
+
+Date: ~2022.7.12
+
+- Third Release. Tasty Treats:
+  - Add support for Greentext
+  - Add support for Bluetext
+  - Avoid race condition on landing page
+- To Come:
+  - Mobile Improvements
+  - Ship ban button
+  - Sages
+  - Reference(s) to prior post(s) in thread
+  - Detect or Set Board Jannies
+  - Board announcements
+  - Board pagination
+  - Application and Board theming
+  - FE Action: Host -> Create Board
+
+##  0.0.2
+
+Date: ~2022.7.11
+
+- Second Release. Minor Fixes:
+  - S3 buckets have variant returns - fix to create appropriate link
+  - Remove Spinner Classic (TM) for NuSpinner (TM)
+  - Add poast form to additional pages
+
+##  0.0.1
+
+Date: ~2022.7.10
+
+- Initial Release

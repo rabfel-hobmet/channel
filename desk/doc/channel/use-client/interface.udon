@@ -1,0 +1,56 @@
+;>
+Channel-Client's interface was built by Reciprocal LTD's talented designers. It's lightweight and fast. You'll like it.
+
+##  Home
+
+The Home Page opens with a splash screen:
+
+![Channel-Client's Home Screen](https://freedom-club.sfo2.digitaloceanspaces.com/rabsef-bicrym/2022.7.11..19.19.23-image.png)
+
+###  Notices
+
+You may be tempted to scroll through this, but there are a few things you should know:
+- Privacy
+  - Channel's privacy is not guaranteed - do not dox yourself. Assume that bad operators can get your ship name if they have enough incentive.
+- Access (Planets Only - on ~sitden-sonnet, at least)
+  - Channel's base station (~sitden-sonnet) is only available to planets. Thank you for your understanding
+  - If you'd like to start a board for stars or otherwise, we're happy to help.
+
+##  Boards
+
+Once you've acknowledged these risks and responsibilities, you'll be presented with a list of boards to which you have access:
+
+![Channel-Client's Board List](https://freedom-club.sfo2.digitaloceanspaces.com/rabsef-bicrym/2022.7.11..22.02.55-image.png)
+
+###  Actions
+
+From here you can:
+- Click on a board to access the board
+- Click on `Add Provider` to add a new watched-provider of boards to your list!
+
+That's it!
+
+##  Boards
+
+You can view your boards in three ways, once you click on them.
+
+###  Overview
+
+From the home page of the board you clicked on, you can see all active threads, in the order in which they were last active!
+
+![Channel-Board Page Posts](https://freedom-club.sfo2.digitaloceanspaces.com/rabsef-bicrym/2022.7.11..22.16.17-image.png)
+
+####  Actions
+
+- Click `visit thread` to see the full thread with all of its posts.
+- Add a new post using the entry form (you can upload an image, but be forewarned it uses your ship's main S3 bucket, thereby potentially doxxing you)
+- Visit the Thread list or Catalog
+- Return Home
+
+###  Thread List
+
+The thread list displays threads on your board in table format, top level only.
+
+###  Catalog
+
+The catalog displays top level posts' images, for the board you're on.

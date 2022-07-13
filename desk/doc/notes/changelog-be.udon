@@ -1,0 +1,37 @@
+;>
+
+##  0.0.3
+
+Date: ~2022.7.4
+
+- Major Change - Implement Auto-Jannie
+  - Moderators can now add banned words, to be replaced with random draws from 4Chan's word filter, to their boards
+  - Banned words do not ship in the code - we weren't gonna put that in there, dummies!
+- Minor Changes
+  - Add name of board to `/x/boards scry
+  - Add admin by truname
+  - Incorporate Docs!
+
+##  0.0.2
+
+Date: ~2022.6.8
+
+- Major Change - Add State Element `yarns`
+  - `update-logs` in `graph-store` is not, as the docs formerly claimed, a complete `update-log`
+    - Specifically, it lacks the `add-graph` node that bases the posts added to the graph prior to the user joining
+    - Channel needed to thread posts correctly and re-sort "recency" off of top-level and comment-level posts, and without a full update log that is not possible (or at least very difficult) without external tooling
+    - Yarns provides an interfacing w/ `graph-store` to generate `mop`s of ordered post data, allowing Channel's front end to display properly
+- Minor Change(s):
+  - Added auto-subscription to ~sitden-sonnet in `+on-init`
+- To Come:
+  - Word and URL ban parsing
+  - Themeing state elements
+  - Delete Poast function
+  - Try and convince my collaborators to allow for `[%.n %planet]` default Server state.
+  - Fail gracefully when joining a board for which you lack permissions
+
+##  0.0.1
+
+Date: ~2022.6.4
+
+- Initial Release
