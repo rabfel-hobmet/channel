@@ -1,18 +1,11 @@
 // @ts-nocheck
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Prompt from './components/prompt'
 
 export function Home() {
-  const [prompt, setPrompt] = useState(true);
   const [providers, setProviders] = useState<string[]>([]);
-  const [boards, setBoards] = useState({});
-
-  useEffect(() => {
-    const prompt = Boolean(JSON.parse(localStorage.getItem('channel-prompt-0.0.2') ?? "true"));
-    if (prompt === false) {
-      setPrompt(prompt)
-    }
-  }, []);
+  const [boards, setBoards] = useState([]);
 
   useEffect(() => {
     const init = async () => {
@@ -27,17 +20,13 @@ export function Home() {
 
   useEffect(() => {
     const init = async () => {
-        let newBoards = {};
-        providers.forEach(async (ship) => {
-          const board = await window.api.scry({ app: "channel-client", path: `/boards/${ship}`});
-          newBoards[ship] = board;
-        });
-        // const scries = providers.map((provider) => ({prov: provider, scry: {
-        //   app: "channel-client",
-        //   path: `/boards/${provider}`,
-        // }}));
-        // newBoards = await Promise.all(scries.map((e) => api.scry(e.scry)));
-        setBoards(newBoards);
+      const bards = [];
+      const newBoards = await providers.reduce((prevPromise, nextBoard) => {
+        return prevPromise.then(async () => {
+          return bards.push({ship: nextBoard, boards: await window.api.scry({ app: "channel-client", path: `/boards/${nextBoard}`}).then((res) => res.boards)})
+        })
+      }, Promise.resolve())
+        setBoards(bards);
     };
     init();
   }, [providers]);
@@ -55,37 +44,9 @@ export function Home() {
       .then(() => location.reload());
   };
 
-  const dismissPrompt = () => {
-    setPrompt(false);
-    return localStorage.setItem('channel-prompt-0.0.2', JSON.stringify(false))
-  }
-
   return (
     <>
-    {prompt && <div className="absolute w-screen h-screen z-20 flex justify-center items-center">
-      <div className="bg-chan-element w-full max-w-prose max-h-96 overflow-auto border-2 border-chan-border p-4 flex flex-col space-y-4 text-sm">
-        <p className="text-center font-bold text-chan-red pb-4">Disclaimer</p>
-        <p><span className="text-chan-red font-bold">Welcome to channel 0.0.2</span>, Urbit's premier imageboard application. We are in closed beta. To make the most of your experience using this software, please note the following:</p>
-        <li><span className="text-chan-red font-bold">You can only trust your fists.</span> Guard your opsec carefully. Boards can be hosted on any ship, and while ship names during posting are scrambled using a per-ship, per-agent SHA256 seed and not able to be scried and descrambled by the operator through +dbug, theoretically an operator could pilfer through their event log or monitor incoming packets.</li>
-        <li>Likewise, while we import your s3 keys for easy upload, you have to ensure your s3 buckets are using a name that doesn't identify your ship. We do not provide s3-store editing facilities here -- use Groups or Silo.</li>
-        <li><span className="text-chan-red font-bold">Planets only</span>. Any other types of ships will find boards don't load and, inexplicably, taste ringlets of blood in their mouth.</li>
-        <p className="text-center bg-chan-border font-bold text-white py-2 cursor-pointer" onClick={() => dismissPrompt()}>I agree</p>
-        <p><span className="text-chan-red font-bold">Problem?</span> Send DMs to ~haddef-sigwen, ~rabsef-bicrym or ~libbyl-lonsyd and DMCAs to the garbage bin.</p>
-        <hr className="border-chan-border"/>
-      <p className="text-center font-bold text-chan-red">Release notes</p>
-      <p>Second release. Fixes some small things. To come:</p>
-      <li>Ship ban button</li>
-      <li>Sages</li>
-      <li>Greentext</li>
-      <li>Reference to prior posts in thread</li>
-      <li>Ship ban button</li>
-      <li>Detect or set additional board janitors</li>
-      <li>Board announcements</li>
-      <li>Board pagination</li>
-      <li>Application and board theming</li>
-      <li>FE: create a board</li>
-      </div>
-      </div>}
+    <Prompt />
     <main className="flex flex-col items-center justify-center min-h-screen">
       <div className="max-w-prose justify-center p-6 grid grid-rows-1 gap-2">
         <h2 className="font-bold text-chan-red text-8xl text-center">
@@ -98,26 +59,19 @@ export function Home() {
 
       <div className="w-full flex flex-col overflow-y-auto justify-between h-96 max-w-prose border-b-8 p-6 my-4 bg-chan-element border-chan-border outline outline-1 outline-black z-10">
         <div>
-          {Object.entries(boards).map(([key, value]) => {
-            return (
-              <div key={`container-${key}`}>
-                <h2
-                  className="font-semibold px-1 bg-chan-border"
-                  key={`header-${key}`}
-                >
-                  {key}:
-                </h2>
-                {value["boards"].map((board, i) => (
-                  <Link
-                    className="text-link-blue px-1 hover:text-link-hover hover:underline"
-                    to={`/board/${key}/${board.board}`}
-                    key={`link-${i}`}
-                  >
-                    /{board.board}/
-                  </Link>
-                ))}
-              </div>
-            );
+          {boards.map((ship) => {
+            return <div key={`container-${ship.ship}`}>
+              <h2 className="font-semibold px-1 bg-chan-border">{ship.ship}:</h2>
+              {ship.boards.map((board) => {
+                return <Link
+                className="text-link-blue px-1 hover:text-link-hover hover:underline"
+                to={`/board/${ship.ship}/${board.board}`}
+                key={`link-${board.board}`}
+              >
+                /{board.board}/
+              </Link>
+              })}
+            </div>
           })}
         </div>
         <p
