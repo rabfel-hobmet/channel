@@ -54,6 +54,7 @@
     ^-  (quip card _this)
     ?+    mark  (on-poke:def mark vase)
         %channel-stacy
+      ?>  (team:title our.bowl src.bowl)
       =/  sac=stacy  !<(stacy vase)
       =^  cards  state
         ?-  -.sac
@@ -148,6 +149,7 @@
   ++  on-watch
     |=  =path
     ^-  (quip card _this)
+    ?>  (team:title our.bowl src.bowl)
     ?+    path  (on-watch:def path)
         [%website ~]
       :_  this
