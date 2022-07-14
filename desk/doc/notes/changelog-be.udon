@@ -1,8 +1,16 @@
 ;>
 
+##  0.0.4
+
+Date: ~2022.7.13
+- Minor Changes
+  - Auto-Jannie Upgrades
+  - Prevent Landian Comet Loneliness with Better Boba
+    > (prevent posting from non-allowed `rank`s)
+
 ##  0.0.3
 
-Date: ~2022.7.4
+Date: ~2022.7.12
 
 - Major Change - Implement Auto-Jannie
   - Moderators can now add banned words, to be replaced with random draws from 4Chan's word filter, to their boards
