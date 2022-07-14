@@ -199,9 +199,9 @@
   ++  on-watch
     |=  =path
     ^-  (quip card _this)
-    ?>  (team:title our.bowl src.bowl)
     ?+    path  (on-watch:def path)
         [%website ~]
+      ?>  (team:title our.bowl src.bowl)
       :_  this
       [%give %fact ~ json+!>(all-out)]~
     ::
