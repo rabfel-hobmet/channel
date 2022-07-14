@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import ChannelNav from "./components/navbar";
 import PostBox from "./components/postbox";
 
-export function List() {
+export function List({boards}) {
   const [boardPosts, setBoardPosts] = useState([]);
   const { ship, board } = useParams();
 
@@ -47,7 +47,7 @@ export function List() {
 
   return (
     <main className="flex flex-col items-left px-4 space-y-3 justify-start min-h-screen">
-      <ChannelNav ship={ship} board={board} />
+      <ChannelNav ship={ship} board={board} boards={boards} />
       <PostBox index={null} ship={ship} board={board} className="self-center" />
 
       <table className="table-auto max-w-2xl text-left my-3">

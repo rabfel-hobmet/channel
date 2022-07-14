@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import ChannelNav from "./components/navbar";
 import PostBox from "./components/postbox";
 
-export function Catalog() {
+export function Catalog({boards}) {
   const [boardPosts, setBoardPosts] = useState([]);
   const { ship, board } = useParams();
 
@@ -47,7 +47,7 @@ export function Catalog() {
 
   return (
     <main className="flex flex-col items-left px-4 space-y-3 justify-start min-h-screen">
-      <ChannelNav ship={ship} board={board} />
+      <ChannelNav ship={ship} board={board} boards={boards} />
       <PostBox index={null} ship={ship} board={board} className="self-center"/>
       <div className="self-center flex flex-wrap gap-9 max-w-full justify-center items-center">
         {Object.values(boardPosts || {})

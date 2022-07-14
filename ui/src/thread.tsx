@@ -6,7 +6,7 @@ import PostBox from "./components/postbox";
 import ChannelNav from "./components/navbar";
 import { process_text } from "./lib/text";
 
-export function Thread() {
+export function Thread({boards}) {
   const [thread, setThread] = useState({});
   const [op, setOp] = useState({});
   const { ship, board, index } = useParams();
@@ -51,7 +51,7 @@ export function Thread() {
 
   return (
     <main className="flex flex-col items-left px-4 space-y-3 justify-start min-h-screen">
-      <ChannelNav ship={ship} board={board} />
+      <ChannelNav ship={ship} board={board} boards={boards} />
       <hr />
 
       {op?.["contents"]?.map((obj) => {

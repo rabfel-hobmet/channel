@@ -70,9 +70,9 @@ export function App() {
       <Routes>
         <Route path="/" element={<Home providers={providers} boards={boards}/>} />
         <Route path="/board/:ship/:board" element={<Board boards={boards} />} />
-        <Route path="/thread/:ship/:board/:index" element={<Thread />} />
-        <Route path="/list/:ship/:board" element={<List />} />
-        <Route path="/catalog/:ship/:board" element={<Catalog />} />
+        <Route path="/thread/:ship/:board/:index" element={<Thread boards={boards} />} />
+        <Route path="/list/:ship/:board" element={<List boards={boards} />} />
+        <Route path="/catalog/:ship/:board" element={<Catalog boards={boards} />} />
       </Routes>
     </BrowserRouter>
   );

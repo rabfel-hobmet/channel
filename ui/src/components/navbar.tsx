@@ -7,7 +7,7 @@ export default function ChannelNav({ ship, board, boards }) {
     "text-2xl font-bold text-link-blue hover:text-link-hover hover:underline";
   let activeClassName = "text-chan-red text-2xl";
 
-  const name = boards.find((e) => e.ship === ship)?.boards.find((e) => e.board === board).name || "";
+  const name = boards?.find((e) => e.ship === ship)?.boards?.find((e) => e.board === board)?.name || "";
   return (
     <ul className="flex md:flex-row flex-col my-3 md:pl-9 divide-x-2">
       <li className="px-3">
