@@ -67,8 +67,9 @@ export function Thread() {
           <img className="object-contain max-h-48" src={op_url} />
         </a>
         <div key="content-container">
-          <div className="gap-2 inline-flex" key="thread-info">
+          <div className="gap-2 inline-flex md:flex-row flex-col md:items-center md:justify-center" key="thread-info">
             <p>{new Date(op?.["time-sent"]).toLocaleString()}</p>
+            <p className="text-chan-green align-middle leading-none">{op?.["index"]?.slice(14, -4)}</p>
           </div>
           <div key="optext" className="">
             {op_text}
@@ -84,7 +85,7 @@ export function Thread() {
         })
         .map(([key, value]) => {
           return (
-            value?.children?.[1]?.post?.contents && <div className="ml-8 flex flex-col outline outline-1 max-w-prose">
+            value?.children?.[1]?.post?.contents && <div className="md:ml-8 flex flex-col outline outline-1 max-w-prose">
               <div className="p-3 flex space-x-2">
                 {value?.children?.[1].post?.contents?.map((obj) => {
                   switch (Object.keys(obj)[0]) {
@@ -102,10 +103,15 @@ export function Thread() {
                   }
                 })}
               </div>
-              <p className="bg-chan-border text-chan-bg font-bold pr-2 text-right text-xs">
-                {deSig(window.ship) === deSig(ship) && <span className="text-chan-red mr-2 cursor-pointer" onClick={() => deletePost(value?.children?.[1].post?.["index"])}>delete</span>}
-                {new Date(value?.post?.["time-sent"]).toLocaleString()}
-              </p>
+              <div className="bg-chan-border text-chan-bg font-bold flex md:flex-row flex-col md:items-center md:justify-between p-1">
+              {deSig(window.ship) === deSig(ship) && <span className="text-chan-red mr-2 cursor-pointer" onClick={() => deletePost(value?.children?.[1].post?.["index"])}>delete</span>}
+                          <p className="font-bold text-xs">
+                            {new Date(
+                              value?.post?.["time-sent"]
+                            ).toLocaleString()}
+                          </p>
+                          <p className="text-xs align-middle leading-none font-bold">{value?.children?.[1]?.post["index"]?.split("/")?.[3]?.slice(13)}</p>
+                          </div>
             </div>
           );
         })}

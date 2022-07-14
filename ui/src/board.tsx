@@ -91,7 +91,7 @@ export function Board() {
             each?.post?.contents && (
               <React.Fragment key={`${each["index"]}-${i}`}>
                 <div
-                  className="my-3 space-x-2 flex"
+                  className="my-3 space-x-2 flex min-w-0 break-words"
                   key={`op-${each["index"]}`}
                 >
                   <a target="_blank" href={op_url}>
@@ -99,12 +99,13 @@ export function Board() {
                   </a>
                   <div key={`container-${each["index"]}`}>
                     <div
-                      className="gap-2 inline-flex"
+                      className="gap-2 inline-flex flex-col md:flex-row md:justify-center md:items-center"
                       key={`thread-${each["index"]}`}
                     >
                       <p>
                         {new Date(each?.post?.["time-sent"]).toLocaleString()}
                       </p>
+                      <p className="text-chan-green align-middle leading-none">{each.post["index"]?.slice(14, -4)}</p>
                       <Link
                         to={`/thread/${ship}/${board}/${each?.post[
                           "index"
@@ -122,7 +123,7 @@ export function Board() {
                         </span>
                       )}
                     </div>
-                    <div key={`text-${each["index"]}`} className="">
+                    <div key={`text-${each["index"]}`} className="max-w-screen overflow-hidden">
                       {op_text}
                     </div>
                   </div>
@@ -163,11 +164,14 @@ export function Board() {
                               }
                             )}
                           </div>
-                          <p className="bg-chan-border text-chan-bg font-bold pr-2 text-right text-xs">
+                          <div className="bg-chan-border text-chan-bg font-bold flex md:flex-row flex-col md:items-center md:justify-between p-1">
+                          <p className="font-bold text-xs">
                             {new Date(
                               value?.post?.["time-sent"]
                             ).toLocaleString()}
                           </p>
+                          <p className="text-xs align-middle leading-none font-bold">{value?.children?.[1].post["index"]?.split("/")[3].slice(13)}</p>
+                          </div>
                         </div>
                       );
                     })}
