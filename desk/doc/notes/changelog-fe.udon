@@ -2,16 +2,8 @@
 
 ##  0.0.4
 
-No Change.
-
-##  0.0.3
-
-Date: ~2022.7.12
-
-- Third Release. Tasty Treats:
-  - Add support for Greentext
-  - Add support for Bluetext
-  - Avoid race condition on landing page
+- Fourth Release. Just A Taste:
+  - Expose indices
 - To Come:
   - Mobile Improvements
   - Ship ban button
@@ -22,6 +14,15 @@ Date: ~2022.7.12
   - Board pagination
   - Application and Board theming
   - FE Action: Host -> Create Board
+
+##  0.0.3
+
+Date: ~2022.7.12
+
+- Third Release. Tasty Treats:
+  - Add support for Greentext
+  - Add support for Bluetext
+  - Avoid race condition on landing page
 
 ##  0.0.2
 
