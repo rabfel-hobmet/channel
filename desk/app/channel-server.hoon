@@ -371,11 +371,11 @@
         %comet   ?=(%pawn (clan:title src.bol))
       ==
     ?-  which.bounty
-      %galaxy  (~(has in (sy ~[%czar])) (clan:title src.bol))
-      %star    (~(has in (sy ~[%czar %king])) (clan:title src.bol))
-      %planet  (~(has in (sy ~[%czar %king %duke])) (clan:title src.bol))
-      %moon    (~(has in (sy ~[%czar %king %duke %earl])) (clan:title src.bol))
-      %comet   (~(has in (sy ~[%czar %king %duke %earl %pawn])) (clan:title src.bol))
+      %galaxy  (~(has in `(set rank:title)`(sy ~[%czar])) (clan:title src.bol))
+      %star    (~(has in `(set rank:title)`(sy ~[%czar %king])) (clan:title src.bol))
+      %planet  (~(has in `(set rank:title)`(sy ~[%czar %king %duke])) (clan:title src.bol))
+      %moon    (~(has in `(set rank:title)`(sy ~[%czar %king %duke %earl])) (clan:title src.bol))
+      %comet   (~(has in `(set rank:title)`(sy ~[%czar %king %duke %earl %pawn])) (clan:title src.bol))
     ==
   --
 ++  biz
