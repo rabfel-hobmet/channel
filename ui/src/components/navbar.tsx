@@ -8,7 +8,7 @@ export default function ChannelNav({ ship, board }) {
   let activeClassName = "text-chan-red text-2xl";
 
   return (
-    <ul className="flex my-3 pl-9 divide-x-2">
+    <ul className="flex md:flex-row flex-col my-3 md:pl-9 divide-x-2">
       <li className="px-3">
         <NavLink
           to={`/board/${ship}/${board}`}
