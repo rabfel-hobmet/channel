@@ -59,7 +59,7 @@ export function Thread() {
           case "url":
             op_url = obj["url"];
           case "text":
-            op_text = process_text(obj["text"]);
+            op_text = process_text(obj["text"] || "");
         }
       })}
       <div className="my-3 space-x-2 flex" key="op">
@@ -98,7 +98,7 @@ export function Thread() {
                         </a>
                       );
                     case "text":
-                      return <div className="">{process_text(obj["text"])}</div>;
+                      return <div className="">{process_text(obj["text"]) || ""}</div>;
                   }
                 })}
               </div>
@@ -109,7 +109,6 @@ export function Thread() {
             </div>
           );
         })}
-      <hr />
       <PostBox className="pl-9" index={index} ship={ship} board={board} />
     </main>
   );

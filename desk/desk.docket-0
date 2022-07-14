@@ -1,9 +1,9 @@
 :~  title+'channel'
     info+'A distributed imageboard platform, with love'
     color+0xee.f2ff
-    glob-http+['https://s3.us-east-1.amazonaws.com/haddefsigwen1/channel/2022.7.11..07.00.23-glob-0v1.7oojo.o3qvv.s100s.e9im8.qe70b.glob' 0v1.7oojo.o3qvv.s100s.e9im8.qe70b]
+    glob-http+['https://s3.us-east-1.amazonaws.com/haddefsigwen1/channel/2022.7.13..21.59.01-glob-0v7.of7if.de4jo.1jkqr.j5kql.6bd7n.glob' 0v7.of7if.de4jo.1jkqr.j5kql.6bd7n]
     base+'channel'
-    version+[0 0 2]
+    version+[0 0 3]
     image+'https://s3.us-east-1.amazonaws.com/haddefsigwen1/reciprocal/2022.7.09..22.54.53-channel.png'
     website+'https://reciprocal.ltd'
     license+'REKT'

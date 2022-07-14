@@ -2,7 +2,6 @@ import React from "react"
 
 export function process_text (text) {
     let text_split = text.split("\n")
-    console.log(text_split)
     let arrowregex = new RegExp('^\>.*$')
     let larrowregex = new RegExp('^\<.*$')
     let text_processed
@@ -30,7 +29,7 @@ export function process_text (text) {
       let find_and_reduce_newlines = find_larrows.map((line,i) => {
         let t = line == ""
           ? (n == false ? (n = true, <p  key={`p-newline-${i}`} className="whitespace-pre-line">{"\n"}</p>) : line)
-          : (n = false, <p>{line}</p>)
+          : (n = false, <p className="break-words">{line}</p>)
         return t
       })
 
