@@ -1,35 +1,9 @@
 // @ts-nocheck
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import Prompt from './components/prompt'
 
-export function Home() {
-  const [providers, setProviders] = useState<string[]>([]);
-  const [boards, setBoards] = useState([]);
-
-  useEffect(() => {
-    const init = async () => {
-      const providers = await api.scry({
-        app: "channel-client",
-        path: "/providers",
-      });
-      setProviders(providers["providers"]);
-    };
-      init();
-  }, []);
-
-  useEffect(() => {
-    const init = async () => {
-      const bards = [];
-      const newBoards = await providers.reduce((prevPromise, nextBoard) => {
-        return prevPromise.then(async () => {
-          return bards.push({ship: nextBoard, boards: await window.api.scry({ app: "channel-client", path: `/boards/${nextBoard}`}).then((res) => res.boards)})
-        })
-      }, Promise.resolve())
-        setBoards(bards);
-    };
-    init();
-  }, [providers]);
+export function Home({ boards, providers }) {
 
   const addHost = () => {
     const ship = window.prompt("What ship? eg. ~zod");
@@ -57,18 +31,18 @@ export function Home() {
         </h2>
       </div>
 
-      <div className="w-full flex flex-col overflow-y-auto justify-between h-96 max-w-prose border-b-8 p-6 my-4 bg-chan-element border-chan-border outline outline-1 outline-black z-10">
-        <div>
+      <div className="w-full flex flex-col overflow-y-scroll overflow-x-hidden justify-between h-96 max-w-prose border-b-8 p-6 mb-4 bg-chan-element border-chan-border outline outline-1 outline-black z-10">
+        <div className="">
           {boards.map((ship) => {
             return <div key={`container-${ship.ship}`}>
-              <h2 className="font-semibold px-1 bg-chan-border">{ship.ship}:</h2>
+              <h2 className="font-semibold px-1 bg-chan-border mt-2">{ship.ship}:</h2>
               {ship.boards.map((board) => {
                 return <Link
-                className="text-link-blue px-1 hover:text-link-hover hover:underline"
+                className="text-link-blue px-1 hover:text-link-hover hover:underline block"
                 to={`/board/${ship.ship}/${board.board}`}
                 key={`link-${board.board}`}
               >
-                /{board.board}/
+                /{board.board}/ - {board?.name}
               </Link>
               })}
             </div>
@@ -76,7 +50,7 @@ export function Home() {
         </div>
         <p
           onClick={() => addHost()}
-          className="uppercase font-bold text-right cursor-pointer"
+          className="uppercase font-bold text-right cursor-pointer pt-8"
         >
           Add provider
         </p>

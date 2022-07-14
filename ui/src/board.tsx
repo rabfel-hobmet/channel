@@ -7,7 +7,7 @@ import PostBox from "./components/postbox";
 import ChannelNav from "./components/navbar";
 import { process_text } from "./lib/text";
 
-export function Board() {
+export function Board({ boards }) {
   const [boardPosts, setBoardPosts] = useState([]);
   const { ship, board } = useParams();
 
@@ -67,7 +67,7 @@ export function Board() {
 
   return (
     <main className="flex flex-col items-left px-4 space-y-3 justify-start min-h-screen">
-      <ChannelNav ship={ship} board={board} />
+      <ChannelNav ship={ship} board={board} boards={boards} />
       <PostBox index={null} ship={ship} board={board} className="self-center"/>
 
       {Object.values(boardPosts || {})
