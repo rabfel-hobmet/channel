@@ -280,21 +280,30 @@
       %+  turn  lc
       |=  c=content
       ?.  ?=(%text -.c)  c
-      =+  cancel=~(tap in `(set tape)`(~(run in words.banned) trip))
+      =/  cancel=(list tape)
+        %~  tap  in  ^-  (set tape)
+        (~(run in words.banned) |=(@t (cass (trip +<))))
       =+  review=(trip +.c)
+      =+  preview=(cass (trip +.c))
       =+  rng=~(. og eny.bol)
       |-
-      ?:  |(?=(~ cancel) ?=(~ review))  [%text (crip review)]
-      ?~  maybe-start=(find i.cancel review)  $(cancel t.cancel)
+      ?~  cancel  [%text (crip review)]
+      ?~  maybe-start=(find i.cancel preview)  $(cancel t.cancel)
       =+  penis=(rads:rng (lent roody-poo))
       =/  replace=@t
         (snag -.penis roody-poo)
       %=    $
           rng
         +.penis
+      ::
           review
         %+  into
           (oust [(need maybe-start) (lent i.cancel)] `tape`review)
+        [(need maybe-start) replace]
+      ::
+          preview
+        %+  into
+          (oust [(need maybe-start) (lent i.cancel)] `tape`preview)
         [(need maybe-start) replace]
       ==
       ::
@@ -336,7 +345,10 @@
     (team:title our.bol src.bol)
   ++  admit-users-universal
     ^-  ?
-    |(!(~(has in users.banned) src.bol) admit-super)
+    ?|  !(~(has in users.banned) src.bol)
+        admit-super
+        admit-boba
+    ==
   ++  admit-admin
     |=  b=@tas
     ^-  ?
@@ -349,6 +361,22 @@
     ?~  deet=(~(get by boards) b)
       ~_(leaf+"%chan-server-fail -user-requests-non-extant-board" !!)
     ?|(!(~(has in ban.u.deet) src.bol) admit-super)
+  ++  admit-boba
+    ?:  only.bounty
+      ?-  which.bounty
+        %galaxy  ?=(%czar (clan:title src.bol))
+        %star    ?=(%king (clan:title src.bol))
+        %planet  ?=(%duke (clan:title src.bol))
+        %moon    ?=(%earl (clan:title src.bol))
+        %comet   ?=(%pawn (clan:title src.bol))
+      ==
+    ?-  which.bounty
+      %galaxy  (~(has in (sy ~[%czar])) (clan:title src.bol))
+      %star    (~(has in (sy ~[%czar %king])) (clan:title src.bol))
+      %planet  (~(has in (sy ~[%czar %king %duke])) (clan:title src.bol))
+      %moon    (~(has in (sy ~[%czar %king %duke %earl])) (clan:title src.bol))
+      %comet   (~(has in (sy ~[%czar %king %duke %earl %pawn])) (clan:title src.bol))
+    ==
   --
 ++  biz
   |%
