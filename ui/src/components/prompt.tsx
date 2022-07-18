@@ -13,7 +13,7 @@ export default function Prompt() {
           setPrompt(prompt)
         }
       }, []);
-    return prompt ? <div className="absolute w-screen h-screen z-20 flex justify-center items-center">
+    return prompt === "true" ? <div className="absolute w-screen h-screen z-20 flex justify-center items-center">
     <div className="bg-chan-element w-full max-w-prose max-h-96 overflow-auto border-2 border-chan-border p-4 flex flex-col space-y-4 text-sm">
       <p className="text-center font-bold text-chan-red pb-4">Disclaimer</p>
       <p><span className="text-chan-red font-bold">Welcome to channel 0.0.7</span>, Urbit's premier imageboard application. We are in closed beta. To make the most of your experience using this software, please note the following:</p>
