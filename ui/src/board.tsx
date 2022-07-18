@@ -142,7 +142,7 @@ export function Board({ boards }) {
                           className="ml-3 flex flex-col outline outline-1 max-w-prose"
                         >
                           <div className="p-3 flex space-x-2">
-                            {value?.children?.[1].post?.contents.map(
+                            {value?.children?.[1].post?.contents?.map(
                               (obj, i) => {
                                 switch (Object.keys(obj)[0]) {
                                   case "url":
