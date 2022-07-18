@@ -1,7 +1,7 @@
 :~  title+'channel'
     info+'A distributed imageboard platform, with love'
     color+0xee.f2ff
-    glob-http+['https://s3.us-east-1.amazonaws.com/haddefsigwen1/channel/2022.7.18..21.02.43-glob-0v7.s9hht.7b9se.2sgin.vvqum.hal4l.glob' 0v7.s9hht.7b9se.2sgin.vvqum.hal4l]
+    glob-http+['https://s3.us-east-1.amazonaws.com/haddefsigwen1/channel/2022.7.18..21.12.31-glob-0v2.dsetg.bs14g.ap8fp.ih75f.9got5.glob' 0v2.dsetg.bs14g.ap8fp.ih75f.9got5]
     base+'channel'
     version+[0 0 7]
     image+'https://s3.us-east-1.amazonaws.com/haddefsigwen1/reciprocal/2022.7.09..22.54.53-channel.png'
