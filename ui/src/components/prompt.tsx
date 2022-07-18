@@ -8,7 +8,7 @@ export default function Prompt() {
         return localStorage.setItem('channel-prompt-0.0.7', JSON.stringify("false"))
       }
     useEffect(() => {
-        const prompt = Boolean(JSON.parse(localStorage.getItem('channel-prompt-0.0.7') ?? "true"));
+        const prompt = JSON.parse(localStorage.getItem('channel-prompt-0.0.7') ?? "true");
         if (prompt === "false") {
           setPrompt(prompt)
         }
